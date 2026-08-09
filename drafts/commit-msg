@@ -1,0 +1,36 @@
+#!/bin/sh
+# Minotaur v2 — commit-msg hook: the no-trailer rule (WF-1a fold, 2026-08-09)
+# Commit messages are subject + body only. NO trailers — Co-Authored-By or
+# otherwise. Standing rule of record: GS-A window Aug 4-7, struck 8x before
+# it stuck; enforcement moved here from prose per the Aug-9 Strat decision.
+#
+# Placement: .claude/hooks/commit-msg  (exact name, no extension)
+# After placement: chmod +x .claude/hooks/commit-msg
+#   (the standing *.sh chmod glob does NOT cover this file)
+# Wiring: requires core.hooksPath -> .claude/hooks, OR a copy/symlink at
+#   .git/hooks/commit-msg — per the housekeeping session's ruling.
+
+msg_file="$1"
+
+# Belt: explicit Co-Authored-By check, case-insensitive, anywhere in the
+# message — catches it even mid-body where trailer parsing would not.
+if grep -qiE '^[[:space:]]*Co-Authored-By[[:space:]]*:' "$msg_file"; then
+    echo "COMMIT REJECTED — no-trailer rule (CC Operating Contract):" >&2
+    echo "  Co-Authored-By line found. Subject + body only." >&2
+    echo "  Remove the trailer and re-run the commit." >&2
+    exit 1
+fi
+
+# Suspenders: generic trailer detection. git's own trailer parser reads the
+# final paragraph of the message; any parsed trailer (Key: value lines) is a
+# violation — the rule is NO trailers of any kind, not just Co-Authored-By.
+trailers=$(git interpret-trailers --parse --only-trailers < "$msg_file" 2>/dev/null)
+if [ -n "$trailers" ]; then
+    echo "COMMIT REJECTED — no-trailer rule (CC Operating Contract):" >&2
+    echo "$trailers" | sed 's/^/  /' >&2
+    echo "  Trailer block detected. Subject + body only." >&2
+    echo "  Remove the trailer(s) and re-run the commit." >&2
+    exit 1
+fi
+
+exit 0
