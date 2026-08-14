@@ -1,0 +1,149 @@
+# 🗺️ ROADMAP — Minotaur v2 (v3.9)
+
+**Version 3.9 • August 13, 2026 • Forward-only file — history lives in `Minotaur_v2_Ledger_v1_0.md`**
+
+*(v3.9, Aug 13 evening: **S4-3 leg 3 — B4 CLOSED at `8461c2a`**, pushed, 16 files, +1131/−117. The Box List row's editing grammar: five identity cells (Header · Number · Truck · Stack · Location) go inline-editable off the **BOX-CELLS** DDR reading, and the K-2 keyboard idiom is ported to a surface that had none. Suite 1461 → **1495/99**; visual **26/26 @ 0.0000%** across a 4-frame declared event (09/10/11/12 both themes); no schema. Daniel's 10-item browser gate passed 10/10, then a 3-item re-gate produced three deferrals. A stale `.git/index.lock` briefly blocked the commit and CC halted rather than clearing it unilaterally; cleared and committed same evening. New: **TYPE-HOLD** (Daniel reverses OQ2; Trigger B, SEAT-MIG authorized, three rulings banked) · **PANEL-NAV** · **AC-ENTER** · **BOX-DUP** · **BUNDLE-HOLD** · **PROJ-CLEAN**. **BOX-KEYS, BOX-CELLS and TAB-HATCH all CLOSE.** AC-HANDLED, LAT, B1, B5, HARNESS, KNOW-HYG and WF1A-SUNSET amended. A **parallel claude.ai Arch session is OPEN** on HARNESS + Arch Prompt v30. v3.8, Aug 13:*
+
+*(v3.8, Aug 13: **S4-3 leg 2 CLOSED ENTIRE at `6d52921`** — the box-type ⊕ rebuilt as a gated create dialog with working keyboard routes (R-A/R-D), the row-exit draft discard (OQ2), optimistic type paint, the Change All refusal modal (R-B), the footer-inspector strip (R-C), BOX-VOL-R1 restated from OQ3. Three amend rounds (AMEND-3 · §B · AMEND-4) off **four** Daniel browser gates, folded into ONE commit. Suite 1325 → **1461/97**; visual 18 → **26/26 @ 0.0000%** with an 8-frame declared baseline event; migration ledger **49**, unchanged. **TYPE-JUNK · PRUNE-CHK · CAT-VOL-FIX all CLOSE.** New: **AC-HANDLED · DIALOG-BLANK · KNOW-HYG · BOX-CELLS · TAB-HATCH**. HARNESS, WF1A-SUNSET and GIT-CFG amended. v3.7, Aug 12: leg 2 built through AMEND-2; migration 49; SHARE/ADM-1 design RULED; MMM-CAT established never-run.)*
+
+**Migration of record (Daniel-confirmed fold path, Aug 9):** v3.0 folds **Roadmap v2.46 + Sync Sheet #1 + Sync Sheet #2 directly.** This file carries only what is live (status ≤10 lines · sprint plan · ONE unified docket · live open questions); everything historical exits to **Ledger v1.0**. Completed docket items EXIT to the Ledger; there is deliberately no DONE status. Structure rule RM-5 carries forward; **RM-6: every Roadmap delivery opens with the 🧭 Next Sessions block.**
+
+---
+
+## 🧭 Next Sessions (RM-6 — plain English, kept current)
+
+- **B4 is CLOSED at `8461c2a`** — pushed, production READY. Leg 3 continues from here.
+- **FIRST ACTION — the PARALLEL claude.ai ARCH SESSION IS OPEN** on **HARNESS + Arch Prompt v30**. Opener: `handoffs/parallel/260813-1615_harness-v30-parallel-opener.md`. It is claude.ai-seat, read-only, issues no CC handoffs, and **must not edit the Roadmap, Ledger or Session Log** — its return folds into the next main-line close package, the way SHARE's did on Aug 12. Expect `…_harness_design_block.md` and `…_arch_prompt_v30.md` + cover note landing in `handoffs/parallel/`. **If it has already returned, read it before scoping anything else** — HARNESS changes how every following declared baseline event is run, and legs 4–6 are all frame-moving work.
+- **Then leg 3 continues:** the two cascades — **P4 Packed** (including wiring the row Packed checkbox live) and **P5 "things not in boxes"** — with **B1** (box find/icons/trim; also carries the Stack/panel disposition) and **B5** (Type autocomplete audit; **audit and REPORT only against AC-ENTER, change nothing**) riding. Specs: `from-cc/260812-1630` §NOT BUILT plus the leg-2/leg-3 returns.
+- **Then legs 4–6:** Box Types admin (BOX-VOL-R1/OQ3 already settles its volume question) · Contents/Assignments · the three box PDFs.
+- **The post-private-beta box cluster is now five rows and they are one shape** — the box surface's grammar converging on one idiom: **TYPE-HOLD** · **PANEL-NAV** · **AC-ENTER** · **BOX-DUP** · **BUNDLE-HOLD**. Cheaper together than scattered; scope them as a group when the window opens.
+- **Print is CLOSED and stays closed.** PRINT-REDO opens only on Daniel's word, one agreed target ruled first.
+- **At your desk, independent of sessions:** the R8 backup drill before September · TOK-VC rotation · the four EVID-LAND frames · the two emptied `0` methods via GCM Delete Unused (JOY, Vape!) · **PROJ-CLEAN** (the accumulating `Amend2 …` / `FIX1 …` test projects on the live dashboard) · PARITY-PAIR for whenever PRINT-REDO opens · confirm COWORK-REV.
+
+## Current Status (August 13, 2026 — evening)
+
+Live at `https://minotaur.app` at **`8461c2a`**, production READY. **S4-3 LEG 3's B4 unit is CLOSED** — 16 files, +1131/−117, four new files, pushed. The Box List row edits all seven of its cells (Name · Type · **Header · Number · Truck · Stack · Location**) and carries the full keyboard grammar: Tab across the row and out both ends, Enter to the same field of the next box, ⌥⇧↑/↓ record hop preserving the column, and every focus landing through one mechanism (the last two one-shot rAFs retired). Counts at close: suite **1495/99** · frozen **3/3 vs `be0769de`** · visual **26/26 @ exactly 0.0000%** after a 4-frame declared event · migration ledger **49**, no schema · dependency clean · fixture pristine, census-proven identical before and after every probe. Daniel's browser gate: **10/10**, then a 3-item re-gate that produced three deferrals rather than defects. **SHARE/ADM-1 design RULED** (four roles; REV-B owed at build-prep). A **parallel claude.ai Arch session is open** on HARNESS + Arch Prompt v30. Governing set: **Arch Prompt v29** (v30 in draft) · Strategy v14 · **Roadmap v3.9** + Ledger v1.0 (Aug 13 append). Session Log at 7 entries. **Next action: read the parallel session's return if it has landed, then continue leg 3 with the P4/P5 cascades, B1 and B5 riding.**
+
+## 🏗 Sprint Plan (scope of record)
+
+**Sprints 0–3: CLOSED.** **Sprint 4 — Boxes + the basket:** **S4-1** decks-clear — COMPLETE Aug 10 → **S4-2** S4-AUTO — COMPLETE Aug 10–11 at `1f06092` → **MMM-CAT** — established NEVER-RUN (Aug 12); handoff stale; re-issue on scheduling → **S4-3 the box unit family — IN BUILD**: legs 0–1 COMPLETE Aug 11 · **leg 2 COMPLETE Aug 11–13 at `6d52921`** (five CC rounds, four browser gates) · **leg 3 IN PROGRESS: B4 COMPLETE Aug 13 at `8461c2a`** (two CC rounds, one 10-item browser gate + one 3-item re-gate); leg 3 continues with the cascades P4/P5, B1/B5 riding · leg 4 Box Types admin · leg 5 Contents/Assignments · leg 6 the three PDFs; the three at-desk print gates stay non-blocking → **S4-mid** D-2b + BASE-EVT · FOCUS-MP in headroom → **S4-late** GS-C (SPL-C, (mmmm)/(nnnn)/(oooo), + MULT-DUP) → LINE-STECK (+STECK-COLOR) → S3-G-2 (+UNFLAG-WARN) → ALLOC → **S4-close** EXPORT+GBD → WF1A-SUNSET + auto-mode-rider review + COWORK-PORT + the (rrrr) box-⊕ adjudication + PRINT-REDO if Daniel opens it → KKK-PASS after. Standing constraints carry; auto-mode rider EXPIRES at Sprint 4 close. **Post-Sprint-4 / pre-beta:** SHARE build (design RULED Aug 12; REV-B → build-prep) → ADM-1 · AUTH-DOMAIN (gates SHARE phase 2) · 3TL · DEPS · CL-HILITE. **Post-beta:** GCM completion · Maintenance · Spreadsheet Export · RF/Walkies/Circuits · IAS Frequency Import · real-time collaboration · licensing (~Nov) · PWA/offline.
+
+## 📌 Unified Docket (the ONE register of open items)
+
+| ID | Item (one line) | Status | Owner | Trigger |
+|----|-----------------|--------|-------|---------|
+| S4-3-LEGS | Box family legs 3–6: **leg 3 = B4 CLOSED at `8461c2a`; cascades P4/P5 next, B1/B5 riding** · Box Types admin · Contents/Assignments · the three PDFs | IN-BUILD | Arch | Next session |
+| BOX-FIND | **B1 — box find/icons/trim vs the cable list**; the Box List has NO find engine yet — that absence may be the real divergence. Citation: CableListClient toolbar + FindPanel. **Also carries the Stack/panel disposition** (the footer holds four of the five identity fields and not Stack; Arch's proposal is to drop all five per R-C's own reasoning — the row now owns them — with "add Stack instead" the alternative; Daniel unruled) | OPEN | Arch | Rides leg 3 |
+| BOX-AC-AUDIT | **B5 — Type autocomplete semantics audit** vs the S4-AUTO idiom + v1 value-list behavior. **Also inherits:** whether AMEND-4's hover-clears-on-pointer-leave rule intersects (bbb)/(eee). **CONSTRAINT (Aug 13): audit and REPORT only — change nothing.** AC-ENTER is deferred post-private-beta, and a B5 that "fixes" Enter semantics would ship half a deferred unit | OPEN | Arch | Rides leg 3 |
+| AC-HANDLED | `AutocompleteInput.handledRef` latches on the first commit of a mount and never clears, so the (kk) blur-fallback commit — an *urgent data-loss fix* — is inert for the rest of every mount, on **every autocomplete in the app**. Visible symptom: same-row mouse vs keyboard disagree on when a held draft reverts. **AMENDED Aug 13 — the fix now has a NAMED DEPENDENT and a real blast radius.** Every wrapper-level Tab seam app-wide, and now the box panel's Enter seam (leg-3 §1), rely on the latch being stuck to avoid double-committing: input keydown commits, wrapper blurs, and the blur-fallback is inert only *because* `handledRef` never cleared. Un-inerting it makes commit→blur→fallback a live double-write path. The pass must re-verify every Tab AND Enter seam it re-activates | OPEN | Arch | Own small pass — no longer trivial |
+| DIALOG-BLANK | New Box Type dialog cosmetics: the blank-name path is safe (OK refuses) and the sentence now degrades; residual polish only — consider disabling OK while the name is blank | OPEN | Arch | Rides B5 or leg 3's next touch |
+| TYPE-HOLD | **Store an unmade box-type name, the way v1 does.** Daniel REVERSED OQ2 at the Aug-13 gate: a typed name that is not a Box Type should stay in the cell, yellow, with the ⊕ up — not discard on row exit. v1 can do this because Box Type is a TEXT field with a value list; v2's is a foreign key (`box_details.box_type_id`), so it needs a column. **MILESTONE TRIGGER B, halted and mapped Aug 13. SEAT-MIG authorized by Daniel for the build.** Three rulings banked: **TH-R1** healing is automatic (a box adopts the real type the moment one with that name exists, no touch, no prompt) · **TH-R2** the name prints regardless of whether it is a defined type (the printed list is the shop order — it prints what's there) · **TH-R3** Change All writes the name and the flag travels with it; creating the type then heals every box at once, TH-R1 doing the work — which makes Change All + one ⊕ a legitimate bulk workflow. Still to settle at build: precedence at every consumer (print, Change All, the `Box Types::Volume` rollup join, the box registry, the rename-propagation path that is currently free *because* it is an FK) | OPEN — RULED, GATED | Arch | Sprint 4 close / private-beta prep |
+| PANEL-NAV | **The footer panel should navigate records the way the row does.** Two Aug-13 re-gate findings, one cause: (a) Enter in the panel should advance to the next box's SAME panel field, not just leave the field — multi-line fields exempt; (b) ⌥⇧↑/↓ from a panel field currently drops focus, and should stay in that panel field on the next record. (b) overturns CC's own beyond-the-letter call in leg 3 §2, which it flagged rather than buried — which is why it was visible to overrule. Note: leg 3's §1 made the panel's Enter ONE rule across all cell kinds; PANEL-NAV changes what that one rule is, and could not have been done before there was one | OPEN | Arch | After private-beta start |
+| AC-ENTER | **Two-stage Enter in autocompletes.** Daniel, Aug 13: after picking an option (e.g. Blue) and pressing Enter, focus should NOT leave the field. Arch's reading of record: the first Enter is consumed by PICKING the highlighted option and should commit-and-stay; only a second Enter means done-with-this-field. One keystroke is currently doing both jobs. Intersects **(bbb)** and **(eee)**; B5 audits it and changes nothing | OPEN | Arch | After private-beta start |
+| BOX-DUP | **No Duplicate on the Box List** — never built; `⌥⇧D` is a route-local claim owned privately by `CableListClient.tsx:3322-3332` and is not one of the shared shortcut slots, so it never reaches the box surface. **v1 has no Duplicate on its Box List either** (DDR layout 179's button list is Main Menu · Box Types · History · the 8 sorts · Add Box Type · New · Delete · Replace Field Contents), so building it is a deliberate improvement, not parity. Needs a ruling on what a duplicated box carries: contents, label counts, number, nesting — four different products | OPEN | Arch | After private-beta start |
+| BUNDLE-HOLD | **The cable Bundle cell should hold a new bundle name the way the box Type cell will** (Daniel, Aug 13) — instead of creating on Enter, which was a deliberate divergence Arch blessed. Different surface, own evidence read (`CableRow.tsx:576-620` + the bundle create dialog at `CableListClient.tsx:1677`). Sequence close to TYPE-HOLD so the two surfaces land together | OPEN | Arch | After private-beta start, with TYPE-HOLD |
+| PROJ-CLEAN | Accumulating throwaway projects on the live dashboard from earlier sessions (`Amend2 …`, `FIX1 Mixed …`, `FIX1 Repro …`, several of each). Daniel clears through the product — ZERO-CLEAR's sibling | OPEN | Daniel | At convenience |
+| KNOW-HYG | Close-hygiene law for claude.ai project knowledge — retire a superseded governing doc in the step that installs its replacement; never upload what the GitHub connector syncs. **IN DRAFT: the parallel claude.ai session opened Aug 13 is writing Arch Prompt v30**, carrying SIX banked amendments: (1) KNOW-HYG itself · (2) the propagation check — a ruling that corrects a prior statement names every document carrying the old text · (3) repo-root deliverables get a `Minotaur-Cowork/drafts/` copy, because v29 §Seats makes the repo root read-only to the Cowork seat so such a file can only leave as a download, the one delivery form with no trace on disk (origin: the amended CLAUDE.md was lost exactly that way and blocked leg 3 at its §0) · (4) forward-dated citations must be marked as such in a handoff body rather than leaning on a precondition to catch them · (5) a declared event's scope is measured, not reasoned · (6) codify "read the surface before writing the instruction that constrains it," which has now fired five times across two sessions. **Out of scope for v30: seat consolidation (rules at/after COWORK-PORT) and COWORK-REV** | OPEN — IN DRAFT | Arch | Parallel session return |
+| SHARE | Sharing-UI + membership layer — design RULED Aug 12 (SHARE-R1..R7): FOUR roles · invites+settings owner+admin · transfer deferred · phase-1 in-app auto-accept invites · phase 2 gated on AUTH-DOMAIN · libraries travel with project. RLS delta + ADM-1 sketch need **REV-B for the admin role** at build-prep | OPEN — DESIGN RULED | Arch | Post-Sprint-4, private-beta prerequisite |
+| ADM-1 | Beta admin panel — requirements sketch delivered, rides SHARE's rulings; REV-B owed | OPEN | Arch | Post-SHARE, pre-October |
+| CL-HILITE | Cover-letter rich-text editor gains a highlight control | OPEN | Arch | Post-Sprint-4, pre-public-beta |
+| PAL-UNIFY | `MINOTAUR_PALETTE` (project-paperwork pickers) vs `MINOTAUR_COLORS` (record canon) — unify or bless the split; three picker surfaces affected | OPEN | Arch | Unscheduled |
+| PRINT-REDO | Equipment-list print parity re-attempt. Opens ONLY on Daniel's word: one agreed target · measurement harness first · both cascades agree. Spec: `docs/reference/Minotaur_v1_Print_Spec_Measured.md` | GATED | Daniel | Sprint 4 close at the earliest |
+| PARITY-PAIR | v1 preliminary list + v2 early-August revision-mode print, both missing | OPEN | Daniel | Before PRINT-REDO |
+| MMM-CAT | Category sub-band editable under method/box/group sorts incl. ⌥⇧I — NEVER RAN; the 0216 handoff is STALE; re-issue fresh on scheduling | OPEN | Arch | On scheduling; band machinery warm after leg 3 |
+| ZERO-CLEAR | Two emptied methods named `0` (JOY, Vape!) in GCM Delete Unused — Daniel clears through the product | OPEN | Daniel | At convenience |
+| MULT-DUP | Mult duplicate doesn't offer lines/tails; v1 asks. Needs the v1 dialog verbatim | OPEN | Arch | → GS-C, S4-late |
+| UNALLOC | Unallocate may not return a cable/tails to generic | OPEN | Arch | Needs a reproduction from Daniel |
+| METHOD-FIX | Fixture debt: (a) no method band on the printed fixture; (b) no changed+note-bearing fixture row (OQ-T unphotographed) | OPEN | Arch | Next fixture-touching declared event |
+| GATE-PDF | Three-PDF interactive Save-as-PDF measurement packet | GATED | Daniel | At printer/show |
+| GATE-OL25WR | OL25WR die-cut stock re-gate | GATED | Daniel | At a printer |
+| GATE-C4 | C4 pagination confirm — superseded in practice by the revert; re-scope if PRINT-REDO opens | GATED | Daniel | — |
+| R8-DRILL | Backup restore drill per the R8 runbook. **Note: PORT-READY's "restore-proven-yes" leg is still unmet, which is what made the Aug-12 JOY reimport request unsafe to run** | OPEN | Daniel | Before the September attorney engagement |
+| PORT-COV | Import/export coverage extension to equipment+cable+box. **Measured Aug 12: the importer covers 4 of 17 export sheets** (equip · library · methods · categories); cable/tails/bundles/boxes/links are register-not-imported, and revisions + cover letters are v2-native and cannot come from a v1 export at all | OPEN | Arch | After the box family; merged into EXPORT |
+| COWORK-P2b | Boxes evidence digest fold-in — digest retained as reference | OPEN | Daniel | Confirm retention at convenience |
+| COWORK-REV | Keep/expand/revert review of the Cowork pilot — Arch seat-report EXPAND delivered | AWAITING-RULING | Daniel | Daniel's confirm |
+| COWORK-PORT | Memorialize the Cowork workflow portable across projects | OPEN | Daniel | Sprint 4 close |
+| EVID-LAND | Land the four owed S4-AUTO evidence frames | OPEN | Daniel | Next convenient |
+| TOK-VC | Vercel token rotation + ~November renewal | OPEN | Daniel | At convenience |
+| D-2b | Bundle Clone/Ext linkage | OPEN | Arch | S4-mid, cable-side leg 1 |
+| S504 | Residual s504 delete-variant frames | BLOCKED | Daniel | When v1 cooperates |
+| GS-C | Cable completeness: SPL-C · INS-1 · (bbbb) · (qqq)/(sss) · (mmmm) · (nnnn) · (oooo) Method-0 design gate · MULT-DUP | OPEN | Arch | S4-late, cable-side leg 2 |
+| S3-G-2 | Residual v1 outputs (Shop Orders Basic/Detailed + remaining reports) | OPEN | Arch | S4-late, after LINE-STECK |
+| FOCUS-MP | Focus/nav mini-pass | OPEN | Arch | S4 between-units headroom |
+| UNFLAG-WARN | Unflagged-cables print warning | OPEN | Arch | Rides S3-G-2 |
+| EFFGRP | effective_group / grouped-bundle-group view defect | AWAITING-RULING | Daniel | Ruling → four-step migration |
+| LINE-STECK | Line/steck label unit | OPEN | Arch | S4-late, after GS-C |
+| STECK-COLOR | Steck-color verify | OPEN | Arch | Rides LINE-STECK |
+| CMDK | ⌥⇧K command palette | OPEN | Arch | Post-Sprint-4 |
+| LAT | Latency/optimistic unit — leg 2 landed optimistic create on the box surface twice (record, then type); the general pass remains. **AMENDED Aug 13 — the box-create observation is MEASURED and must NOT be carried as "the create path is slow."** Daniel felt the first New Box lag at his desk; CC measured it three ways. Production cold (first request after `next start`): first 939ms vs 196ms mean, **+743ms**. Dev, already warm: **+31ms** — backwards from the hypothesis. The SAME production process re-run warm: **+89ms**. The variable is **server cold start**, not dev-vs-prod and not `createBox`; Vercel production is warm after its first hit, so an operator never meets the 743ms. CC caught its own confound before reporting it. Residual note only: ~89ms on the first WRITE of a page session, hypothesised as connection/auth warm-up, untested and unchased | OPEN | Arch | Post-basket |
+| DEPS | Dependency maintenance | OPEN | Arch | Pre-October beta |
+| AUTH-DOMAIN | Custom-domain auth email — also gates SHARE phase 2 | OPEN | Arch | Pre-public-beta |
+| 3TL | Three-tier library architecture — inherits the SHARE flag | OPEN | Arch | Pre-beta |
+| BASE-EVT | Declared baseline-event session | OPEN | Arch | S4-mid, rides D-2b |
+| ALLOC | Allocate as type-conversion (D9) | OPEN | Arch | S4-late |
+| CONCEPT-A | Print-header unit | BLOCKED | Daniel | Gated on the a-1 uploads |
+| LIB-RENDER | Library-grid render pass (+ (pppp)) | OPEN | Arch | Post-Sprint-4 |
+| GCM-LAND | GCM→list focus landing | OPEN | Arch | Post-Sprint-4 |
+| EST-AUDIT | Estimator-audit / measured pagination | OPEN | Arch | Unscheduled |
+| UNDO | Session Undo/Redo | OPEN | Arch | Unscheduled |
+| VERHIST | Durable Version History | OPEN | Arch | ~November |
+| TRASH | Trash/Archive unit | OPEN | Arch | Post-Sprint-4 |
+| BINGO | Bingo disposition | OPEN | Daniel | Post-private-beta |
+| RTL | Hook-test + RTL/component-test infra — **the leg-2 pattern is now established: decisions that would live in JSX get extracted to pure modules so they can be tested at all** (`boxTypeCommit.ts`, `boxTypePlus.ts`). A component harness remains the real fix | OPEN | Arch | Someday-maybe |
+| (rrrr) | New Box ⊕ UX on the EQUIPMENT list's Box column — confirmed NOT shared with leg 2's root causes | GATED | Arch | End of Sprint 4 |
+| (ppp) | Settings page: project menu bar joins the fixed header — rides SHARE's build | OPEN | Arch | SHARE build |
+| TYPE-TOG | Equipment-list type-visibility toggle | OPEN | Arch | Post-Sprint-4 / EP |
+| SEED | Fresh-project seeding — v1's 56 Box Types catalog port belongs here; awaits Daniel's `Box Types.xlsx` export | OPEN | Arch | Unscheduled |
+| KKK-PASS | Narrow-window responsive pass | OPEN | Arch | Immediately after Sprint 4 |
+| NOTES-NL | Library-page notes fields strip newlines | OPEN | Arch | Unscheduled |
+| GROUP-RES | Equipment grouping/sort engine residue | OPEN | Arch | Unscheduled |
+| HARNESS | Harness pass: fail-hard leaks the dev server · frame-03 sort-flake (dev-server age is a trigger — in CLAUDE.md) · theme-toggle intermittent · load sensitivity · `--update-baselines` per-frame scope flag · settle-wait family · (qqqq) · scroll-state frames · the 02/03 byte-drift recurrence (**fired a THIRD consecutive round Aug 13; restore-don't-adopt held again — a defect needing a human restore every round is not a flake, by the same logic that retired registry entry (6)**) · threshold-vs-declared-event — the gate printed PASSED with eight nonzero frames (top 0.0906%) because all sat under the 0.1000% threshold; a real regression up to 0.0999% would print PASSED · **NEW Aug 13: the tool accepts a human's claim about scope instead of computing it — Arch declared frames 09/10/12 and measurement said 09/10/11/12, caught only by CC's own bounding-box pass. Same defect as the threshold one wearing a second hat.** **A PARALLEL claude.ai SESSION IS OPEN designing this** (opener `handoffs/parallel/260813-1615`); its design block returns for ruling | OPEN — IN DESIGN | Arch | Parallel session return; before legs 4–6 |
+| REV-STAMP | Revision-stamp labels deliberately screen-sized | AWAITING-RULING | Daniel | Unscheduled |
+| MPP-COS | Multi-page print preview cosmetic whitespace | OPEN | Arch | Unscheduled |
+| REV-SPRINT2 | Equipment Change All cross-surface constraints inheritance check | OPEN | Arch | Opportunistic |
+| (q) | Consolidate Zite source into ONE reference folder | OPEN | Daniel | Unscheduled |
+| (u) | Snapshot-fetch failure surfaces console-only | OPEN | Arch | Unscheduled |
+| (ff) | Tab strip renders no selected button on revisions/settings | AWAITING-RULING | Daniel | Unscheduled |
+| (yy) | Methods admin non-rename fields swallow DB errors | OPEN | Arch | Unscheduled |
+| (aaa) | ⌥⇧F find-seeding misses Model | OPEN | Arch | Unscheduled |
+| (bbb) | Autocomplete inline-completion Enter commit — **B5 checks whether AMEND-4 changed this** | OPEN | Arch | Rides B5 |
+| (ccc) | Quantity Escape-revert missing | OPEN | Arch | Unscheduled |
+| (eee) | Exact-match autocomplete suppression — **B5 checks whether AMEND-4 changed this** | OPEN | Arch | Rides B5 |
+| (fff) | REM column → editable quantity text field | OPEN | Arch | Unscheduled |
+| (hhh) | Editing a category with its band header off-screen | OPEN | Arch | Unscheduled |
+| (jjj) | Remaining-cell save-error-flash gap | OPEN | Arch | Unscheduled |
+| (vvv) | Inverted-extension end DISPLAY may be un-swapped | OPEN | Arch | Unscheduled |
+| (dddd) | `# ` autoformat headings print literally | AWAITING-RULING | Daniel | If it chafes |
+| (ffff) | New Defaults Method/Group inputs render DARK in light mode | OPEN | Arch | Unscheduled |
+| SNAP-CHK | Any production snapshots lacking `items`? — 12 surveyed, all carry `items`; fallback stays | OPEN | Arch | Opportunistic |
+| CONTRAST | Contrast recon | OPEN | Arch | Unscheduled |
+| DASH-FRAME | /dashboard capture frame | OPEN | Arch | Future baseline event |
+| TAB-BRIDGE | Cross-band Tab bridge design question | OPEN | Arch | Unscheduled |
+| GIT-CFG | Real `git config user.name/email` · Next 16 `middleware`→`proxy` · **`next-env.d.ts` dev/build churn — diagnosed Aug 13 as the generated dev-vs-build flip-flop, benign, never committed; the ignore/attributes decision still stands** | OPEN | Daniel | Housekeeping |
+| LINT | NO ESLint config exists anywhere; standing one up is config authoring | OPEN | Arch | Post-Sprint-4 chore |
+| ST-RACE | Minor `setTimeout` race in error-flag cleanup | OPEN | Arch | Low |
+| CTF-SEED | CTF edit-dialog seed helper unused by the grid | OPEN | CC | Opportunistic |
+| IMP-SORT | Import sheet order → sort_order | AWAITING-RULING | Daniel | Unscheduled |
+| SRGRANT | `service_role` GRANT restore sweep | OPEN | Arch | Housekeeping |
+| BRIEF-12 | Brief v1.2 pass | OPEN | Daniel | Strat scheduling |
+| COMMS-Q | Comms queue | OPEN | Daniel | October announcement |
+| LEGAL-SEP | September attorney engagement | OPEN | Daniel | September 2026 |
+| LIC-NOV | Licensing subsystem design — ownership-transfer design lands here | OPEN | Daniel | ~November 2026 |
+| WF1A-SUNSET | WF-1a commit pilot + auto-mode rider sunset review — datapoints: the overnight commit-authority question · the Aug-11 Arch push-instruction correction · the Aug-12 CC stream-edit pattern (two self-flagged single-file `perl` edits) · **Aug 13: a disclosed `python3` heredoc used for multi-site edits, surfaced unprompted with a single-match assertion and an immediate frozen gate — logged as evidence the RULE was underspecified (now widened in CLAUDE.md), explicitly NOT as a discipline strike** · **NEW Aug 13 evening, two more, both positive: (a) CC disclosed a stray `perl -0pi` fragment aimed at `/dev/null` that touched no file, hours after the widened rule shipped with an origin note saying over-disclosure is always right — the amendment working as designed; (b) on a stale `.git/index.lock`, CC HALTED with the approval phrase already given rather than deleting anything inside `.git/` on its own authority, and correctly identified that a subsequent `git push` reporting "Everything up-to-date" meant the commit had never happened** | GATED | Daniel | Sprint 4 close |
+
+*(Exited to the Ledger at this close: **BOX-KEYS** (B4 CLOSED at `8461c2a`) · **BOX-CELLS** (settled from the DDR — v1 edits all five inline; the row is their parity home) · **TAB-HATCH** (RULED at Daniel's gate: no dedicated hatch — Escape-then-Tab is the hatch, and with the five cells live Tab from the Type cell now goes somewhere).)*
+
+## ❓ Open Questions (live only)
+
+*(This close moved TAB-HATCH, BOX-CELLS, the footer-Enter direction, the nested-row treatment, TYPE-HOLD's three rulings and the 4-frame declared event to the Ledger, all ruled.)*
+
+- **Stack in the footer panel, or all five out of it?** The panel carries four of the five identity fields and not Stack. Arch's proposal: drop all five, on R-C's own reasoning — *"not a second source of truth, a second PLACE for the same one, and the row won"* — which was ruled about checkboxes because checkboxes were all the row owned then, and the row now owns all five. Alternative: add Stack for symmetry. Asked three times, unruled; rides **B1** either way.
+- **`box_default_large_labels` defaults to 5; the v1 panel reads `#Big Labels 2`.** OQ4 ruled 5; 2 may be one show's value. Flagged, not acted on.
+- **The categorized-box print case is unexercised** — the fixture's boxes carry no category; needs a category added as its own declared event.
+- **The v1 continuation header** (category repeated on continued pages) → PRINT-REDO.
+- **The cover page** reads small relative to the list (8.25pt body) → PRINT-REDO.
+- Script 551 extraction · Cross-surface checkbox eligibility for CABLE Change All · House-wide Cancel semantics · Used∩Ignored semantics · Empty-string note decision · Link `field_name` CHECK backstop · Cable-type RENAME affordance · CL a-1 evidence uploads · d2_01 red Members count · CL multi-letter-per-project · Stale-category-text healing · CC credit-budget standing policy · Comms Prompt structure · OQ#2b own-band pendency · Band-cascade harmonization · **Seat consolidation** (rule at or after COWORK-PORT; datapoints now include the Cowork-seat Supabase capability, SEAT-MIG exceptions #1–2, and **project-knowledge deletion — a Cowork-seat capability the claude.ai seat lacks**).
+
+---
+
+*End of Roadmap v3.9 — August 13, 2026 (evening). History: `Minotaur_v2_Ledger_v1_0.md` (Aug 13 append). **B4 closed at `8461c2a`; its returns of record are `from-cc/260813-1504` and `from-cc/260813-1750`.** Remaining leg-3 specs: `from-cc/260812-1630` §NOT BUILT. Parallel session: `handoffs/parallel/260813-1615_harness-v30-parallel-opener.md`. Print findings: `docs/reference/Minotaur_v1_Print_Spec_Measured.md` + `Minotaur_Print_Parity_Findings_2026-08-11.md`.*
