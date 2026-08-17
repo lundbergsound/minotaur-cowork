@@ -1017,3 +1017,87 @@ Written after the block above and correcting it within the day: that block recor
 - **Arch's cleanup sequencing was reaffirmed, not re-litigated:** the six automated accounts and fourteen harness projects are cleaned the week AFTER R8-DRILL.
 
 **Seat mechanics of record:** Daniel granted the Strat session folder access to `Minotaur-Cowork` mid-session, and it landed its close files on disk rather than leaving them as downloads — **the first Strat session to hold repo file authority.** A datapoint for the Seat-consolidation open question, alongside the Cowork-Arch seat's Supabase capability. Note for the record that the one-writer discipline held across *tiers* here, not merely across Arch seats: two sessions were live on the same day against the same three documents, and exactly one wrote them.
+
+---
+
+## AUGUST 15–16, 2026 — HARNESS-H4 CLOSED: THE GATE JUDGES THE MOVED SET ITSELF (append block)
+
+**Closed at `13a8233`** (`23a34d6..13a8233`, pushed, refs-verified from the repo's own ref files and origin's reflog; Vercel LATEST **READY**). Three rounds in one CC session, folded into **one commit** — 7 files, 989 insertions, 115 deletions, no trailers. Suite **1594/105 → 1611/105** · frozen **3/3 vs `be0769de`** · `type-check` and `build` clean · dependency gate empty · visual gate **28/28 across four runs at the new default** · **zero baselines written**, `screenshots/declared-event.json` untouched.
+
+### What H4 retired
+
+The `GATE_DIFF_THRESHOLD_PCT=0` emit/write workaround leg 4 needed. `DIFF_THRESHOLD_PCT` now defaults to **0**: any pixel over channel-24 moves the frame. **`CHANNEL_THRESHOLD` was NOT touched and stays at 24** — the diff definition of record. The rule CLAUDE.md already carried by hand — *any nonzero diff anywhere is stop-and-report regardless of the gate's threshold* — is now enforced by the tool, the same move H1 and H2 made.
+
+**The constant's four consumers move together by design**, each re-read after the change: `visual-capture.mjs:822` (gate verdict) · `:705` (emit classification) · `:639` (classification table) · `:663` → `declaredEvent.mjs:197`/`:234` (rules 1 and 2). **A stale citation was corrected in the same package:** CLAUDE.md cited `visual-capture.mjs:685` as the classification site; line 685 is the `WRITTEN (…)` log line.
+
+### The registry serves rules 3/4/9 — NOT the judged verdict, and getting this backwards would have built a blindfold
+
+The scoping insight of the unit. SUBPIXEL-WANDER is a **Δ1** phenomenon and the judged threshold is channel-24, so **zeroing the pixel threshold never made the wander fail the gate** — it is invisible to the judged verdict by construction. Where the wander actually bites is rules **3, 4 and 9**, which deliberately consume the ZERO-TOLERANCE measurements (`declaredEvent.mjs:241-243` says so outright). That is what refused twice on the frame-12 pair at leg 4, and why a declaration widened to the union of a wandering site's positions trips rule 9 on a run where the site vanishes.
+
+`screenshots/diff-exceptions.json` is checked in, and masking happens **inside `pngDiff.mjs`'s per-pixel loop** — it had to, because `zeroDiffPixels`/`maxChannelDelta`/`zeroBBox` are **aggregates** and a region cannot be subtracted from an aggregate after the fact. `diffImages` gained an `exclusions` option defaulting to `[]`; its two consumers were grep-verified before the signature widened.
+
+**Two bounds are what make it a tolerance rather than a blindfold:**
+- a pixel is masked only **inside the site's bbox AND at Δ ≤ that site's `maxChannelDelta`** — a real change at the same coordinates has a large delta and is never masked;
+- a site masking more than its `maxPixels` is a **hard error** (`DiffExclusionOverflowError`), not a silent mask.
+
+The judged branch is **structurally outside** the mask, so the safety property holds by construction and not only by test. Nothing is masked silently: the `measured @ch0:` line names what was excluded and by which site, and both report headers carry the armed-site count and the run's excluded total.
+
+**Four sites, two provisional, every provisional one carrying a `refineBy`:**
+1. `subpixel-wander/topbar-theme-toggle-glyph` — `1582,18–1583,27`, Δ1, both themes.
+2. `subpixel-wander/box-type-plus-low` — `262,107–299,108`, Δ1. **Now measured three times identically** (the leg-4 record, H4's §1 control run 2, and the AMEND-2 gate run) — the strongest-evidenced entry and the best anchor H3 will get: three observations, three exact position matches, presence varying every time.
+3. `subpixel-wander/box-type-plus-high` — `597,107–723,108`, PROVISIONAL, bbox cited as approximate from the leg-4 record.
+4. `subpixel-wander/box-nesting-error-single-px` — `184,358–184,358`, dark-only, `maxPixels` 1, PROVISIONAL at **n=1**.
+
+**Arch overruled CC to register site 4**, on four grounds: consistency with the site-3 ruling; the project's own measured model (presence wanders, position reproduces exactly); frame 11 being a Box List staged state while leg 5 is a Box List unit; and a 1×1 box being **self-limiting** — `maxPixels` is structurally 1, so the overflow can never mis-fire, and a larger phenomenon falls outside the box and is reported unmasked rather than hidden. **CC's dark-only scoping was UPHELD**, on a sharper ground than it gave: the record affirmatively shows a frame's two theme halves can pick different positions in the same run (12-dark at x597 while 12-light showed x262), so a light-half registration at the dark half's coordinate would have had no evidentiary basis.
+
+**The registry was proven on the real phenomenon, not only by injection.** The AMEND-1 gate run caught the topbar site live on **four frames at once at exactly 16 px each** — the number the record predicts — all inside the registered box, all 64 px masked and printed.
+
+### Rule 9 is per-dimension — and the correction that got it there
+
+`DECLARE_BBOX_MAX_DIM_FACTOR` **1.75** / `DECLARE_BBOX_MAX_DIM_ADD` **8** replace the area constants, retired in the same step. Area was never dimensionally correct and produced the thin-shape pathology that forced ADD from 400 to 4000.
+
+**FACTOR is 1.75, not 3.0, because a per-dimension factor SQUARES in area.** 1.75² = 3.0625 preserves the area strictness AMEND-1 ruled. The residual ~2.08% is a decision in the record, not an artifact; **√3 = 1.7321 would zero it and was deliberately not taken** — a constant nobody can state from memory is worse than a documented 2%.
+
+**ADD 8 was set from the binding bound, which was not the one Arch named.** The emit-path worst case wants only 3.25. The binding case is CASE B: at ADD 4 a **2px extent tolerates zero shrink** — it emits a declared 6, and a writing run measuring 1px hits a ceiling of 5.75 and **fails a correct declaration**, which is precisely the defect class the 400→4000 argument existed to remove. 2px extents are not hypothetical: both registered wander sites carry one. The abuse case pays nothing — a whole-frame declaration over a 2×10 measurement still fails by **139×**.
+
+**Measured shape of the change:** strictly tighter throughout measured 1–200 (0 old-fail/new-pass against 8,161 old-pass/new-fail); near-equivalent above 200, where the two ceilings sit within ~1.7%. A 10×10 measurement admitted a 65.6px declared side under the area rule and admits 25.5 now.
+
+### Rule 9 was proven by the suite and by nothing else
+
+Stated in every H4 return, unprompted, and kept of record: **H4 writes no declaration, so `classifyFrames` did not execute in any gate run across all three rounds.** The visual gate proved only that the harness still captures and judges 28 frames correctly at the zero default with the registry armed. A green gate is not evidence about the comparator.
+
+### DIFF-EXC-BOUND — registered with a trigger, not a someday
+
+Nothing bounds an exception site's size. Three things hold it back — the Δ ceiling, the `maxPixels` hard error, and the checked-in git history — none of them a bound. **Trigger of record: the first time a site is registered above Δ1**, which is the point at which the registry could mask a delta the judged gate would notice. CC added a preflight warning naming the ticket, and `_futureBound` lives in the registry file itself, which is where a person will be standing when it fires. **CC's design note is kept because it is the same lesson rule 9 taught:** the right bound is on area × `maxPixels`, not on the bbox alone — a large bbox with a small `maxPixels` is the honest shape for a site that wanders across a region, so bounding the box alone would penalise the honest case.
+
+### DOOR — the waitlist migration, applied from the main line (R-R)
+
+**`door_waitlist_signups_and_join_rpc`, ledger 49 → 50**, applied 2026-08-16 by the main-line Cowork-Arch seat. DDL exactly as design block §5.4, unmodified. **Ruled against the parallel seat's recommendation** so that schema authority stays where the two existing scoped exceptions already sit rather than opening a third, and so the build seat opens against a database already correct.
+
+Posture: RLS enabled, **zero policies**, `waitlist_join_v1` `SECURITY DEFINER` with `search_path=""`. Table grants are `postgres` and `service_role` only — **`anon` and `authenticated` are absent entirely**, not policy-restricted. This is stronger than CLAUDE.md's house standard, not an exception to it.
+
+**Privilege-level smoke, five checks, all PASS** (`service_role` smoke is blind to grants and was deliberately not used): `anon` SELECT denied · `anon` EXECUTE succeeds, 1 row · `anon` repeat with `PROBE@Example.TEST` succeeds and **still 1 row**, proving idempotence and the `lower(email)` functional unique index together · `authenticated` SELECT denied · `anon` direct INSERT bypassing the RPC denied. **Census to zero: 0 rows.** Observation of record: `service_role` has `EXECUTE = false` on the RPC, a consequence of `revoke all … from public`; it needs none, it has the table.
+
+### Corrections of record — instances THIRTEEN and FOURTEEN, both new shapes
+
+**Instance 13 — proved a claim on the cases in mind and stated it as universal.** The H4 handoff's §4 said per-dimension rule 9 was "strictly tighter, prove it with tests." Both examples Arch held — the thin full-width shape and the whole-frame abuse — are genuinely tighter. The generalisation was false: CC's sweep found 41,752 old-fail/new-pass cases and none the other way. **Generalising from confirming examples without searching for the disconfirming region.** The instruction contained its own refutation mechanism and the mechanism worked; the claim it tested was Arch's.
+
+**Instance 14 — conflated two surfaces read in the same sitting.** §5 attributed `_measuredAt` and the `GATE_DIFF_THRESHOLD_PCT=0` workaround text to `emitDeclaration`'s boilerplate. The emitter writes `_generatedBy` / `_headroom` / `_todo`; `_measuredAt` was hand-written into leg 4's `declared-event.json`. **Both files had been read.** Their contents were merged in the writing. CC built what was meant rather than what was said, disclosed the difference, and its version — the emitter writing its own provenance — is better than the spec.
+
+A third correction, **not** an Arch instance: CLAUDE.md's leg-4 amend-round paragraph cited "rule 4 (declared but not moved)"; that is rule 2. Corrected against `RULE_TEXT`.
+
+### DOOR-SEO — a Comms-tier error, and the first live proof of a named gap
+
+The landing copy's SEO block specifies Google's **SERP line** (title + em dash + description) as the title tag verbatim. The live and indexed tag is `Minotaur Sound System Database` alone, with a separate meta description — `src/app/layout.tsx:5-8`, confirmed live and re-verified independently by the main line. Built literally it would replace a 33-character title with a 104-character one that truncates, duplicate the description inside itself, and **change the indexed title, the one thing the unit exists to protect.**
+
+**Ruled R-O(a):** keep the live title verbatim, adopt Comms's new description. **Propagation list, five documents:** the Arch opener's CONTEXT paragraph · the copy file's §SEO and §BUILD NOTES bullet 1 · the Comms addendum item 2 · `HOLD_Roadmap_Merge_2026-08-15_Comms.md` · **Session Log entry 4, which is immutable** — the correction lands in entry 5 and the Roadmap, and entry 4 stands as written.
+
+**Not an Arch standing-correction instance.** It is the first live instance of the gap v30 §Document Hygiene names explicitly — the propagation check binds the Arch tier and cannot legislate for the Comms Prompt — and it is the sharpest datapoint yet for the queued **Comms Prompt v10** amendment: the Comms tier needs its own propagation check.
+
+### Completed units (retained for citation)
+
+- **HARNESS-H4 — COMPLETE 2026-08-16 at `13a8233`.** Zero-tolerance moved-set judging · the checked-in diff-exception registry with its two bounds · rule 9 per-dimension at 1.75/8 · seven files, one commit, three rounds. **The harness line's open work is now H3 alone, still unscheduled.**
+
+### WF1A datapoints
+
+CC **refuted Arch's "strictly tighter" claim by exhaustive sweep** rather than building on it, and pinned the loosening in a test rather than quietly compensating for it; **reasoned ADD from the binding bound rather than the one the handoff named**, and said so explicitly; **volunteered in all three returns, unprompted, that the visual gate did not prove rule 9**; **declined to register a wander site on n=1 and asked instead of assuming**; scoped site 4 dark-only on the do-not-widen discipline; flagged a self-authored preflight warning as possible scope creep with a clean deletion path; and filed AMEND-2 at its real timestamp when the clock rolled past midnight, saying so. **SED LEDGER: none across all three rounds** — every repo edit through the Edit/Write tools. Every phrase-bound commit clean; the push Daniel's own paste, refs-verified after.
