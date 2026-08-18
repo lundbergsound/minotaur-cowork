@@ -1,3 +1,17 @@
+**⚠ UPDATED 2026-08-18 — DOOR + LANDING HAS CLOSED. Read this block first; it supersedes the statements it names. Everything else below stands and is still the operative opener.**
+
+- **THE PEN IS BACK HERE.** The DOOR+LANDING build seat closed its unit at **`e92f2c9`** and wrote Roadmap **v3.14**. There is no parallel writer. The "CHECK THE PEN FIRST" section below is discharged.
+- **STATE, corrected:** HEAD = origin = **`e92f2c9`** (`13a8233..e92f2c9`), **Vercel READY in production, confirmed 2026-08-18**. Suite **1639/106** · frozen **3/3 vs `be0769de`** · visual **28/28 at zero tolerance on two consecutive rounds** · migration ledger **50**, unchanged by DOOR. `screenshots/declared-event.json` still describes leg 4's event and was untouched. Session Log is at **6 entries**; **read Roadmap v3.14, not v3.13.**
+- **STANDING CORRECTIONS NOW STAND AT EIGHTEEN**, not fourteen. Fifteen: a precondition demanded a clean tree the Roadmap's own `GIT-CFG` row says cannot exist. Sixteen: two commands cited without being run — *the Surface Rule as practised checks that a named thing exists, not that a named command works.* Seventeen: an observation matched to flake (6)'s deterministic model when SUBPIXEL-WANDER's intermittent one already fit it better. Eighteen: a directional correlation asserted from n=1, disconfirmed by the next run. **Two of the four were CC-caught.**
+- **DOOR-SEO's Comms Prompt v10 banking is SUPERSEDED by R-W:** Comms Prompt v9 is **deleted and rewritten from scratch** before the next Comms deliverable. The v10 amendments become inputs to that rewrite. See docket `COMMS-REWRITE`.
+- **THE GATE HAS A KNOWN INTERMITTENT FAILURE — `GATE-THEMERACE`.** `01/02-light` at **Δ42** over the topbar theme-toggle, position-identical in four runs and absent in two. It is **above channel-24, so it reaches the judged verdict**. **Re-run once; if it clears, proceed. Never register it as a diff-exception** — that is `DIFF-EXC-BOUND`'s trigger exactly.
+- **`npm run test:visual` DOES NOT RUN** (no `--env-file`). Use `node --env-file=.env.local scripts/visual-capture.mjs --gate`. Docket `VIS-ENVFILE`.
+- **CAPTURE-FLAKE (3) IS ROOT-CAUSED** — `visual-capture.mjs:426` uses `locator.count()`, which does **not** auto-wait, so a slow equipment list fail-hards with no retry. The registry's "dev-server age" trigger is wrong. Docket `GATE-COUNTWAIT`. **The harness line is scheduled behind the box unit, the v1 import/export work and SHARE (R-V) — do not fix it inside a leg.**
+- **OWED BY DANIEL, corrected:** Vercel at `e92f2c9` is **confirmed**; **the R8 drill is now OVERDUE**; the four CAND-4 texts stand; **the hero's bid-to-opening line goes plural when Vape! Chicago opens** — `HERO_BID_TO_OPENING` in `src/app/page.tsx`, a one-line edit.
+- **NOT THIS SESSION, corrected:** DOOR+LANDING is **closed**, not held elsewhere. `DOOR-V1LINK` is open and is Daniel's call, not this session's.
+
+---
+
 Open as Cowork-Arch on Minotaur v2 — the MAIN LINE. READ FIRST, in order:
 
 Architecture Prompt v30 — INSTALLED, governing; Minotaur-Cowork root.
