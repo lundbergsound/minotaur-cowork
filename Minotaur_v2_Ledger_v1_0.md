@@ -1182,3 +1182,138 @@ CC **root-caused a gate failure to a dirty fixture rather than to the tree**, an
 **Exits at this close** (per RM-8, histories retained here / in v3.14): **ADMIN-NAV** (ruled R-X, built, closed) · **(rrrr)** (resolved by R-AA) · **PORT-COV-V2** (pointer row, spent) · **COWORK-P2b** (reference retained in `handoffs/parallel/`, row spent) · the rule-9 "RESOLVED" Open-Questions pointer (spent; detail in the Aug-16 block). **Registered new:** BOX-BAND-ROLLUP (Percent Full + Weight, the only v1 band fields still missing) · R7-ARM-2 (R-AE) · BOXTYPE-DIALOG-2 (R-AF) · BAND-EDITOR sequencing ruling (the equipment box sort-band editor is the one Box field that still no-ops on an unmatched name; composes with the All/One confirm) · CABLE-LOADER (cold-load box-band flash; loader doesn't gate on the boxes read; + prefetch consideration) · GATE-DLGRACE (frame-07 NoMethodDialog staging race, `visual-capture.mjs:459-461`, the count()-once family) · two n=1 zero-tolerance wander observations, deliberately unregistered, H3 inputs: frames 02/03-light at `1127,18–1128,27` (18 px, Δ1, seen once) and frame 12-light at `149,108–188,109` (7 px, Δ1, beside the registered low-⊕ site) · NewBoxTypeDialog's opening-keystroke hazard (safe today via its capture-phase ⊕ route; harden in BATCH-AC) · `useGridRecordNav.requestFocus` retained as the pattern's named pair-mover, currently uncalled.
 
 **Document actions.** Roadmap **v4.0** installed, **retiring v3.14** in the same step (KNOW-HYG); Session Log to 7 entries; CLAUDE.md amended **inside the unit** (counts line measured at §0; the "Visual baselines — adopted set" paragraph advanced to the leg-5 event) — its fence line ("the next unit is S4-3 leg 5") is deliberately left for leg 6's handoff to advance, per the fence's own standing lesson. Propagation check: the per-class arm existed only in the leg-5 handoff (superseded by AMEND-1's header), the shipped bundle code (rebuilt), and `boxError.ts`'s module header (states the correction) — no governing document carried it.
+
+---
+
+## August 19–21, 2026 — Cowork-Arch MAIN LINE — S4-3 LEG 6 CLOSED ENTIRE across five commits (`6d17f07` · `f40bca6` · `e566454` · `aa080ac` · `8b078b2`) · THE BOX PRINT CHAINS BUILT, THEN REBUILT AGAINST THE v1 LAYOUT ITSELF · TWO FULL v1 SHOWS SEEDED · THE BULK-DATA ARCHITECTURE CHANGED AFTER A BUDGET FAILURE
+
+**Unit of record.** S4-3 leg 6 — the three box print chains (Box List · Box Contents Lists · Box Labels in their three stocks) plus the P5 pre-print "things not in boxes" sweep under R-F. Built from v1 scripts 280/714/804, print layout 212 and find layout 316 read at source, then amended three times as better evidence arrived. The leg is unusual in this project's record for the *shape* of its evidence escalation: it opened against rendered v1 PDFs, and closed against **FileMaker layout mode with the Inspector open** — a class of artifact that states the rule where a PDF can only imply it.
+
+**Commits, in order, all live on origin:**
+
+| sha | what |
+|---|---|
+| `6d17f07` | leg 6 — the three box print chains + P5 |
+| `f40bca6` | AMEND-1 — box print parity, cable Box find, Show Me narrowing |
+| `e566454` | docs(evidence) — 21 v1 parity artifacts |
+| `aa080ac` | AMEND-2 — label anatomy from the v1 layout, Box List landscape |
+| `8b078b2` | AMEND-3 — top-slot `Length(Self) ≥ 12`, two-field substitution, catalog flag 7 closed |
+
+Final counts at close: suite **1816/117** · frozen **3/3 vs `be0769de`** · dependency gate empty · build and strict typecheck clean · **migration ledger 51, unchanged** (this leg carried no schema). Visual gate: see *The gate that could not confirm* below.
+
+---
+
+### Rulings of record (Daniel, 2026-08-19/21, unless marked Arch)
+
+- **R-AG — BATCH-AC runs AFTER private beta starts**, not after leg 6 as v4.0 proposed. Daniel's words: *"push til after private beta starts."* The batch is unchanged in content; only its trigger moves. Rationale of record: R-AC is a design ruling already taken, so the batch is a build queue rather than an open question, and app-wide autocomplete semantics are the kind of change whose real evidence is people using it.
+- **R-AH — GCM completion moves to PRECEDE private beta.** Previously a post-beta row. Moves into BATCH-PREBETA.
+- **R-AI — the cable list gains a Box find field.** Confirmed against the leg-6 gate finding that Box was absent from the cable find surface while the box bands shipped in leg 5. Built in AMEND-1.
+- **R-AJ — Big Box Labels print on PORTRAIT letter, two per page, on half-sheet die-cut label stock.** So the cell is a physical 8.5″ × 5.5″ sheet, not merely a layout division — which fixes the content box for every element measured off the layout frames and explains why a 4″ × 2.4″ logo occupies so much of it. Closes the **Big** half of catalog open flag 7.
+- **R-AK — Small and Replacement labels print on FULL SHEETS, hand-trimmed with a paper cutter.** There is no die-cut stock for either. Therefore the cell grids measured from the artifacts (**Small 1×4 landscape, 144pt pitch; Replacement 2×3 portrait**) are not approximations of an unknown die — **they are the spec**, and no physical constraint remains to discover. **Catalog open flag 7 is CLOSED IN FULL**, its two halves recorded separately in the catalog because they are different kinds of fact: R-AJ is a measurement corroborated by ruling, R-AK is a fact about Daniel's shop.
+- **R-AL (Arch) — bulk data never routes through a model context.** See *The budget failure* below. Standing architecture, not a leg-6 rule.
+- **R-AM (Arch) — AMEND-3's visual coverage is the earlier 28/28; confirmation is DEFERRED, NOT WAIVED.** See *The gate that could not confirm*.
+
+---
+
+### What shipped, and the three amendments
+
+**The leg itself (`6d17f07`)** built the three chains and P5. Its own banked input — the print chain hard-coding `boxLabel: null` at `docData.ts:23,:54` and `CableLabelsPrintClient.tsx:94` — was discharged, and the categorized-box print case was exercised as its own cheap declared event under H2.
+
+**AMEND-1 (`f40bca6`)** ran the first parity pass against four rendered v1 PDFs, built the cable Box find (R-AI), and narrowed Show Me. It also recorded the Box List as "re-check, no change" **and never ran a page-size check on it** — the omission AMEND-2 caught.
+
+**AMEND-2 (`aa080ac`)** is the amendment that changed the leg's evidence class. Daniel's verdict on the AMEND-1 outputs — *"these PDFs are good progress but have a ways to go"* — arrived alongside FileMaker layout-mode screenshots with the Inspector open. Five facts were established that no PDF could have supplied:
+
+1. **The Box Logo is 4.0″ × 2.4″, top-left, and STRETCHES** — Inspector: L 0 · T 0.042 · R 4 · B 2.442. v1's own Show Info screen says it "will scale **and stretch**," so aspect ratio is **not** preserved. AMEND-1 had placed it at ≈287×250pt with aspect intact — right corner of the page, wrong size, wrong fit rule.
+2. **The truck/number/stack block is a bordered grey panel, not loose text** — a rectangle with grey fill, solid 1pt black line, corner radius 3, holding Truck (or the parent box name when nested), the Number at **112pt Century Gothic Bold**, and Stack.
+3. **The Location line prints tinted with the BOX COLOR — measured, not inferred.** The v1 PDF was rendered at 50dpi and the band fill sampled per page: p1 `rgb(0,48,240)` · p2 `rgb(240,24,0)` · p3 `rgb(168,192,120)` · p4 red, each matching its box's Color exactly against the Box List browse frame. **R-52 therefore extends to Big Box Labels**, where the catalog described only Box List and Contents.
+4. **These outputs carry NO page header and NO page footer** (Daniel, corroborated by the layout's edge-to-edge body with no header/footer part). On the LABEL outputs only; the Box List and Contents footers stand as AMEND-1 measured them.
+5. **The Box Name reduces to fit past a character threshold**, re-derived across two label sets rather than approximated from one.
+
+**AMEND-2 also confirmed a defect AMEND-1 had shipped past: the Box List is LANDSCAPE and v2 renders it portrait.** `BoxListPrintClient.tsx` mounted `<DocPrintCss />` / `<DocPage>` with no `landscape` prop, emitting `@page { size: 8.5in 11in }` on an 816×1056 canvas. The prop was necessary but not sufficient — the seven `COL` widths had been proportioned against a 612pt page and were re-derived from the landscape artifact's own header row.
+
+**AMEND-3 (`8b078b2`)** closed the three questions AMEND-2 left open, all three at source:
+
+- **The top-slot step-down is `Length ( Self ) ≥ 12`** — read directly off both conditional-formatting dialogs, replacing AMEND-2's calibrated-from-two-instances guess of 9. It reproduces both measured instances (`Truck 2`, 7 chars, 42pt · `Distro Racks`, 12 chars, 36pt). **The asymmetry is now pinned by test, deliberately: Box Name ≥ 15, top slot ≥ 12.** A test asserts that a 13-character string steps the top slot down while leaving the name at full size, so the two thresholds cannot drift together.
+- **The top slot is TWO STACKED FIELDS, not a calculation.** The garbled overlap visible in every layout frame (`TBoxckirMBoonxu`) is `Truck Manual` and `Box in Box` superimposed at the same rect; FileMaker prints whichever is non-empty. Confirmed structurally by the body-inspector frame showing the two field objects dragged apart. So the parent-name substitution is *"print `Box in Box` if present, else `Truck Manual`"* — same visible result as conditional logic, simpler rule, and it explains why the substitution appears on Big and Replacement but was never described as a calculation anywhere. Also measured from that frame: **the label Body part is 7.986 × 5.264 in**, corroborating AMEND-1's 5.5in cell pitch.
+- **Catalog open flag 7 CLOSED in full** (R-AJ + R-AK).
+
+**One unobservability, recorded rather than resolved.** AMEND-2 asked whether the label's truck is the box's OWN `Truck Manual` or the resolve-up Parent Truck that R-50 gives the Box List. CC reported that **the evidence cannot separate them and never will**: the two readings differ only on a nested box, and a nested box has `Box in Box` populated, which covers the truck field entirely. The own-truck reading was built because it is what the field *is*, not because evidence chose it, and the unobservability is pinned by a test that documents itself. The one case where it would surface is a nested box whose parent has a blank name. **This is the right shape for an unfalsifiable choice: build it, name it, test the naming.**
+
+---
+
+### The budget failure, and the architecture change it forced (R-AL)
+
+**A single turn ran three hours and consumed half of a weekly model budget.** Daniel asked the correct question — *"what's going on?"* — and the answer was Arch's architecture, not the model's behavior.
+
+**What happened:** two v1 shows were seeded into v2 — JOY and BVSC NY. Arch generated the SQL and then routed it *through model context* via the Supabase MCP tool: ~450KB for JOY, ~1.3MB for BVSC NY. Every chunk was read, held and re-emitted by a language model whose only contribution to those bytes was transport. The work was correct and the cost was near-total waste.
+
+**The change, standing from 2026-08-20:** bulk data is emitted to a **payload file**, executed by a **loader that runs where the network lives**, and verified with **one query**. The model writes the generator and reads the verification; it never carries the rows. `bvscny-load.mjs` is the reference implementation and is of record.
+
+**Three properties of that loader worth retaining, because each was learned the hard way in this session:**
+
+- **Privilege.** CC found that `service_role` holds no DML on any of the eleven tables. Arch **declined to grant it** — a security expansion for operational convenience is the wrong trade — and re-pointed the loader at `authenticated`, signing in as the project's owner with a hidden terminal prompt. This is the same privilege path the app itself uses every day, RLS enforced, no grant change. CC's follow-up question (*"were grants revoked?"*) was answered honestly: no; the earlier writes went through the MCP tool's own role.
+- **Idempotence.** Every row carries a deterministic v5 UUID and is sent with `Prefer: resolution=ignore-duplicates`, so a re-run inserts only what is missing.
+- **A 409 on a mixed batch must never be swallowed.** The first version treated any 409 as "already present" and returned — which **silently dropped two rows**. `Rent-Rehearsal-Adds`, a method named only on equipment rows, was never inserted because the generator emitted methods before walking the equipment sheet; the resulting FK violation came back as a 409 and vanished. The fix is two-part and both halves matter: the generator **pre-walks every row-bearing sheet** before emitting methods and categories, and the loader **splits a 409 batch recursively** so genuinely-new rows land, reporting any single row the server still refuses. Verification is a `count=exact` HEAD per table, expected against actual, with `box_details` counted through its parent embed since it carries no `project_id`.
+
+**The seeds of record.** **JOY** — loaded in replace mode at Daniel's ruling (*"a, replace test rows"*), box assignments backfilled from the v1 export (401 of 416 resolved; **none guessed**). **BVSC NY** — `projects.id = dcf27b06-832d-5aa5-b0dd-5688b07fc5d0`, orange, a full v1 show: 134 boxes **including 22 nested**, 1,119 cables, 71 bundles, 190 tails, 1,368 equipment rows with box assignments, 552 mult lines, 58 box types; 15 batches / 5,052 rows / 26 patches. **BVSC NY replaces JOY as the parity corpus for boxes, because JOY has no nesting at all** — the 22 nested boxes are the first time the two-form nested rendering, the parent-name substitution and the resolve-up truck could be *measured* rather than reasoned about.
+
+Two generator defects fixed along the way, both in both seeds: **FK ordering** (the project row must precede categories) and **a chunk splitter cutting a statement mid-literal**, fixed by emitting chunks statement-wise. JOY additionally needed color normalization (capitalized values against a lowercase `cable_color` domain), `'0'` handled as *no box*, and a row-index fallback for null HistoryIDs.
+
+---
+
+### Standing corrections — instances TWENTY, TWENTY-ONE and TWENTY-TWO, plus a new lesson that is not an instance
+
+- **TWENTY.** The leg-6 handoff claimed *"all `boxLabel: null` sites verified at source."* One was not: `FolderLabelsPrintClient`. **Shape: a completeness claim about a set, made without enumerating the set.** The family of instance eight — a precondition asserting a proxy rather than the property it cares about — but pointed at coverage rather than at a count.
+
+- **TWENTY-ONE.** AMEND-2's §A2 first asserted that the two Box List arbiters disagreed on orientation, and instructed CC to *"determine what drives it."* Measured: `v1_elephantshoes_boxlist_bytruck.pdf` is **792×612 — landscape too.** Both arbiters are landscape; there is no portrait sample and nothing to determine. **Arch asserted a page size it never measured** — the specific defect this project has a written rule against. Corrected in the handoff *before it was executed*, and the block rewritten to state the defect plainly rather than pose a question.
+
+  A second half of the same instance: in the same amendment Arch **inverted the panel's own properties**, attributing the border and corner radius to the grey panel when the Inspector shows they belong to the number field, the grey being a separate larger object. Caught on re-read of the frame.
+
+- **TWENTY-TWO, and it is a new shape.** Six evidence screenshots were **renamed by inference rather than by opening them.** Two turned out to be screenshots of CC's own terminal session; three of the remaining four were swapped with each other. **CC refused to commit them** — declining to put non-evidence into `docs/reference/evidence/boxes/` under a `v1_bvsc_layout_*` name that asserts it is a v1 artifact, and declining to rename Daniel's artifacts on its own authority. Arch then verified the set **independently** (brightness signature per file, plus a cropped-title composite read directly) and rebuilt it with `force: true`. On the corrected set CC re-read all six at source before staging and confirmed every name against its content, including the `Truck Manual` conditional-formatting dialog its earlier report had listed as missing — **so A1 is measured on both dialogs, and the absent-dialog fallback never fired.**
+
+  **Shape: a filing operation treated as clerical when it is an evidentiary one.** Every prior instance was a claim about a *surface* made without reading it; this is a claim about an *artifact's identity* made without opening it, and it is worse in one specific way — a misfiled evidence file does not fail loudly, it sits in the corpus asserting its own provenance until something is built on it. CC's refusal is the control that caught it, and the control worked because CC reads what it stages.
+
+- **A new lesson, deliberately NOT an Arch instance: an absence measured on one artifact is not a rule.** Leg 6 recorded that "the Box List has no project header," read off the Elephant Shoes arbiter alone. CC measured **both** artifacts and found the title at y65.8 in each. The reading was not careless — it was single-sampled, and a single sample can establish a presence but never an absence. Registered as a checking rule for print parity: **a negative parity claim requires two artifacts, or it is an open question.** This one is filed here rather than in the instance series because the handoff cited its evidence honestly; the defect is in the inference rule, not in the reading.
+
+---
+
+### The gate that could not confirm (R-AM)
+
+AMEND-3's confirming visual gate was attempted four times on Daniel's machine and produced three distinct failure modes:
+
+| # | dev server age | load | outcome |
+|---|---|---|---|
+| 1 | 2d 8h | 4.57 | fail-hard — frame-03, "Method sort button not found" |
+| 2 | 2d 8h | 4.50 | fail-hard — frame-07, DLGRACE |
+| 3 | fresh | 4.24 | **completed, 23/28** — five cold-start paint races |
+| 4 | ~10 min | 3.74 | fail-hard — frame-03, dark pass |
+
+**None of attempt 3's five failures is a real visual change.** Three are large, begin at `y=144` and run full width — the unpainted list-body row region, registry flake (5), recorded magnitude ~6.9% and measured 6.95% on `08-find-active-light`. The two small ones carry the Δ42 THEMERACE topbar signature. **Structurally they cannot be AMEND-3's:** the amendment touched `boxLabels.ts`, `BoxLabelsPrintClient.tsx`, their test and a docs file, and **no captured frame renders a print route**. **Nothing was written** — baselines stayed at 28 files, zero changes under `screenshots/`.
+
+**Ruled (Arch): accept the earlier 28/28 as AMEND-3's coverage.** It ran after all three items were complete; only two comment blocks followed it, and comments cannot move a frame. **Confirmation is deferred, not waived** — the gate re-runs at the top of the next session on a quiet machine and is reported as a standalone line. **If it comes back non-green when quiet, halt and measure rather than re-run**: that would mean the flake families are mis-scoped, which is a larger finding than this amendment. The phrasing of record is CC's and it is exact: *"What this blocks is confirmation, not coverage."*
+
+**DEV-SERVER-AGE gains its second supporting instance** and is registered: attempts 1 and 2 on a 2d 8h server both fail-hard; attempt 3 on a fresh server completes. Note the tension with `GATE-COUNTWAIT`, whose Aug-18 root-cause explicitly disproved dev-server age as the cause of capture-flake (3) using a failure against a 277ms-old server. **Both can be true**: age is not the cause of that flake, and age still correlates with fail-hard rate through a different mechanism. The row is registered as an observation with a proposed trigger, not as a diagnosis — and the proposed trigger is a **refusal**, not a warning, since a warning in a harness nobody watches is the `GATE-LOADPROXY` defect class again.
+
+---
+
+### Registered new this session
+
+**SED-GUARD** — a PreToolUse hard-block on bash-mediated writes to repo files; the SED LEDGER convention is currently a promise, and this session's returns kept it honestly, which is exactly when to install the mechanism. · **REPO-WEIGHT** — the evidence corpus is now 21 parity artifacts plus a dozen layout PNGs; needs a size policy before it needs one urgently. · **BUNDLE-FIND** — the Bundle List registers no find surface, which capped AMEND-1's Show Me narrowing at three classes of four. · **BOX-NUM-TYPE** — `199A`: v1 box numbers are text, v2's column is numeric; a schema decision, and the divergence is live in the printed output today. · **IMP-BOXCOL** — the importer does not carry Box on equipment rows; found while backfilling JOY. · **DEV-SERVER-AGE** — above. · **SENT-BUNDLE** — see below.
+
+**"Sent to bundle" — traced, and now needing one ruling rather than an investigation.** There is **no field of that name anywhere in the DDR**; the column header is a label over a checkbox bound to `Cable::Labeled` reached through the bundle. Daniel's meaning (2026-08-20): *"cables have been labeled and sent to the shop to be bundled."* So the state is real, and **v2 already stores it** as `cable_details.labeled` — the column is derivable, not missing, which means Daniel's *"if it doesn't appear anywhere, then we can deprecate"* condition is only half met. Two paths, neither built: derive it (checked when the bundle's member cables are labeled) or drop the column from the Contents output as a recorded divergence. **Until then v2 prints it empty — a known 80-for-80 mismatch.**
+
+---
+
+### What the leg did NOT close
+
+**The v2 re-print stands with Daniel, and it is the only thing that can confirm three amendments of parity work actually landed.** v2's five box outputs, printed at 100% from his desk, matching paper size and orientation, against the arbiters. Everything in AMEND-1/2/3 is confirmed by construction and by measurement of the *v1* side; none of it is confirmed against a v2 render. The **PDF evidence-class rule** stands and is why: output parity is print-to-PDF at 100% matching paper size — screenshots are for on-screen anatomy only.
+
+---
+
+### Completed units (retained for citation)
+
+- **S4-3 LEG 6 — COMPLETE 2026-08-21 at `8b078b2`.** The three box print chains + P5 (R-F) · box print parity across two v1 shows · the cable Box find (R-AI) · Show Me narrowing · Box List landscape · label anatomy rebuilt from the v1 layout (logo stretch · grey panel · box-color band per R-52 extended · no header/footer) · the top-slot rule `Length(Self) ≥ 12` and its two-field substitution · catalog open flag 7 closed in full (R-AJ + R-AK). Five commits, four rounds, 21 evidence artifacts.
+
+### WF1A datapoints
+
+CC **refused to stage six evidence files it had been instructed to stage**, having read them and found two were not v1 artifacts at all — the correct call, and it named the reason in the project's own terms (a recurring defect class of a catalog line assembled from the wrong source). It **declined to rename Daniel's artifacts on its own authority** and supplied a rename map instead. It **re-read all six at source on the corrected set** rather than trusting unchanged mtimes, stating the reason: a STOP condition had been attached to the check and it was the last gate before a permanent commit. It **measured both Box List arbiters** where the handoff had reasoned from one, and produced the single-artifact lesson. It **reported an unobservability as unobservable** rather than choosing and presenting the choice as measured, and pinned the unobservability by test. It **disclosed a commit-subject deviation unprompted** — the drafted subject's `>=12` parses as a shell redirect, so it committed with `≥ 12`, matching the symbol used throughout the code comments, and said so. It **honored the load gate throughout and never used `--force-load`**, across four failing attempts, when forcing would have produced a green line and a worthless one.
