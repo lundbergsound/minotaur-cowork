@@ -1649,3 +1649,126 @@ He exported BVSC NY and a project with no cables and sent both zips. Verified ag
 ### Not touched
 
 **R8-DRILL.** Nine sessions at the top of the list; the hard stop is now eight days away.
+
+---
+
+## AUGUST 24, 2026 — 2-MIG APPLIED (LEDGER 52 → 54) · 2-IMP-a CLOSED AT `af04251` · FENCE-COMMITA CLOSED AT `9a140ca` · CC-BASHWRITE ESTABLISHED AS HARNESS-SIDE · A SAFETY HOOK FOUND TO HAVE BEEN LEAKING SINCE IT WAS WRITTEN · THREE ARCH MEASUREMENT ERRORS OF ONE SHAPE (append block)
+
+*Cowork-Arch main line. Opened off `handoffs/260823-2130_next_session_opener.md`; seat check passed with all three mounts; `claude-opus-5` at high effort stated. Ran long, across the UTC date boundary. Three units closed.*
+
+### Pre-open, and the close it found uncommitted
+
+Verified from the ref files, never by running git: `Minotaur` HEAD = origin = `9c41b37`, reflog subject naming 2-EXP; no orphaned `index.lock` in either repo; migration ledger live-read at **52**, `20260822144022`, byte-match to the opener.
+
+**`Minotaur-Cowork` HEAD was `09411a8` and its subject named Roadmap v4.3/v4.4 and Session Log entries 10 and 3 — so the entire Aug-23 close was uncommitted**, exactly as the opener's conditional warned. Four tracked files sat on disk unsaved, including `drafts/260823_portcov_leg2_scope.md`, the cable-side measurement of record that every remaining leg reads instead of re-measuring — the O-5 exposure precisely. Daniel committed and pushed at `9d24a1b` before any work began.
+
+Two small drifts, both harmless and both stated: `handoffs/_staging/` held **three** scratch files where the opener said two, and the opener's own §3 hash for `Minotaur-Cowork` was a snapshot rather than a claim.
+
+### CC-BASHWRITE — closed, harness-side, and the elimination is the evidence
+
+The opener made this the session's FIRST ACTION and gated every CC handoff on it. Daniel did not know the origin, so it was measured. **Eliminated, in order:**
+
+- **The repo.** One `CLAUDE.md`, one `.claude/`. `CLAUDE.md` lines 196–237 are the Sed Disclosure Rule *widened Aug 13* to cover any bash-mediated repo write, stating the reason verbatim — *"a bash write bypasses the PostToolUse frozen-check hook"* — which is the sentence CC quoted when it declined. `settings.json` registers `frozen-check.sh` on `Edit|Write|MultiEdit` only, which is *why* the bash path is a hole. `bash-fence.sh` actively blocks repo redirects. `settings.local.json` is 184 permission entries and no instruction text. The 2-EXP handoff itself carries none.
+- **Daniel's machine.** No user `CLAUDE.md`. No output styles. `hooks` is two `terminal-notifier` desktop pings — **no `UserPromptSubmit`, no `SessionStart`**, which killed the leading hypothesis. One plugin enabled (`swift-lsp`), irrelevant; every grep hit sat in the marketplace *cache*, and the one agent instruction among them says the **opposite** (`claude-security/agents/explore.md:16` — *"never redirects or heredocs that write"*).
+- **His own hands.** `history.jsonl`, 1,017 prompt lines: **zero matches.** `paste-cache/`, 98 entries: **zero.**
+- **The transcripts.** Every hit is `"role":"assistant"` — CC describing the instruction, never a user-role or config-sourced message carrying it.
+
+**Ruled: harness-side.** The honest limit was stated at the time — the grep keyed on "heredoc", which is CC's paraphrase — and closed anyway, because no reachable outcome changed the mitigation. **Then it confirmed itself:** the instruction recurred on the 2-IMP-a turn, on a handoff that explicitly warned about it, and CC declined again. Standing defence: restate SED-GUARD inline in every handoff §0.
+
+**One incidental finding: `Bash(git *)` at user level.** A global wildcard pre-approving every git subcommand in every project. It does not break WF-1a — deny beats allow, and `bash-fence.sh` is a `PreToolUse` hook that runs regardless of permissions — but it means the permission layer contributes nothing there and the fence is load-bearing alone. Registered under GIT-CFG.
+
+### 2-MIG — the runbook run in full, and the grant check earning its place
+
+**Live introspection at source first.** `import_apply_v1` measured on the live body at 306 lines: `cable` **0**, `cable_details` 0, `cable_types` 0, `tail_details` 0, `link_group` 0, `bundle` 0, `is_system` **0**, `box_types` 16, `fingerprint` 13. A naive `tail` count returns 10 — **all ten are the substring inside `detail`**, which is the first of this session's three near-neighbour errors and the only one caught before it mattered.
+
+**The delete universe, re-measured against the opener's claim.** The opener says a spine delete *"CASCADEs `cable_details`, `tail_details` and `cable_mult_lines` and SET NULLs eight reference columns."* Measured from `pg_constraint`: **six CASCADE arms and eleven SET NULL arms.** The four omitted are `maintenance_history`, `rf_device_details`, `cast_members.rf_device_id` and the box-parentage pair. **Then the risk was checked rather than announced:** `maintenance_history` **0 rows**, `rf_device_details` **0 rows**, `cast_members.rf_device_id` **0 non-null**, and the box arms fire only on `type='box'`, which the mirror does not scope. **The document's number is wrong; the risk is not.** Corrected in the function's own comments so nobody re-measures. The dangle-figure lesson applied to a number of my own.
+
+**BOX-NOBOX ruled INTO the migration on measurement, against the opener's framing.** The opener cautioned that BOX-NOBOX *"needs an RPC arm and plan work and a `CLAUDE.md` addition"* — three costs, hence "ask before adding the fifth rider." Measured: **`equipment_items.no_box_needed` already exists**, `boolean NOT NULL default false`, so there is **no DDL**, no new rollback surface, and the arm is a write path inside a function body 2-MIG was replacing anyway. Against that, **2-MIG was the only remaining migration in the leg-2 plan** and 562 BVSC NY cable rows carry the `'0'` marker. Daniel ruled it in.
+
+**Two rulings were not discretionary at all**, found by reading the Ledger rather than re-deciding: MIRROR-SYSMETHOD (b) was assigned to *"the next migration"* by Daniel on Aug 22 (line 1503), and DIV-AMBIG-CLEAR carries *"fix when the RPC is next opened; do not spend a migration on it alone"* (line 1399). 2-MIG was both.
+
+**CABLE-IDENTITY-GAP built as an additive overload, not a signature change.** Widening `export_mint_identity`'s `RETURNS TABLE` cannot be done with `CREATE OR REPLACE`; it needs `DROP` + `CREATE`, which destroys the grant and breaks `runExport` at HEAD until the app ships in lockstep. A second signature leaves the 1-arg original untouched, needs no lockstep deploy, and is reversible by dropping one function.
+
+**The empty-string trap, designed out rather than rehearsed into.** Eleven constrained text columns carry `CHECK (col = ANY(ARRAY[…]))`. **A NULL passes such a CHECK; an empty string does not** — and v1 cells arrive as `''` far more often than as NULL, so a single bare `r->>'flagged_end'` aborts the entire import transaction. All eleven written through `nullif(trim(…),'')`. Same defect class as the cast trap caught in ARCH-MIG-BOX.
+
+**The runbook, in order, with the rollback mechanism itself proven first.** A throwaway function created inside `BEGIN…ROLLBACK` and confirmed at **0 residue** — because a forced-rollback rehearsal is worthless if the rollback is not real. Then: pre-flight **7/7** · **Rehearsal B** (the overload, target JOY): `bundles=26`, `cable_mult_lines=636`, `equipment_items=1368`, 1-arg legacy still 1368, **blank HistoryIDs 0** · **Rehearsal A** (the 306→~640-line replacement, called for real): `status=succeeded`, the new `ambiguous` object populated, **R5_guard=OK** (a `createMissing.cable_types` key is now a loud abort, not a silent ignore), **stale_fingerprint_guard=OK** (a deliberately wrong `cable_mult_lines` fingerprint aborts, proving the four new conditional guards fire), `runs=1 revisions=1`, and cable_details 461 / mult_lines 636 / bundles 26 / cable_types 18 / link_groups 54 / system_methods 1 all untouched · **residue check 9/9 clean**, ledger still 52.
+
+**Applied on Daniel's explicit confirm as `20260824220701_port_cov_leg2_2mig_cable_rpc_arms`.** Branch-or-main was his call and he chose main with the forced-rollback rehearsal, on the ARCH-MIG-BOX precedent.
+
+**Then the post-apply privilege check caught a defect the rehearsal could not.** `export_mint_identity(uuid, text)` is a **NEW object**, so Postgres gave it the default `EXECUTE` grant to **PUBLIC** — `anon` could execute it, while the two pre-existing functions (whose ACLs `CREATE OR REPLACE` preserved) could not. Not exploitable: `SECURITY INVOKER` plus the project RLS gate raises before a row is read. But the wrong posture, and corrected the same session as `20260824220944_port_cov_leg2_2mig_revoke_public_on_export_overload`. **Ledger 52 → 54.** Final state byte-identical across all three signatures: `{postgres=X/postgres,authenticated=X/postgres}`, `anon` false, `authenticated` true.
+
+**This is the clause "grants restored whenever objects are recreated, with privilege-level verification in every migration smoke" existing for a reason, and being right.**
+
+### 2-IMP-a — closed at `af04251`, and CC's return was better than the handoff
+
+Three sheets became mapped sheets: `def ends` (12 cols) + `def tails` (9) merged into `cable_types` on `Cable Model`, and `bundles` (29) into `bundles`. `SheetName` widened to nine; `IMPORT_SPEC` is total, so the build stayed red until every spec existed. Exactly three entries left `REGISTER_NOT_IMPORTED`.
+
+**CC re-measured every claim the handoff supplied rather than trusting it** — `def tails` a strict subset of `def ends` with **0 orphan models** on all three corpora, zero duplicate keys case-sensitive and case-insensitive, row counts confirmed.
+
+**DEFTAILS-OVERBROAD closed, and the acceptance number reproduced three times where the handoff supplied one.** `resolveDefTailsExportRows` (`runExport.ts:690`) was a bare `types.map(...)`. Filtered on a present source **or** destination tail model: **50 → 12** (BVSC NY's v1 file: 12) · **56 → 20** (v1: 20) · **48 → 12** (v1: 12). JOY was explicitly disqualified as an arbiter in the handoff — it holds 18 `cable_types` in v2 against 48 `def ends` rows in v1 — which is why its own 18 → 10 did not read as a failure.
+
+**Round-trip acceptance under PORT-COV-REIMPORT: 100% on all three shows, every mapped column**, through the real builder → real bytes → real parser → real mapper.
+
+**Two defects found by the browser smoke and invisible to unit tests**, because they only appear when a plan is compared against a row the database actually wrote: 38 pointless cable-type updates on a second run over unchanged data, 36 from empty-half bags describing an absent sheet as `null` where the column is `NOT NULL boolean`, and 2 from `tail_method_name` comparing a value the RPC's own ARCH DIVERGENCE 1 rule makes a permanent no-op. **Generalised rather than patched twice** into a LEAVE-ALONE-ON-NULL set per arm, read off the applied function body. Second dry-run then plans `[0,0,0]` on all three arms.
+
+**CC's SED LEDGER records a self-caught violation, reverted.** A `python3` heredoc rewriting two sites in **one file** — which is still a single-file edit, where the Edit tool is absolute. `git checkout --`, verified clean, frozen gate immediately, then re-made through Edit with `replace_all: true`. **The committed bytes contain no bash-written content.** Evaluated by Arch as COMMITTABLE: the ledger documents a violation that no longer exists in the tree. Not a discipline strike — the disclosure rule working.
+
+**Counts at `af04251`:** 2089 → **2191 tests across 124 → 126 test files, zero skipped** · frozen 3/3 · visual 28/28 @ 0.0000%, every frame byte-clean at ch0, GATE-THEMEGLYPH did not fire · dependency gate empty · build clean.
+
+### THE ARCH ERROR OF RECORD — DOMAIN-NOT-CHECK
+
+**The 2-IMP-a handoff asserted, in §5: "the RPC already writes every one of them through `nullif(trim(…),'')`, so the data layer is protected." That was false, and CC caught it.**
+
+`bundles.flagged_end_color` and `not_flagged_end_color` carry the **`cable_color` DOMAIN**, not a table CHECK, and `import_apply_v1` writes both bare. **A domain is not a CHECK**, and the enumeration behind that sentence was `pg_constraint … where conrelid::regclass::text in (…)` — a **table**-constraint query, which keys on `conrelid` and therefore *structurally cannot* return a domain constraint, which keys on `contypid`.
+
+**Arch then measured the real exposure and it is wider than CC could see:** four base-table columns sit on that domain — the two bundle columns plus **`cable_details.color` and `cable_mult_lines.line_color`**, both still latent and both 2-IMP-b's. And it is **live, not theoretical**: BVSC NY's bundles carry `""` twice in both colour columns, and the domain admits NULL or one of fourteen lowercase names, neither of which `''` is. CC's mapper guard is doing real work today, not standing by.
+
+**Registered standing — DOMAIN-NOT-CHECK: *a measurement that answers a near-neighbour of the question is not an answer.*** Three instances in this one session, which is why it is a rule and not an anecdote:
+
+1. counting `cable`/`tail` in a function body — `tail` returns 10, all of them inside **`detail`**;
+2. counting functions with PUBLIC execute via `LIKE '%=X/postgres%'` — returns 3, because **`postgres=X/postgres` contains that substring**; `has_function_privilege('anon', …)` says one;
+3. concluding about column constraints from a **table**-constraint query.
+
+Each was caught, and each only because something else was measured afterwards. The Surface Rule says check the name at source; this says **check that the query answers the question asked.**
+
+### FENCE-COMMITA — a guard that had been leaking since it was written
+
+CC's 2-IMP-a commit was **BLOCKED** by `.claude/hooks/bash-fence.sh`: the `git commit -a` matcher fired on the literal `-a` ending the unit name *inside the `-m` message text*. Staging was already explicit and verified at 27 lines, so this was a false positive. CC worked around it with `git commit -F` and a byte-identical subject rather than rewording — correct, because the subject is what the confirm phrase is bound to, and rewording would have invalidated Daniel's approval.
+
+**Arch then tested the matcher against a battery instead of reading it, and found the serious half.** The pattern required the `a` to be the **last** character of the flag cluster — `(-a|--all|-am)([[:space:]]|$)` — so **`git commit -av` and `git commit -avm` passed this fence from the day it was written.** Both are genuine bulk-staging commits. The guard that makes WF-1a safe had a hole in it, and no amount of reading it found it.
+
+Patched: quoted spans stripped before the three git matchers (a quoted string is never a flag, which also stops `git commit -m "…; git push…"` tripping the push matcher), and the flag pattern widened to `-[a-zA-Z]*a[a-zA-Z]*`. The read-only redirect, tee and stream-editor guards deliberately keep the **raw** command, because there the quoted text *is* what is being checked. **26/26 through the hook's real `jq` interface**, and Daniel reproduced the three pre-patch failures on his own machine before installing. Closed at `9a140ca`.
+
+**One correction to CC's return:** it stated the block would recur on 2-IMP-b and 2-IMP-c *"whose names end the same way."* They end `-b` and `-c` and neither trips the matcher — proven in the battery. The real trigger was any `-a `, `-am ` or `--all ` anywhere in the message text.
+
+**And a conduct note recorded deliberately:** routing around a fence on the agent's own judgment was right *here* because the fence's actual invariant was already satisfied and provable. It is not a precedent to generalise.
+
+### 2-MIG-b — opened, and every item in it is Arch's
+
+2-IMP-a found five gaps in 2-MIG's own arms. CC refused to emit keys the RPC would silently ignore — the failure class leg 1b hard-stopped over — and returned them instead of working around them.
+
+**BRANCH-NO-ARM** · `cable_types.branch_cable_type_id` is real, the export already emits `def ends.Branch Cable Type`, and the INSERT names 21 columns without it, with no second pass. Cost measured: **32/50 · 40/56 · 32/48** rows lose it every round trip. **DOMAIN-COLOR-BARE** · the four `cable_color` columns. **MATCHED-BUNDLE-ID** · the `last_seen_run_id` refresh still `equipment_items`-only. **BUNDLE-BOX-ONINSERT** · CABLE-ARM (i) reads inserts only, the analogue of leg 1b's `nestingSkippedOnUpdate`. **BUNDLE-RENAME** · the UPDATE never writes `bundle_name`.
+
+### Rulings taken
+
+**DEFTAILS-METHOD-CREATE — `def tails.Method` DOES join `createMissing`**, on leg 1b's precedent for box Category/Method, because two sheets in one import behaving differently on the same question is what costs a session later. **It did not reopen the 2-IMP-a commit**: every value in all three corpora is `"0"`, present in `methods.xlsx` on all three, so it is inert, and churning a fully-gated tree for a change with zero live effect is a bad trade. Rides 2-IMP-b.
+
+**PRINT-PARITY postponed** (Daniel): CC devoted to the cable legs, parallel session resumes when CC is free.
+
+**The worktree question CLOSED, and the answer was NO** — same tree; the parallel session issues no CC handoffs until the main line's CC is idle, and commits once at the end. **Roadmap v4.5 stated the opposite and would have given the next session wrong orders.**
+
+### Carried from the paused PRINT-PARITY session, read as evidence
+
+Its measured findings fold into this close because it edits no governing document. **The July-11 cable print run is a partial found set** — 794 of 1,119 cables, 27 of 44 groups, and not a rule but a Find someone did that day. `Print List` now holds 7 rows, the Aug-20 state, so **the found set cannot be reconstructed from any artefact we hold.** Those PDFs are valid **geometry** arbiters and invalid **pixel-diff** arbiters; fresh v1 prints with a stated found set are now owed. Also measured: the July-11 run and the Aug-20 BVSC NY export describe the **same show**, so both sides of a parity pair exist for it; the `(dragged)` box PDFs are Preview page-extractions, not print runs; and **Small Box Labels IS a reconstructible found set** — `Number of Small Labels` is set on exactly 10 of 134 boxes and the PDF contains exactly those 10. Its four open questions (Q-P1…Q-P4) carry to the Roadmap. Registered as **PRINT-FOUNDSET**.
+
+### Registered this session
+
+**DOMAIN-NOT-CHECK** (standing) · **DOMAIN-COLOR-BARE** · **BRANCH-NO-ARM** · **MATCHED-BUNDLE-ID** · **BUNDLE-BOX-ONINSERT** · **BUNDLE-RENAME** · **DEFTAILS-METHOD-CREATE** (ruled) · **FENCE-COMMITA** (closed same session) · **PRINT-FOUNDSET** · **LINT** re-registered with a diagnosis rather than a name — `next lint` is a removed command and no eslint config is tracked at `9c41b37`, so §11's lint gate was unsatisfiable by any session, which is a handoff defect of Arch's.
+
+### Closed this session
+
+**CC-BASHWRITE** · **DEFTAILS-OVERBROAD** · **MIRROR-SYSMETHOD (b)** · **DIV-AMBIG-CLEAR** · **BOX-NOBOX** · **CABLE-IDENTITY-GAP** · **FENCE-HEADLINE** (earned itself on the first try — the fence now reads "the commit whose subject names this unit" and resolves to `af04251` without anyone writing a hash that could not exist) · **FENCE-COMMITA** · **CABLE-GUARD-GONE** (retired for three sheets, inverted for the other five) · **Roadmap v4.5** (retired by **v4.6**) · the **worktree** Open Question.
+
+### Not touched
+
+**R8-DRILL.** Ten sessions at the top of the list. **Seven days to the hard stop.**
