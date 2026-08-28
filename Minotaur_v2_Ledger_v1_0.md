@@ -1916,3 +1916,241 @@ Its measured findings fold into this close because it edits no governing documen
 **The lineage recovered.** Daniel supplied **v15–v26** (v20 does not survive; **the file named v21 self-titles "v19.1"** — the H1/filename rule exists because of it); filed beside v27–v32 on the mount. Audit of record: `drafts/260827_arch_prompt_lineage_audit.md`. **Four lineage restorations ride v33:** the full hard-stop mirror — destructive ops · credentials/secrets/money · the **OS-permission/OAuth dialog trigger** — which the prompt's inline list had mirrored SHORT since the v25→v26 cut while `CLAUDE.md`'s contract never lapsed (verified at source, `CLAUDE.md:152–186`) · "without optimizing" on the simple-fix exception (lost v25→v26) · close-package files named to match the file each replaces (eroded v16→v17) · the checkable success-condition examples (lost v19→v21). **Left on Daniel's desk:** restoring "two pastes, not twenty" to the Arch prompt (it survives at `CLAUDE.md:188`); a CC plain-language two-sentence project summary, which would ride the next `CLAUDE.md` touch.
 
 **Propagation, grepped not remembered:** live documents naming v32 were the Roadmap (→ **v4.10 installed, retiring v4.9** — governing-set lines and lineage row only), the Session Log header (updated at this close), and this Ledger's lineage (append-only, exempt). `CLAUDE.md` cites "Arch Prompt v30" twice as historical install provenance — history, exempt, unchanged.
+
+---
+
+## 2026-08-27 (afternoon) — M0-WIRE SHIPPED AT `df42fb0` · FOLDER-NABOX RULED AND PROVEN ON PAPER · R8-DRILL CLOSED · PRINT-CLIP AND ORIENT-FIXFAILED CONFIRMED IN PRINTED ARTIFACTS · THREE ARCH ERRORS, ALL CAUGHT DOWNSTREAM (append block)
+
+**Session shape, recorded because it is the exception the rules describe.** This session opened as a **parallel** on CC's CABLE-C1 return, was **overruled by Daniel into issuing a CC handoff**, and was then designated the **main line** mid-session after the R8 and governance sessions closed. It ran under **Arch v32 until 13:53**, when v33 and Roadmap v4.10 were installed by the governance session three minutes after this session's CC handoff was written. **Measured, so the overlap is not mistaken for staleness: v33 landed at 13:53:51Z, Roadmap v4.10 at 13:54:02Z; the M0-WIRE handoff was written at 13:50.** Nothing was stale when it was used.
+
+### M0-WIRE — the unit, and why it spans two Roadmap rows
+
+**The defect was never in the printing code.** v1 wrote two meanings as the character `0` — Method `0` (*labels-only, keep off the printed lists*) and Box `0` (*deliberately needs no box*). **P12 / M0-WIN gave both a home in v2 and the SERVER WAS ALREADY BUILT FOR THEM** — `import_apply_v1` carries `no_box_needed` at lines 315/319/328/345 under a comment naming v1's `Box = "0"` marker, and resolves the method by NAME with no `is_system` exclusion. **The client never sent either.**
+
+**The contract, quoted from the module that owns it** (`src/lib/equipment/naSystem.ts:20-24`): *"P12 requires it to be ONE predicate shared by the commit path, the find path, and the v1 import path — three implementations would drift. `isNaAlias` is that predicate; every one of those paths must call it rather than testing for '0' inline."* **Measured at HEAD: `isNaAlias` had exactly ONE non-test consumer** (`EquipmentListClient.tsx:854`, the commit path). The import path did not call it; the find path did not call it; and `cableDocs.ts:92` was the inline `'0'` test the module forbids. **A ruling decided, a module built, and two of its three required consumers never wired.**
+
+**Damage at the time of measurement, BVSC NY:** `N/A - Labels Only` existed with **0 members** while 561 cables + 74 tails sat at `method_id = NULL`; `no_box_needed` was **true on 0 of 1,119** cables where v1 marks 562.
+
+**Shipped at `df42fb0`** (`0468a5d..df42fb0`, 28 files, 26 modified + 2 new). **No migration.** Import counts through the real mappers: 561 · 74 · 4 · 4 · 2 N/A methods, **zero rows carrying the literal `'0'`**; 562 no-box cables, 489 boxed over 22 distinct boxes, 68 with neither. Builder targets **all eight met exactly**: 558 cable rows · 27 group sections · 190 tail sub-lines · 748 printed lines · 116 tails · 116 by model · 24 folder cells · **984 Tail Line Labels UNMOVED**. Gates: build clean · typecheck clean · suite **2398/133 zero skipped** · frozen 3/3 vs `be0769de` · dependency 0 diff lines · visual 28/28 @ 0.0000% · throwaway smoke passed with a negative control. **`git push` refused in both layers; the push was Daniel's paste. FENCE-PUSH stands.**
+
+**Two structural decisions forced by existing contracts, recorded because they will look arbitrary later.** `no_box_needed` rides the **OP projections only, never the FROZEN hash projections** — adding a fifteenth key to `equipmentRowTargetValues` would move every stored `row_hash` in both importers. And `noBoxNeeded` is **OPTIONAL on `MappedEquipmentRow`**: the v1 mirror always has an opinion, a workbook has no Box column and must not touch it — **a blanket `false` from the workbook path would have silently un-marked every no-box row a v1 import had set.**
+
+### FOLDER-NABOX — RULED, and proven on paper the same day
+
+**Daniel's ruling (2026-08-27), taken on two rendered sheets over live BVSC NY data:** Cable Folder Labels By-Box enumerates distinct `(box number, box name)` over the **CABLES**, never the box registry, and prints **24 cells** — 22 real boxes, a `No Box` cell (68 cables not yet boxed), and a **separate** `N/A - No Box Needed` cell (562 marked as needing none). **The two no-box populations DO NOT MERGE. This RETIRES the OQ1 no-box rider**, whose old text was propagated at four sites in the same commit (`s3g_census.md:27` · `cableLabels.ts` header · `buildFolderCells`'s comment · `FolderLabelsPrintClient.tsx:12`), with `cableLabels.test.ts:170` **rewritten into five tests, not deleted.**
+
+**Proven from the PDF itself, not a screenshot:** 24 cells, 22 numbered boxes ending `Box 310 Prosc Speakers`, then `No Box`, then `N/A - No Box Needed`.
+
+**Left unruled and now an Open Question: the ORDER.** v1 fills column-major with the no-box cells FIRST (slot 1 blank, slot 2 `Box`/`0`), 10 rows × 3; v2 fills row-major with them LAST, 8 rows × 3. **The count was ruled; the order was not, and the Parity Rule names ordering as UX-affecting.** On peel-and-stick sheets position decides which physical label a box gets.
+
+### PRINT-CLIP and ORIENT-FIXFAILED — both confirmed in printed artifacts
+
+**The pattern predicted from code was demonstrated on paper.** The one output that paginates by **exact integer slice** matched to the digit (Folder Labels 24/24); the two that paginate by **estimated height into a fixed-height clipping page** are both short — **Cable Checklist 150 tail lines on paper vs 190 from the builder; Tail Checklist 107 vs 116.** Selection is proven correct: the group spine landed at exactly **27**. **Residuals of record: 40 and 9.**
+
+**ORIENT-FIXFAILED, first measured in a printed artifact:** the Tail Checklist PDF is 612×792 **portrait with 1,779 of 1,779 characters non-upright** — text extracts reversed (`5 tseT tropmI` for *Import Test 5*).
+
+**Sequencing consequence, owned rather than defended.** The cable family was scoped selectors → orientation → geometry, and M0-WIRE's §1 excluded page size, orientation, pitch and layout. The reasoning holds — geometry corrected against the wrong rows gets redone. **What Arch got wrong was what was SAID: Daniel was asked to print four documents and check numbers, and was never told plainly that the output would be correct in content and unusable as paper until pass 3.** Registered as the reason **orientation is pulled ahead of geometry.**
+
+### STECK-ZERO CONFIRMED, and a Session Log claim contradicted
+
+**BVSC NY was NOT run through the import engine.** Its `import_identity_map` holds **2,811 rows: 0 with `v1_history_id`, 0 with `row_hash`, 2,811 with `assigned_history_id`.** A v1 re-import into it plans **1119 INSERTS**, not updates, and would have doubled the show. **STECK-ZERO's hypothesis is promoted from suspicion to measurement.**
+
+**⚠ And it contradicts a load-bearing carried figure.** The Session Log's EXPORT-HISTID-DROP line states *"all 1,119 carry an identity row live (1,112 v1 + 7 assigned)."* **Measured: 0 v1, 2,811 assigned.** That figure is what the *"a join that misses, not a slice"* attribution rests on. **EXPORT-HISTID-DROP's diagnosis is now UNPROVEN rather than wrong, and must be re-measured before that unit is designed.** Propagated at this close to the Roadmap docket and the Session Log header.
+
+### R8-DRILL CLOSED — and the plan changed mid-drill
+
+Discharged after thirteen sessions at the top of the list. **Daniel upgraded Free → Pro during the drill**, so the runbook's premise inverted and **Path C was never run and is not owed.** Restore **proven by measurement, not asserted**: a restore-to-new-project from the 14:50 backup came back short by exactly **twice one BVSC NY corpus** — the two full imports run after the backup — and `link_group_members` at **210**, the pre-2-IMP-c orphan figure. **Two unrelated clocks agreeing on the backup's age is what makes it a proof.** F2 Y (8 daily, all COMPLETED) · F3 N · **F4 7 days** · F5 PROVEN, ~5 minutes · F5b retired · F6 artifact removed, verified by listing · F7 5 objects / 2.82 MB · **F8 N by design** · **F9 NO COVERAGE TODAY** — DEEP-ARCHIVE scoped, a manual monthly download ruled out.
+
+**F8 stated properly:** the restore brings back the **record** of the images, not the images. `storage.objects` restored 5 rows and `storage.buckets` 1; the files did not. **A recovered Minotaur would list five images and serve five broken links with nothing in the interface saying so.** Small today; bad in shape — a gap that presents as intact cannot be planned around.
+
+**LEGAL-SEP rider:** the attorney's 7-day deleted-data persistence window is a **legal parameter**, and DEEP-ARCHIVE extends it to the archive's retention. It goes on the September agenda **before** the archive is built.
+
+### SPENDCAP-BETA — RULED, and Arch's first framing was wrong
+
+**Daniel: keep the spend cap ON.** Verified at source: with the cap on, exceeding a covered item's quota **disallows further use of that item until the next billing cycle** — it is not billed. **Compute, branching/read-replica compute, custom domains, disk IOPS, IPv4, log drains, MFA phone and POINT-IN-TIME RECOVERY are EXCLUDED and bill regardless.** Sustained overage escalates under Fair Use to paused projects, read-only mode, and a 402 on every API request.
+
+**Arch's error, corrected in the same session:** the outage mechanism was real but was put to Daniel as a live risk **before the headroom was measured.** Measured: database **34 MB / 8 GB (~0.4%)** · storage **2.82 MB / 100 GB** · **12** users against a 100,000 MAU quota. **Nothing is within orders of magnitude.** Two facts of record corrected with it: **there is ONE Supabase project** — the "27 projects" are rows in the app's own `projects` table, so PROJ-CLEAN-2's leftovers cost rows, not money — and the teardown corroborates itself live, `equipment_items` now **6,904** and `projects` **27**, exactly R8's production figures minus the three Import Tests.
+
+### GRANT-TRUNCATE — found while measuring what blocks automated verification
+
+Measured from `information_schema.role_table_grants`: **`anon` holds TRUNCATE on 10 objects and SELECT on 0**; **`service_role` holds TRUNCATE on 35 — including `projects`, `profiles`, `waitlist_signups` — and SELECT on 2.** **TRUNCATE is not filtered by RLS**, so on these tables the grant is the entire control. **`anon` with TRUNCATE on ten objects and SELECT on none cannot be an intentional grant** — it is residue of the class Engineering Standards names. **Reachability NOT measured and not asserted**: no REST verb exposes TRUNCATE, so there is likely no path from the publishable key — *likely* is a reading, not a clearance. **Trigger B; rides the next migration with HARNESS-READ, whose smoke verifies privilege level.**
+
+### THREE ARCH ERRORS, ALL CAUGHT DOWNSTREAM — recorded because the pattern is one shape
+
+1. **`spec.ts:461` cited as a cable site.** It is `BUNDLES_MAPPED`; the cable box column is `Box Manually Added` at `:551`. Caught by CC. No measurement moved.
+2. **"Re-import into BVSC NY — the rows will match on HistoryID."** Taken from the Session Log's claim, **not measured.** The dry-run checkpoint Arch itself had written caught it at 1119 inserts, before anything was written.
+3. **`lines.xlsx` excluded from the fixture file list as "0 rows."** The zero came from a report where the file was not selected; it holds **552 rows**, and they are what the Tail Line Labels guard is built from. Caught before the apply.
+
+**All three are the Surface Rule (O-2): a number or an anchor taken from a document instead of from the thing itself.** Two were caught by guards Arch had written, which is the guard working and not an excuse for the instruction.
+
+### Registered this session
+
+**PRINT-CLIP** · **ORIENT-FIXFAILED promoted** (page-container unit, checkpoint 1) · **BUNDLE-NA-UNTESTED** · **EXPORT-CARRIES-STATE** (standing rule: a unit that creates state must prove the export can carry it) · **CONTRAST-PAIR** (Daniel's ruling: no white text on yellow; root cause is one hardcoded `#fff`, and eight of fourteen palette colours want black text) · **WAITLIST-NOTIFY** (Trigger A) · **GRANT-TRUNCATE** · **HARNESS-READ** · **SPENDCAP-BETA** · **HARNESS-SED-EDIT** (a harness instruction told CC to edit via `sed`, bypassing the frozen-check hook; **CC declined, correctly**) · **the `0` vocabulary-row fold**, reported not fixed as scoped · **DEEP-ARCHIVE** · the **packed-refs** trap under GIT-CFG.
+
+**Two docket triggers fired on M0-WIRE and did not make it in** — `LINKJOIN-FENCE` (*"next touch of the import mappers"*) and `CLAUDE-HARNESS-STALE` (*"rides the next handoff"*). Neither justified interrupting a running CC; the second could not be done regardless, since **Arch writes nothing to the repo while CC is live.** Both ride the page-container handoff.
+
+## 2026-08-28 — PRINT-CLIP AT `eaabd03` AND BOX-PRINT-CLIP AT `ff82281`, BOTH PROVEN ON PAPER · THE ESTIMATE PAGINATOR DELETED FROM THE CODEBASE · ORIENT-FIXFAILED CLOSED WITH NO CODE CHANGE · PDF-CHROME-PATH REGISTERED · Q-4 RULED AND WIDENED TO SEVEN OUTPUTS · CABLE-SPLIT FOUND MISSING AND HALTED AT TRIGGER A (append block)
+
+### ORIENT-FIXFAILED — closed with no code change, and the fix was never wrong
+
+The opener's one untested lead died first. `PrintEquipmentListClient.tsx:912`'s second top-level `@page { size: letter portrait }` is mounted by exactly one loader (`PrintPageLoader`), mounted by exactly one route (`/equipment/print`). No cable route reaches it; no layout mounts it. Across all of `src/` there are **four** `@page` occurrences and two are comments, so on a cable route the only page rule in the document is `docChrome.tsx:222`. `globals.css` (582 lines) carries no `@page` and no print block. The three landscape outputs pass `landscape` to **both** `DocPrintCss` and `DocPage`, and no page-level rotation exists — the two `rotate` / `writing-mode: vertical-rl` sites are per-element cell decorations in the label outputs, and the measured artifact is the Tail Checklist, which has neither.
+
+Then the artifacts named the culprit. Eleven of Daniel's 2026-08-26 production prints — eight cable, three box — are **every one 612×792 portrait**, and every one carries `/Producer: macOS Version 15.7.3 (Build 24G419)` with `/Creator: Chrome Helper`. That producer is **Quartz**, the macOS print system, with Chrome as the calling application only; Chrome's own PDF writer stamps `Skia/PDF`. On the Quartz path the paper comes from macOS page setup and **the CSS `@page size` rule is discarded** — which is precisely the boundary `docChrome.tsx:214-221`'s own comment draws when it says the explicit-dimensions fix holds *"on the dialog-default path."*
+
+**The corroboration is the box family.** It printed through the same pipeline, on the same machine, in the same hour, and came out correct — because every box output is **portrait**. Only the landscape-declaring outputs are damaged. That is the signature a fixed portrait paper predicts and is not what a defect in the orientation flag would produce.
+
+Daniel's reprint through Chrome's own Save-as-PDF destination settled it in one run: **792 × 612 landscape, `/Producer: Skia/PDF m151`, 8,445 of 8,445 characters upright**, text extracting forward (`Import Test 5`, not `5 tseT tropmI`), against **1,779 of 1,779 non-upright** the day before. The dialog screenshot records Paper size **Letter** (not "Default") and Chrome still derived landscape from the app's rule — so the paper selector was never the problem; the **destination** was.
+
+**`docChrome.tsx:209-222` is correct and always was. The fix did not fail; it was never exercised.** This is the fourth instance of *test the guard, do not read it*, and the sharpest: three sessions read a fix, saw a symptom its own comment described, and concluded the fix had failed. Nobody had asked what wrote the file.
+
+### PDF-CHROME-PATH — a new standing rule, and it invalidates evidence
+
+A v1↔v2 parity print is valid evidence **only** when produced through **Chrome's own Save-as-PDF destination**. The print dialog's *"Open PDF in Preview"* and *"Print using system dialog…"* hatches route through Quartz, which discards the page-size rule; an artifact so produced measures the operating system, not the app.
+
+**Cost, stated rather than glossed: every landscape artifact in the corpus taken before 2026-08-27 is invalid as an orientation or geometry arbiter.** The box family is unaffected — every box output is portrait, nothing rotated — so PRINT-PARITY unit 1's 0.63 pt stands.
+
+Two things were measured in passing and are recorded so they are not re-litigated. **PRINT-CLIP survives orientation:** the correctly-oriented reprint carries **107** tail rows, the identical figure the rotated run gave, so the clipping is DOM-level. That converted an Arch argument into a number. And **"Background graphics" unchecked does not matter:** page 1 carries 8 distinct filled-rect colours including Minotaur Red at `#D80B00`, so `print-color-adjust: exact` is holding.
+
+### The pedigree for the fix — v1 flows and pushes, measured
+
+Measured with `pdfplumber` against the v1 arbiters on the mount:
+
+- `Tail Checklist.pdf` — **792 × 612 landscape**, 7 pages, rows per page **24, 25, 24, 28, 24, 24, 18**, every page's lowest character at `bottom = 582.5` of 612, zero non-upright.
+- `Cable Checklist by Group.pdf` — **612 × 792 portrait**, 54 pages, lines per page 53, 53, **14**, 53, 57, 52, 55, **4**, …, every page's lowest character at `746.5` of 792, zero non-upright.
+
+**v1 flows and pushes; it never clips.** Variable fill, short pages at section boundaries, a constant bottom margin never crossed by a glyph. Two confirmations fell out: v1's Tail Checklist is landscape and its Cable Checklist is portrait, **matching v2's declared orientations exactly**.
+
+### The ruling — measure, do not re-tune the estimate
+
+`.print-page` is a **fixed pixel box** — 816 × 1056 or 1056 × 816 — in the on-screen preview and in the printed output alike, with nothing about it paper-relative. **So a DOM measurement of what fits on screen IS what fits on paper.** That property, and not a general preference for measurement over estimation, is what makes deleting the estimate the right fix here rather than a fragile one.
+
+An alternative was argued and **rejected in writing so it is not re-proposed**: let the browser paginate one continuous flow with `break-inside: avoid` and no JS paginator, which is effectively what FileMaker does and could never clip. Chrome supports per-page running headers and `counter(page)` only inside `@page` margin boxes, which it does not implement, so every page's header and its "Page N of M" would be lost — a parity regression traded for a correctness fix, plus the on-screen page preview.
+
+### PRINT-CLIP — closed at `eaabd03`, and the paginator was never the thing losing rows
+
+`df42fb0..eaabd03`, 8 files, +929/−59. CC measured the defect before touching it, on a throwaway project built and destroyed in-run (30 groups, 90 cables, 15 bundles, 180 tails, multi-line public notes):
+
+- Cable Checklist **149 blocks, 125 visible, 24 CLIPPED** · 180 tail lines, 158 visible, **22 CLIPPED**
+- Tail Checklist **182 blocks, 151 visible, 31 CLIPPED** · 180 tail lines, 156 visible, **24 CLIPPED**
+
+On every clipping page the rendered content measured **1,094–1,167 px against a flow box of 909**. **The paginator was placing every block — it is a pure partition and loses nothing.** The surplus rendered past a fixed box whose overflow is hidden. Run twice before any change, byte-identical: the defect is deterministic, not intermittent.
+
+After: **zero clipped on both**, with `contentH === flowH` on every page (909 portrait, 652 landscape). Pagination now runs against DOM-measured heights — `src/lib/print/measuredPagination.ts` (pure: conservation, order, fit, oversize blocks **reported** rather than swallowed, bounded reflow throwing loudly at `MAX_REFLOW_ITERATIONS = 8`) and `src/components/print-cable/useMeasuredPages.tsx` (renders the same block renderer once as one off-screen page, reads the flow container's `clientHeight` as true capacity and each block's top-to-next-top **advance**, so vertical margins are included). All five constants deleted — `H_GROUP`, `H_BAND`, `H_LOOSE`, the `30 + tails×13 + noteLines×12` cost, `PAGE_CAPACITY`'s `120`, `ROWS_PER_PAGE`'s `24`, the `1.4` model-head cost — grep-proven, none retained. `overflow: hidden` stays at both sites as a backstop that never fires.
+
+Suite **2398/133 → 2428/135** (+27 pagination tests, +3 fence). Frozen 3/3, typecheck 0, dependency gate 0, build clean. Page counts rose 11→13 and 8→10, which is the lost content needing real pages.
+
+**Why `clientHeight` is the true capacity, checked rather than assumed:** the flow container is `flex: 1` with `overflow: hidden`, and a flex item whose overflow is not `visible` has an automatic minimum size of 0 — so it takes the leftover space instead of growing to its content.
+
+### The printed proof — 190 of 190, and the forty rows are back
+
+BVSC NY, printed by Daniel from the deployed build through Chrome's own Save-as-PDF:
+
+- **Cable Checklist**: 612 × 792 portrait, 67 pages, 32 group sections, **190 of 190 tail lines**, 87,215 characters, **zero non-upright**.
+- **Tail Checklist**: 792 × 612 landscape, 11 pages, 8 model sections, **190 of 190 tail lines**, 12,522 characters, **zero non-upright**.
+- Denominator live-read from the database rather than carried: BVSC NY holds **190 `tail_details`** (with 1,119 cables, 552 mult lines, 71 bundles).
+- The prior measurement on this show's data was **150 on paper against 190**. **The forty rows are back.**
+- Every page tops at `16.8` and bottoms at `776.2` — a constant margin, nothing past the edge, which is v1's own signature.
+
+One pass-3 input surfaced and is recorded as an input rather than a defect: **v2's Cable Checklist bottom margin is ~16 pt where v1's is ~45 pt.** That is geometry.
+
+### GATE-METHODRACE — the visual gate is blocked, and the tree is eliminated
+
+`scripts/visual-capture.mjs --gate` fail-hards mid-capture at *"[light] equipment list: Method sort button not found"*. Reproduced 3× on CC's working tree at loads 4.27 / 4.01 / 3.88, then **reproduced at HEAD `df42fb0` with the working tree stashed, at load 3.70** — all under the 5.00 ceiling, all on a freshly spawned dev server, so it is neither the load gate nor the stale-server flake.
+
+**Arch's sharper reading, from the record rather than from another run: the gate ran 28/28 at `df42fb0` on the afternoon of 2026-08-27 and fails at `df42fb0` now.** The same commit by hash. The cause is therefore environmental and the tree is **eliminated**, not merely exonerated.
+
+The button demonstrably exists — a direct probe found the toolbar rendering `category · group · method · box` with 45 `data-equip-field` nodes after a 4 s settle. The harness queries it immediately after capturing frame 02 with **no wait**, at `visual-capture.mjs:425`, so it reads as a race against the dev-server compile or the query resolve. **That diagnosis is not confirmed.** CC did **not** use `--force-load` (GATE-LOAD-AUDIO) and did **not** raise `GATE_MAX_LOAD`, which would have been the same weakening under another name.
+
+**AND ON 2026-08-28 IT DID NOT REPRODUCE.** Frame 03 captured cleanly on all three runs of the BOX-PRINT-CLIP session. Sharper: the Aug-27 failures happened at loads **3.70–4.27** and the Aug-28 clean captures at **4.91** and **2.85**, so **machine load is NOT the variable** and the most obvious hypothesis is dead before a session is spent on it. **Arch told Daniel this blocked every unit; it did not. The correction is recorded.** GATE-METHODRACE survives as a real intermittent harness defect, no longer a blocker.
+
+**Arch accepted PRINT-CLIP with the gate owed, against CC's own recommendation, and Daniel ruled it in.** The argument was structural and measured: none of the fourteen captured frames renders a cable print route, CC grep-proved that nothing it changed is reachable from the equipment route, no baseline was written by any run, and the gate fails identically at HEAD. Against that, holding a fix for a document a crew works from — one that was silently deleting rows — while a *harness* race is diagnosed is the wrong trade. **The override is recorded, not hidden.** Promoted out of BATCH-HARNESS because it now blocks every unit.
+
+### BOX-PRINT-CLIP — CLOSED at `ff82281`, and the class is retired with it
+
+Taken inside the same session at Daniel's direction. Measured before touching, on a 60-box throwaway corpus built and destroyed in-run: **Box Contents 15 of 395 blocks lost across 6 of 66 pages; Box List 2 of 60 rows lost on the by-Type sort.**
+
+**Two root causes, both sharper than "the estimate was off."** The Contents client reserved a flat `H_IDENTITY = 118` px for a per-page identity header whose measured content box ranges **691 to 823 px** — one constant wrong for every box but one, with `PAGE_CAPACITY` at 862 while every page in the corpus had less room than that. And the Box List was wrong **in both directions at once**: it over-reserved chrome by ~47 px while under-costing a notes-wrapping row by ~15 px each, and the two errors mostly cancelled — which is why three of four sorts survived and the fourth did not, and why the surviving by-truck pages measured **633.63 against 648, a 14 px margin**. **Registered standing: an estimate that is right by cancellation is not right.**
+
+After: **zero lost on both**, and pages packing 19/13/16/12 rows where the estimate forced a flat 15/15/15/15. The truck break is now **structural rather than remembered** — pagination runs per section, so no page can hold two trucks; `section_runs_interleaved=0` on every browser run. `H_IDENTITY` **disappeared** rather than being carried forward, because a section's measured `clientHeight` already excludes the chrome above it.
+
+**And the defect class is retired, not just its instances.** With both box clients moved, `paginateByHeight` had **zero consumers** and was **deleted** from `docData.ts`, with a comment in its place carrying its reason rather than its absence. CC confirmed no third consumer existed and disclosed that the function had **no tests**, so the handoff's "with its tests" had nothing to act on — said plainly rather than left for silence to imply.
+
+**CC's scope widening, disclosed rather than smuggled, and accepted in full.** Four files beyond the three authorised: additive sectioned arithmetic in `measuredPagination.ts`, a new `useMeasuredSectionPages.tsx`, an additive test file, and **one word** — `export` on `measureAdvances`. Arch accepted the one-word export on its own merits: reproducing a DOM measurement primitive is how print parity drifts, and this project already collapsed three near-identical cell renderers into one for that reason.
+
+**Proven on paper: 136 of 136 boxes on both documents**, against 136 live-read from the database, both through Chrome's own Save-as-PDF, zero non-upright characters. The Box List is **landscape** and this is the first correct print of it that exists.
+
+### BVSCNY-SEED-JUNK — Daniel's printed proof found what no gate could
+
+He looked at the Box Contents List and said it did not look like v1. It does not, and **the print is faithful.** Measured: BVSC NY holds **136 boxes against the v1 export's 134**, and two of them are named **`In Box`** and **`Box Name`** — column headings that became records. The Box List's blank Type and Weight columns are blank **in the database**: boxes 607, 608 and 609 carry no `box_type_id`; 603 carries neither `actual_weight` nor `additional_weight` where v1 prints 301 lbs.
+
+**One cause, already on the record: BVSC NY was seeded by script and never run through the import engine** (STECK-ZERO, confirmed Aug 27 from its identity map). The seed invented two boxes out of header rows and dropped types and weights.
+
+**Consequence, stated rather than left to be inferred: BVSC NY is not a valid arbiter for anything box-shaped, and its completeness is suspect generally.** This is the Quartz lesson one layer up — the project was about to measure the wrong artifact a second time, for a different reason. `Import Test 5` is the engine-built equivalent: **134 boxes, 237 cables carrying steck where BVSC NY has zero, 2,030 rows with real v1 identity where BVSC NY has none.**
+
+### BOX-DOC-PARITY — a round nobody had queued
+
+Daniel asked whether a meticulous parity round was queued for the Box Contents List. **It is not, and neither is one for the Box List.** PRINT-PARITY unit 1 was the box **LABEL** family — Big, Small, Replacement — and the staged ADDENDUM-1 is labels too. BOX-PRINT-CLIP fixed clipping in the two documents, which is a data-loss fix and not a parity one. Candidates already visible and recorded as candidates rather than findings: v1's header block is three lines carrying the **full show name** where v2 prints two with the project's short name · v1 wraps a long Notes cell onto its own line where v2 does not · v1's Box List opens with an unnamed-truck section v2 does not emit.
+
+### Q-4 RULED, AND WIDENED PAST WHAT IT ASKED
+
+Daniel listed seven outputs and asked where they sit on the Roadmap. **Nowhere.** All seven are `disabled: true` entries in `MenuPageLoader.tsx` — Group Parts `:167`, Device Patch `:168`, Equipment Labels `:172`, Bundle Summary `:193`, Line List `:198`, Steck Labels `:211`, Tail Folder Labels `:216` — and appear in no unit, no docket row and no queue position. The only trace any of them leaves in the governing documents is a **precondition** on STECK-ZERO assuming a unit nobody had scheduled.
+
+Q-4 asked whether the **five** disabled cable outputs get built or are deprecated. **Daniel ruled all SEVEN get built, each with a meticulous v1 print-parity comparison of the kind the box label family got.**
+
+**The binding constraint is evidence, and it is stated up front:** four of the seven have a v1 arbiter in the corpus (`bundle summary.pdf`, `Steck Labels.pdf`, `Tail Folder Labels.pdf`, and `Bundle Labels.pdf` for the unlisted eighth); **the three equipment-side outputs have NO v1 arbiter at all** — the corpus holds only Box PDFs and Cable PDFs; and **Line List's arbiter is unconfirmed**, `Mult Detail.pdf` being the unverified candidate. Arch's read on Daniel's standing direction to work toward longer autonomous CC passes, recorded because it will be tested: **the limiter is evidence, not CC's stamina.** Where the output exists and an arbiter exists, bundle aggressively — the cable geometry pass is one unit with eight internal checkpoints. Where either is missing, autonomy buys nothing, and building four new outputs is a Trigger A halt rather than a bundle.
+
+**MENU-DEPRECATE ruled alongside:** `Wire Types` (`:189`) and `Wiring Schedule` (`:199`) come off the main menu, both being dead affordances for features R-12 and the Aug-21 WIRE-TYPE ruling already deprecated. **Caveat stated at source: the project menu IS a captured gate frame (`01-project-menu`, `13-boxes-menu-tab`), so the removal is likely a declared baseline event — CC measures which frames move, Arch does not predict.**
+
+### CABLE-SPLIT — Daniel was right, and the repo says so in its own words
+
+He said cable splits do not exist in v2 and need to before the import leg touches them. Measured: `cable_details.split_of_id` and `split_end` exist, and across **3,849 live cable rows `split_of_id` is set on 3 and `split_end` on 9** — all of it arriving through imports. **Nothing in the app writes either column.** The only Split UI in the product is the **equipment** quantity split (`SplitDialog` / `OverSplitDialog` / `lib/equipment/splitPayload.ts`, shipped July 20), which has nothing to do with cables.
+
+**And the gap is named twice in the code already:** `lib/cable/linkFields.ts:79-80` marks both columns `enroll: false`, tagged `queuedTo: 'split-linkage unit'` and `'split unit'` — units nobody scheduled — and `LineBands.tsx:9` records an earlier ruling fencing off a band `Split?` affordance *pending that same unit*. **Deferred at least twice in writing.**
+
+**Arch's error, owned: a migration arm was scoped to feed a feature without asking whether the feature existed.** Importing splits today would write into a column nothing reads and nothing maintains — the exact shape already flagged for BUNDLE-LINK-IMPORT. **SPLITOF-NO-ARM therefore comes OFF 2-MIG-c.**
+
+**[MILESTONE HALT] Trigger A raised rather than designed.** v1's own data, measured on the corpus: **3 of BVSC NY's 1,119 cables are splits** — `Cable has Splits` is `1` on exactly those three — and BVSC and JOY have none. Parents are stored as **names**, children as the parent's name plus a suffix: `paDAUTO → paDAUTOx`, `paX20DELAYd → paX20DELAYdx`, `uFX-CPU → uSD TECH`. **Blocked on a v1 export from a show that actually uses splits**, which reopens **Q-6, a fourth corpus Arch had previously answered "not needed"** — a reversal flagged rather than made quietly.
+
+**SPLITEND-DAISY.** All three of those rows carry `Split End = Daisy Chain`, and a fourth row carries a Split End with no parent. `runExport.ts:420` emits a variance asserting *"v1 knows Source/Destination only."* **Every real split in the corpus contradicts that line.**
+
+### CABLE PARITY EVIDENCE — gathered, filed, and it closed a tier
+
+Daniel printed all eight live cable outputs through Chrome's own Save-as-PDF from **`Import Test 5`**, chosen over BVSC NY on measurement rather than preference: identical cable, tail, line and bundle counts, but **237 cables carrying steck where BVSC NY has zero**, **134 boxes not 136**, and **2,030 rows with real v1 identity where BVSC NY has none**. That also answered a standing question — **steck data does survive the import engine**, so Steck Labels is not blocked on data.
+
+**TIER 2 IS CLOSED BY MEASUREMENT.** All eight came back `Skia/PDF m151` with **zero non-upright characters**, and the three landscape outputs — Bundle Sheets, Tail Checklist, Tail Panel Labels — are genuinely **792×612**. The cable-parity parallel's §15 orientation tier is **retired**, and its provenance line claiming "interactive Chrome Save-as-PDF" is **contradicted by the files' own metadata**, which reads `/Producer: macOS Version 15.7.3`.
+
+**Tier 1, after the selector work:** Cable Folder Labels **24** against v1's 24, and the right kind of box — Box 201 FOH Runs, 202 Ceiling Runs 1, … plus the No-Box cell — where August's print was 137 off the wrong table · Tail Checklist **116** against 116, where it was 153 · Tail Panel Labels **137** against 137 · Bundle Sheets **71 pages** against 71 · and the Cable Checklist carrying **190 of 190** tail lines.
+
+**CHECKLIST-GROUPCOUNT — the one thing unresolved, and it gates the geometry pass.** The Cable Checklist shows **16 group sections**; v1 shows **27**; and the M0-WIRE close records **"27 group sections exact"** on this same fixture the day before. The options screen was clean — sort By Group/Bundle/Cable, Which Cables blank, Print List off — so it is not a find narrowing the set. Either the earlier 27 was counted by a different rule or something moved. **Reconcile with a stated counting rule before a single pixel is measured**, because geometry on an unstable section structure is work that gets redone — which is the parallel's own warning and the reason the box family had to be done twice.
+
+**Arch marked its own proxies as proxies.** The bullet-glyph and filled-rectangle counts used on Small Cable Labels, Tail Block Labels and Tail Line Labels are **not the counting rules the parallel used**; Tail Panel Labels landing exactly on 137 is a strong signal the proxy works there, and Tail Block Labels reading 113 against v1's 116 is as likely the proxy as a defect. Recorded so they do not become figures of record.
+
+### THE PARALLEL — the seven queued layouts
+
+Opened at Daniel's direction off `handoffs/parallel/260828-1045_remaining-layouts-design-opener.md`. Design only: no CC handoffs, no schema, no Roadmap, Ledger or Session Log edits, no repo writes, returns beside the opener and read as evidence. Its deliverable of record is a **consolidated evidence request Daniel can work from**, marking each item as a v1 print, a v2 print, a ruling or a data fix.
+
+### WF1A-PHRASE — a mechanism accepted approximately
+
+Daniel's approval arrived as `OMMIT APPROVED: fix(print): PRINT-CLIP` — a dropped leading character. **CC accepted it and flagged it in the terminal and in its `_CLOSE.txt` rather than hiding it**, reasoning that the subject-binding — the half that guards against a stale approval — was present and correct. Arch agrees on the substance and puts the lesson where it belongs: **if the phrase is a mechanism, a matcher should check it rather than CC's judgment.** Pairs with FENCE-PUSH's battery, which exists for exactly this reason.
+
+### The two riders
+
+**CLAUDE-HARNESS-STALE.** `CLAUDE.md`'s site-4 passages brought current in three hunks, sha256 `a2d7f28e…` → `f6906ee6…`, every hunk inside the named passages. Arch verified the fence held: site 3's "APPROXIMATE / `provisional: true`" text is byte-intact at line 722 and the sentence *"Every provisional site carries a `refineBy`"* still stands at 739 **and is still true**, because site 3 still is provisional. CC added a line saying so explicitly, which makes the surviving sentence self-evidencing — better than instructed.
+
+**LINKJOIN-FENCE.** `src/lib/import/linkJoinFence.test.ts`, three tests, mutation probe **shown failing** and `cableDataPlan.ts` restored byte-clean afterwards. The test leans on the one property that separates the two functions — `resolveHistoryId` refuses a non-UUID while `historyJoinKey` accepts any text, so a non-UUID v1 id has a live join key and no identity value — and asserts the join half is live first, so it cannot pass vacuously.
+
+### CC's conduct, recorded because it is the unit's real protection
+
+It re-measured the residuals rather than inheriting Arch's, and measured its own baseline rather than quoting the handoff's — which then checked out to the digit. It found **two defects in its own work and fixed them before returning**: a measuring pass keyed on `blocks.length`, which would have re-used stale heights on a same-length re-find — the exact failure class the unit exists to remove — and a "re-measure verified" claim it **retracted**, because the two runs came back byte-identical, meaning the click never landed and the step proved nothing. It rewrote that check to throw if the corpus does not change. It reported the anchor drift the handoff asked for: `docChrome.tsx`'s inline `overflow: hidden` is at **line 200**, not 199; the Tail greedy fill at **`:90-102`**, not `:88-100`; Folder Labels' integer slice at **`:99-104`**, not `:95-98`; every other cited anchor exact. It corrected its own control number mid-run when a positional selector gave a meaningless Folder Labels figure. And it **declined to ship the equipment half of PRINT-HINT** rather than ship an unmeasured change to a surface that may be a gate frame — which Arch then confirmed at source: **frame 07 navigates to `/equipment/print`** at `visual-capture.mjs:455`.
+
+### The run fence, and the first failure its own fix was not designed to catch
+
+`CLAUDE.md`'s "Current run fence" is **two units stale** — M0-WIRE (`df42fb0`) and PRINT-CLIP (`eaabd03`) are missing and the counts are the 2-IMP-c tree's. **The mechanism held**: FENCE-HEADLINE's self-locating headline, *"HEAD is the commit whose subject names this unit,"* is in place and correct. Only the body lagged, which is a different failure from the three that came before it. CC left it rather than silently widen an approved commit scope — the right call. Queued to ride GATE-METHODRACE's handoff.
+
+### Registered this session
+
+**PDF-CHROME-PATH** (standing) · **GATE-METHODRACE** (registered, then downgraded from blocking to intermittent by measurement) · **BOX-DOC-PARITY** · **BVSCNY-SEED-JUNK** · **CABLE-SPLIT** (Trigger A) · **SPLITEND-DAISY** · **MENU-DEPRECATE** · **CHECKLIST-GROUPCOUNT** · **PRINT-HINT-EQUIP** · **WF1A-PHRASE** · **PRINT-HINT**, ruled and half-shipped · **an estimate that is right by cancellation is not right** (standing) · **a mechanism accepted approximately is a mechanism weakened** (standing) · a fourth instance of **test the guard, do not read it**.
+
+**Closed this session:** PRINT-CLIP (`eaabd03`) and BOX-PRINT-CLIP (`ff82281`), both proven on paper · ORIENT-FIXFAILED (no code change) · `paginateByHeight`, deleted with the whole estimate-pagination class · CLAUDE-HARNESS-STALE · LINKJOIN-FENCE · **Q-4**, ruled and widened · the rollover, run at pre-open with byte-exactness proven programmatically.
+
+**Arch errors this session, all owned:** the gate call, told to Daniel as blocking and not reproducing the next day · the split arm, scoped to feed a feature nobody had checked existed · a steck total published from a query whose arithmetic was nulled by one-sided values, caught and retracted in the same message · a muddled evidence request whose step 3 answered its own step 1.
