@@ -2296,3 +2296,87 @@ It re-measured the residuals rather than inheriting Arch's, and measured its own
 ### Daniel's gate, fifth time running
 
 Three defects on the first pass — Change All not committing the in-flight value, Enter and ⌥⇧-arrow not moving record, and a blanked cell flashing red and reopening as `0`. **Their root cause was one thing, and it was written down in one of our own comments with a paragraph defending it.** Then a second pass found **two defects that were never this unit's**, one of which destroys data silently and is live in production. **No machine gate in this project has ever found any of these.**
+
+---
+
+## August 31, 2026 — third append (Cowork-Arch main line) — CHANGEALL-METHODNEW CLOSED AT `e3a336a` · A RULED UNIT SPLIT ON NEWLY-MEASURED BLAST RADIUS · CHANGEALL-FOUNDSET MEASURED FROM THE ARCH SEAT AND RESHAPED FROM A ROW COUNT INTO A BYTE CEILING · A NEGATIVE CONTROL THAT PASSED, AND WHY THAT WAS THE MOST IMPORTANT RESULT OF THE NIGHT · DANIEL'S GATE, SIXTH TIME RUNNING (append block)
+
+### What closed
+
+**CHANGEALL-METHODNEW at `e3a336a`** (`374a7c8..e3a336a`, 1 commit, 4 files, +284/−29). An unrecognised Method draft in Change All wrote `method_id: null` to every row in the found set — successfully, silently, with nothing to undo. It now **creates the method**. Suite 2602/139 → **2634/140**, typecheck 0, frozen 3/3, dependency gate 0, build clean, **visual 28/28 at 0.0000% with all 28 byte-clean and no baseline event declared — measured, not predicted.** Migration ledger **56, unchanged: this unit wrote none.**
+
+### The checkpoint that was a hard return, closed as a measurement instead
+
+The opener made the error capture a hard return: *"do not design the fix before the error is in hand,"* and *"a hard return if it is anything but a request-size or timeout answer."* **It was captured from the Arch seat inside twenty minutes** — the live endpoint bisected from the in-app browser, and the write rehearsed against the live database as `authenticated` inside a transaction forced to roll back, with a residue check proving the rollback clean. **No CC handoff and no demand on Daniel's evening.**
+
+**The answer: a request-size ceiling at the EDGE.** A rejected call returns a bare `400`, body `Bad Request`, **no `server` header** — rejected before PostgREST. A call one id smaller returns a PostgREST JSON error with `server: cloudflare`. **Nothing inside `runPlainChangeAll` could ever have explained it, and no database-side instrument would have found it.**
+
+### The threshold was recorded in the wrong unit, and that is the durable lesson
+
+| encoding | method | last pass | first fail |
+|---|---|---|---|
+| quoted uuids (supabase-js's own) | GET | 581 ids, 22,741 chars | 582 ids, 22,780 chars |
+| quoted uuids | PATCH | 581 ids, 22,731 chars | 582 ids, 22,770 chars |
+| unquoted uuids | GET | 676 ids, 25,094 chars | 677 ids, 25,131 chars |
+
+Two row counts **95 apart**, one **≈25.0 KB wire ceiling**: supabase-js wraps each uuid in `"`, which the browser percent-encodes to `%22`, so a quoted id costs 43 wire bytes against an unquoted 37. 582 × 43 ≈ 25,026 and 677 × 37 ≈ 25,049 — **agreement to within 25 bytes.** The budget is shared with every header, so **a real user's session JWT buys a LOWER ceiling than the 40-character publishable key used to measure it.** At 2,000 ids the connection is refused rather than answered.
+
+**⚠ THE RECORDED FIGURE — *"somewhere in (72, 1368]"* — WAS NOT MERELY IMPRECISE. IT WAS THE WRONG SHAPE OF FACT**, and it carried into three governing documents. A row number describing a byte limit goes stale silently the next time anything touches the URL, the base path, or the token.
+
+### Three leads formed and disproved, none of which reached a finding
+
+1. **nginx's 8 KB request line.** Predicted the cliff at ~205 ids. **Wrong** — a 53,434-character URL reaches PostgREST unauthenticated and is answered `401`.
+2. **`statement_timeout = 8s` on `authenticated`.** The setting is real and APPLY-TIMEOUT is docketed against it. **Wrong by three orders of magnitude: 72 rows 28.5 ms, 1,368 rows 62.6 ms.** Residue check after rollback: 1,368 generic rows, 150 twos, zero rows touched.
+3. **RLS cost.** Both `equipment_items` policies call `auth.uid()` unwrapped; Supabase's linter flags `auth_rls_initplan` on **53 tables**. **Real, registered as RLS-INITPLAN, and not the cause** — see the 62.6 ms above.
+
+**All three were written as leads that must be proven. All three died at first measurement, and the database was exonerated by a number rather than by an argument.**
+
+### The ruled unit was split, and the reversal was flagged as a reversal
+
+The one-unit ruling rested on masking. Reading the surface found the batched `.in('id', ids)` idiom on **20+ call sites across all five list surfaces — five of them `.delete()`** (`TailListClient:670` · `CableListClient:2880 · 3007 · 3043` · `BoxListClient:1089`), with `BundleListClient.tsx` reading as BINARY to grep and unswept. **A delete that silently does nothing above the ceiling is worse than an update that flashes red.**
+
+Arch named the reversal as a reversal and named why the original ruling held: **the danger it guarded against was shipping the SIZE fix alone, which unmasks the data loss; fixing METHODNULL alone is strictly safe.** **Daniel ruled: separate units.** The handoff then forbade touching the ceiling in writing, so the guard survives the split.
+
+### ⚠ A CONTROL THAT PASSES IS NOT A CONTROL — NEW STANDING RULE, AND IT IS CC'S
+
+CC's first negative control ran the toolbar **button**. Its `mousedown` is `preventDefault`ed but not `stopPropagation`ed, so it still reaches `AutocompleteInput`'s document-level outside-click handler, which **commits the cell first** and auto-creates the method through `commitMethodField`. **Pre-fix code therefore passed all four cases.** Had CC stopped there, the unit would have shipped on a green control that proved nothing about the defect. It switched to ⌥⇧\, reproduced the blanking at **400 rows / 11 failing checks**, and only then called the fix proved.
+
+**Chasing the wrong control also surfaced a real bug inside the fix itself:** the captured `methods` array predated the cell's own create, so the arm asked for a **duplicate insert**, took a **409**, and correctly aborted on 399 of 400 rows — loud and lossless, and the wrong outcome for the operator. Closed at source by resolving against the live methods cache `createMethod` already seeds, **which keeps branch 4 meaning what it was ruled to mean: a real insert failure.**
+
+### The fix copied a doctrine rather than inventing one
+
+`EquipmentListClient.tsx:1893` — `const m = resolved ?? await createMethod(trimmed)` — has auto-created all along in the band editor's bulk arm, and `:1884-1900` holds **all three doctrines side by side and deliberately: method auto-creates · box reverts (creation is ⊕-only) · category reverts.** Daniel's ruling matched the doctrine already built. There is still exactly one `createMethod`.
+
+Four branches, not symmetric, and **the fourth is the one a reader misses: a failed `createMethod` writes NOTHING and surfaces** — falling through to `?? null` there is the original defect rebuilt. A new pure `planMethodChangeAll` makes `{kind:'clear'}` **unreachable from any non-empty draft**, pinned by 32 tests. The v1 script-693 dialog string is untouched and parity-locked.
+
+### Daniel's gate, sixth time running — and the database settled it, not the screen
+
+Gestures 1 and 2 failed on the 1,368-row fixture. **Not a regression: CHANGEALL-FOUNDSET at 2.4× the ceiling.** Read live: **four methods created Grey with ZERO rows each**, **`Samburg` on exactly ONE row** (the dialog's No, correct), and **exactly ONE row project-wide with an empty Method.** Re-run at a 159-row found set: **clean.** One Arch misreading corrected in the same turn — **case 3's "pass" never met the ceiling**, because only one row cleared.
+
+### Two instruments, opposite directions, one answer
+
+The Arch seat bisected a live endpoint: `400`, no `server` header, ≈25.0 KB. Daniel's console on the real app logged **`[change-all] batched update failed {}` — an EMPTY error object**, which is exactly what an edge rejection looks like when supabase-js cannot parse a plain-text body into a PostgREST error shape (a real one carries `code`/`message`/`hint`; `42501` was observed). **Neither reading was derived from the other**, and CC's licensed diagnostic — `runPlainChangeAll` no longer discarding its error — **paid for itself within the hour.**
+
+### The `equip.xlsx` re-import, verified end to end
+
+`Cable Parity Fixture`: **150 twos / 57 ones / 1,161 zeros — 357 stickers**, the acceptance stated before the measurement was taken. **1,368 generic rows stayed 1,368**, and the identity map shows **1,368 equipment rows minted 2026-08-31 and ZERO minted tonight** — every row matched. **HASH-FREEZE-LABELS is therefore proven by a real second import rather than by a before/after hash comparison**, which is the stronger proof. `labels_done` still reads 57: the frozen failure preserved exactly as ruled, with 150 rows carrying a count and no flag.
+
+### Registered this append
+
+**CHANGEALL-NAALIAS** — v1's `0` N/A input alias is honoured by the row commit path (`isNaAlias`, P12) but by **neither** the Change All arm **nor** the band editor's bulk arm; a typed `0` + Change All now creates a method literally named `0`. **Not hypothetical: `Cable Parity Fixture` already carries methods named `0` and `i` from the import.** Daniel's ruling owed; both arms want the same fix in the same pass. · **CHANGEALL-METHODDOCTRINE** — `CableListClient.tsx:3167` runs `resolveDraftOption` on `method_name`, so **cable's Change All REVERTS** where equipment now **CREATES**; a divergence this unit created, named rather than left to be found, and FIELD-CONTRACT's to rule. · **CREATEMETHOD-BLINDERR** — `createMethod` swallows its error, so branch 4 cannot tell a 409 from a permission failure. · **RLS-INITPLAN** — 53 tables, plus 38 unindexed foreign keys and 16 multiple-permissive-policies from the same lint; scale hygiene, **not** FOUNDSET's cause. · **GATE-BEFORE-COMMIT** — the approval phrase was typed at 23:05 and the browser gate ran at 23:29; the gate is what closes a handoff and a WF-1a push is a production deploy.
+
+### Arch errors this append — one that reached a handoff, caught by CC at source
+
+§0 of the handoff asserted `CLAUDE.md`'s run fence had gone stale on its counts. **It had not.** `2602/139` and ledger `56` were correct at `374a7c8` — 2634/140 minus this unit's own +32 tests / +1 file is exactly 2602/139 — and only the closed-and-pushed list was behind. **The claim was carried from the Docket's FENCE-COUNTS row without checking the file, and this seat's own Session Log said the fence was CURRENT four hours earlier.**
+
+**The rule this earns: the Surface Rule binds our own documents, not only the code.** A Docket row describes a state at the moment it was written; citing it as present tense is TENSE-IS-A-CLAIM one layer up. *(Two further wrong claims — the 8 KB ceiling and case 3's found set — were formed and killed by this seat's own measurement before reaching Daniel as findings.)*
+
+### Document hygiene — a stale footer found and fixed
+
+**Roadmap v4.16's closing footer carried v4.15's trailer verbatim**, naming "Roadmap v4.15" in the governing set, "Session Log at 7", and STOCK-IS-DIE as the handoff of record — all false of v4.16. The body was correct throughout; only the footer had not been bumped. **A stale footer gives orders exactly as a stale run fence does (FENCE-STALE).** Corrected in v4.17, and the rule stated: **the footer bumps with the H1 and the filename.**
+
+### New standing rules
+
+- **A CONTROL THAT PASSES IS NOT A CONTROL.** It is a wrong gesture until proven otherwise. A negative control earns its name only by reproducing the defect.
+- **A THRESHOLD RECORDED IN THE WRONG UNIT GOES STALE SILENTLY.** 582 rows is a fact about today's URL; ≈25.0 KB is a fact about the system. Record the mechanism and derive the number.
+- **THE SURFACE RULE BINDS OUR OWN DOCUMENTS.** A Docket row is a measurement with a date on it, not a present-tense claim.
