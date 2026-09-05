@@ -2380,3 +2380,143 @@ The Arch seat bisected a live endpoint: `400`, no `server` header, ≈25.0 KB. D
 - **A CONTROL THAT PASSES IS NOT A CONTROL.** It is a wrong gesture until proven otherwise. A negative control earns its name only by reproducing the defect.
 - **A THRESHOLD RECORDED IN THE WRONG UNIT GOES STALE SILENTLY.** 582 rows is a fact about today's URL; ≈25.0 KB is a fact about the system. Record the mechanism and derive the number.
 - **THE SURFACE RULE BINDS OUR OWN DOCUMENTS.** A Docket row is a measurement with a date on it, not a present-tense claim.
+
+---
+
+## SEPTEMBER 1–5, 2026 — CHANGEALL-FOUNDSET CLOSED AT `ba0058f`, 36 CALL SITES ONTO FOUR RPCs · THE MIGRATION LEDGER MOVES 56 → 57 · THE SESSION LOG ROLLOVER RUN · A MACHINE SHUTDOWN MID-RUN, RECOVERED BY MEASUREMENT WITH NOTHING LOST · A GUARD PROVEN AGAINST THE HISTORICAL DEFECT RATHER THAN A SYNTHETIC ONE · DANIEL'S GATE FINDS LIVE DATA LOSS, SEVENTH TIME RUNNING · THE ROADMAP REPRIORITISED TO BUENA VISTA SOCIAL CLUB MEXICO CITY (append block)
+
+### The rollover, and a document that contradicted itself
+
+Run at the pre-open as ruled. `Session_Log_Archive_2026-09-01.md` — the oldest **8** entries, frozen and **byte-verified against the live file's own range with `cmp` rather than by eye** — and the live log reset to its header plus the most recent 2. Both were delivered and held until Daniel's one-word confirm; overwriting the live log IS the install.
+
+**A stale header bullet was found in the same pass and struck on his ruling.** The header still asserted *"the re-import of `equip.xlsx` has NOT run"* two bullets below one reporting it done and verified at 150/57/357. **The header is the durable part of the log — the part that carries forward and gives orders — and it was contradicting itself in the file that governs every session open.**
+
+### The route ruling, and why the deletes decided it
+
+Two ways to remove the ~25.0 KB edge ceiling. **Chunk client-side:** no migration, CC's work, fast — but it **costs atomicity**, and a failure at request 4 leaves 1–3 written while the optimistic revert restores all of them, so the screen disagrees with the database. **One RPC taking the ids in the POST body:** one statement, one transaction, no ceiling ever, Trigger B, Arch's.
+
+Arch recommended the RPC and named the deciding reason in plain terms: **an update that half-completes flashes red and you re-run it; a delete that half-completes is gone.** Nine delete sites had never been tested above the ceiling. **Daniel ruled the RPC in one word.**
+
+### GREP-NULBYTE — one byte hid six call sites for a week
+
+`BundleListClient.tsx` had gone unswept because grep called it binary. It is **73,743 bytes of valid UTF-8 containing exactly ONE NUL**, at line 1265, inside `` `g-${band.label || '<NUL>blank'}` `` — a typo for `'blank'`. Read with python instead, the file yielded **six** call sites, including **three deletes and the second of the two select-then-delete pairs.**
+
+Scope went from the recorded *"20+ sites, 5 deletes"* to **36 sites in four classes: 19 updates · 9 deletes · 7 reads · 2 raw filters that spend the id list TWICE** and therefore fail at roughly half the row count of every other site.
+
+**The rule this earns: A SEARCH RUN WITH THE WRONG INSTRUMENT RETURNS ABSENCE — and the guard test now treats a NUL as a failure in its own right, because a guard one byte can silence is not a guard.**
+
+### The worst defect in the unit was in the class nobody had counted
+
+`CableListClient:2878→2880` and `BundleListClient:965→967` read tail ids for a set of cables, then delete them, **with the select's error unchecked.** Above the ceiling the select is rejected, `data ?? []` yields an empty array, `if (ids.length)` is false, **the delete silently does not run, and the tail rows are orphaned.** No error, no flash, nothing on screen.
+
+Both collapsed into `delete_tails_of_cables_v1` — read and delete in ONE statement, so there is no intermediate list to truncate. **The failure mode became unrepresentable rather than handled.**
+
+### The migration — introspection first, rehearsal second, and a POSITIVE control on the rollback
+
+Live introspection before design, not after: all ten tables RLS-enabled with **`WITH CHECK` on project ownership** · **`link_group_members` has NO `id` column** and is keyed `(link_id, item_id)`, which is why there are **four** functions and not one · and every product RPC in this database — `import_apply_v1`, `merge_methods`, `export_mint_identity` — is **SECURITY INVOKER** with `search_path=public`, granted to `authenticated` only. **The doctrine was copied, not invented.**
+
+Both families rehearsed as `authenticated` inside a forced rollback. Guards blocked at `42501` / `42703` / `22023`; 1,368 rows updated and read back; JSON `null` → SQL `NULL`; **0 rows written and 0 deleted as a non-owner**; the tail cascade held at 0 remaining.
+
+**⚠ And the residue check had a POSITIVE control, not merely an absence check.** After the rehearsal set all 1,368 `group_label` values to NULL, the post-rollback read found **1,009 null against 359 carrying real values** — the pre-rehearsal distribution. Had the rollback failed, all 1,368 would have read null.
+
+**The rule this earns: A CONTROL THAT ONLY CHECKS FOR ABSENCE CANNOT TELL "ROLLED BACK" FROM "NEVER RAN."**
+
+Applied to main on Daniel's explicit confirm: **ledger 56 → 57**, `20260901043028_changeall_foundset_bulk_write_rpcs`. Post-apply verification ran against the **installed objects** rather than the source: `prosecdef = false` on all four, `search_path=public` on all four, **`anon` EXECUTE false and `authenticated` EXECUTE true**, checked as privileges rather than read off a grant statement.
+
+### An Arch timing claim that a better instrument revised, in our favour
+
+The rehearsal measured **117.0 ms** for 1,368 rows and Arch reported that as the guards' cost against a bare UPDATE's 62.6 ms. **It was a cold reading** — that transaction created the functions and called one in the same breath, paying for plan compilation. The **installed** function runs the same rows in **57.4 ms**.
+
+**There is no ~54 ms tax. The cost should not have been quoted before the artifact was measured.** *The source states intent; the artifact states behaviour — and a rehearsal that builds and runs in one transaction is not measuring what ships.*
+
+### The machine shutdown, and why nothing was lost
+
+A ~32-minute CC run finished the work and died at the moment it was about to write its return file. **Nothing was lost and nothing was rebuilt.**
+
+Arch measured instead of guessing: refs read from `.git` (**nothing committed, no `index.lock`, no merge or rebase state**), every touched file **brace-balanced with zero NULs**, the four RPCs present in the regenerated types, 65 helper call sites counted at source, the remaining `.in(` idioms confirmed to be inside chunked read closures. **The work had survived; only the verification and the paperwork had died.**
+
+The RESUME handoff was written as a **verify-and-close pass** under one governing rule, stated at the top:
+
+> **An interrupted run's own belief that something passed died with its context. The tree is evidence; its memory is not.** No gate result from before the shutdown counts. **And do not rebuild what is already there** — re-implementing correct work risks undoing it.
+
+The second pass took **eight minutes** and re-ran every gate from zero.
+
+**The rule this earns: AFTER AN INTERRUPTION, THE TREE IS EVIDENCE AND THE RUN'S MEMORY IS NOT. Verify from files; never resume on a summary, and never rebuild what measurement says is already correct.**
+
+### The guard was proven against the historical defect, not a synthetic one
+
+Three controls, not one: **reintroduce and watch it fail** (named file, line and rule) · **revert and watch it pass** (45 tests, diff back to its pre-control shape) · **and the detector run over `src/` extracted at `e3a336a`**, which found **32 real hits — 27 write sites at exactly the enumerated line numbers, 4 raw-filter spends (2 sites × 2 each, the doubling made visible), and the NUL byte at offset 67622.**
+
+The guard also asserts it scanned **more than 300 files**, and exempts the helper by **absolute path rather than by pattern**, so a new file cannot exempt itself by choosing a clever name. **A guard over zero files always passes.**
+
+### The ceiling confirmed itself from a second instrument, at a different number
+
+Arch bisected the break between **581 and 582** quoted ids on 2026-08-31. On CC's session, with a different JWT and a one-column patch, **582 PASSED** and 1,368 was rejected with a bare `Bad Request`.
+
+**Same defect, two row counts, one byte ceiling** — the unit's central claim confirming itself. *"Somewhere in (72, 1368]" was never imprecise; it was the wrong KIND of fact.*
+
+### Four days uncommitted, with the database ahead of the code
+
+The gated tree sat in the working directory from 2026-09-01 to 2026-09-05 — 14 files, suite 2679/142, frozen 3/3, visual 28/28 — while **ledger 57's RPCs were already live and unreferenced.**
+
+That direction is harmless: additive functions nothing calls. **The reverse would not have been.** Committed and pushed 2026-09-05 at **`ba0058f`**, +1160/−137.
+
+**The rule this earns: A CLOSE THAT ENDS WITH AN UNCOMMITTED TREE HAS NOT ENDED.** The close package describes the state of the tree; if the tree is not committed, the documents describe something that exists on one laptop.
+
+### CHANGEALL-BOXNULL — Daniel's gate, seventh time running, and it is live data loss
+
+*"I went to enter a new box then change all in equipment, and it made everything blank rather than bringing up new box dialog."*
+
+Traced to source the same day. **`EquipmentListClient.tsx:2368-2372`:**
+
+```js
+} else if (field === 'box_name') {
+  const boxId = sourceRow.box_id ?? null
+  dbPatch = { box_id: boxId }
+```
+
+`sourceRow.box_id` is the **stored** value. The capture path never resolves a box draft: `category_name` gets resolve-or-revert at `:2277`, `method_name` gets `planMethodChangeAll` at `:2335`, **box gets neither** and falls through the plain-text branch that updates `box_name` while leaving `box_id` untouched.
+
+- **New name on a boxless row → `box_id: null` across the entire found set.** Daniel's blanking.
+- **New name on a row that HAS a box → the OLD box id replicated to every row.** No blank, no error, wrong box everywhere — quieter and worse.
+
+**⚠ It is NOT a regression from CHANGEALL-FOUNDSET.** That unit changed the **transport**; this is the **payload**, and the arm sits inside the same if/else chain as CHANGEALL-METHODNEW's own comment. **The defect is `e3a336a`-era and live in production.**
+
+**And there are two claims inside Daniel's one sentence.** The blanking is a defect. The absent **new-box dialog** may be correct as built — **box creation is ⊕-only by deliberate doctrine** — so creating a box from the cell is a **new ruling**, not a bug report, and CHANGEALL-METHODDOCTRINE should answer first.
+
+### The steck field — absent from two vocabularies at once
+
+`CHANGE_ALL_FIELD_LABELS` (`src/lib/cable/cableChangeAll.ts:48-64`) holds **fifteen** fields and neither steck, so the gate at `CableListClient:3112` drops the cell — the code says so itself at `:3121`. Underneath that, the marker is `source_steck` while the column is `source_steck_count`: **two names for one field**, so a label keyed by column name would still not resolve.
+
+`CableRow.tsx:62` records the original intent — *"steck counts are NOT in the ruled order (click-entry only)"* — and **that exclusion carried, unexamined, into the Change All and Find vocabularies.**
+
+Daniel's instruction — *"look at every field in every layout to verify search works and change all works, like v1"* — **widens FIELD-CONTRACT to include the FIND vocabulary**, with v1 as arbiter.
+
+### BVSC-MX — the roadmap reprioritised by ruling
+
+Daniel, 2026-09-05: urgent production fixes for **Buena Vista Social Club, Mexico City**. Everything else takes a pin — **named as a pin, so nothing is quietly lost.**
+
+**CAT-NOTE** — a free-text note attached to a **CATEGORY**, rendered between the category heading and its first item, italic and indented, **more than one per category** (from Daniel's artifact: Power two, Hardware and Rigging two, Cable two). **Not the existing item-level notes**, which the corpus shows as indented sub-lines under individual items — a different level.
+
+**⚠ And the corpus cannot arbitrate it.** Instrument proved first: `pdftotext -layout` extracts **58,996 characters and all 125 numbered headings** from the v1 Group Parts print. Searching every PDF in `~/Minotaur_v1_exports/` for the note strings returns **zero**; of 125 headings only four carry a following non-item line, **all page footers.** **BVSC NY has no category notes at all**, so a fresh v1 print from a show that uses them is **owed before the print half is specified.** Same shape as PRINT-FOUNDSET and CABLE-SPLIT: *a feature the corpus does not exercise cannot be built against the corpus.*
+
+**CAT-ADMIN** — a rudimentary category management page, copying `MethodsAdminClient.tsx` rather than inventing.
+
+**EQUIP-LIST-PARITY** — the equipment list **and its cover letter** on ONE measured scale, the technique that closed STOCK-IS-DIE and CELL-AND-ROW. **The "75%" is Daniel's own recollection — "I think" — and is to be measured off a matched v1/v2 pair, never adopted as a constant.**
+
+### Arch errors this append — two, both counting, both caught by CC at source
+
+The handoff's §4 prose said **18** updates where its own enumerated list held **19**, and described the delete count in a way that folded the composite `(link_id, item_id)` unlink in with the eight id-keyed deletes. CC counted at source, found 19, and corroborated it independently by running the guard against the baseline tree.
+
+**The enumerated lists were right and the total of 36 was right. The summary numbers put in front of Daniel were wrong twice — in the same document that instructed CC to trust the shape over the number.**
+
+Sibling of the previous append's fence error. **The rule stands and widens: THE SURFACE RULE BINDS OUR OWN DOCUMENTS — and a summary is a surface too.**
+
+### New standing rules
+
+- **AFTER AN INTERRUPTION, THE TREE IS EVIDENCE AND THE RUN'S MEMORY IS NOT.** Verify from files; never resume on a summary; never rebuild what measurement says is already correct.
+- **A CONTROL THAT ONLY CHECKS FOR ABSENCE CANNOT TELL "ROLLED BACK" FROM "NEVER RAN."** A residue check wants a positive control.
+- **A GUARD OVER ZERO FILES ALWAYS PASSES** — and a guard one byte can silence is not a guard.
+- **A CLOSE THAT ENDS WITH AN UNCOMMITTED TREE HAS NOT ENDED.**
+- **A SUMMARY IS A SURFACE.** The Surface Rule binds the prose we write about our own enumerations, not only the code.
+- **A FEATURE THE CORPUS DOES NOT EXERCISE CANNOT BE BUILT AGAINST THE CORPUS.** Prove the instrument, then report the absence.
