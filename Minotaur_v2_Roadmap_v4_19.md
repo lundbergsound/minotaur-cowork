@@ -6,14 +6,16 @@
 
 **⚠ FIELD-CONTRACT IS MOVED BEHIND THE CDMX PATCHES (Daniel, 2026-09-05):** *"I don't need any amendments to cable for this quick production patch — just equipment."* Every cable-side finding from this session's gate is registered and pinned behind it.
 
-## 🧭 Next Sessions (RM-6 — plain English. **HARD CAP: six bullets.** Every detail, ID and measurement lives in the Docket below and in the Ledger's dated appends. If a bullet needs a gloss to be read, it belongs in the Docket instead.)
+## 🧭 Next Sessions (RM-6 — plain English, and **forward-looking only**: what is being built next and in what order. What just shipped is in the Lineage row; what was learned is in the Ledger. **HARD CAP: six bullets.**)
 
-- **The box bug you found is fixed and deployed.** Typing a box name and running Change All used to write the box *stored on the row you were sitting on* to every record on screen — blanking the column when that row had no box, or copying the wrong box onto all of them. It now uses what you typed, and a name that matches nothing opens the New Box dialog **once for the whole set**, writing nothing until you press OK.
-- **The Mexico City show is in v2 and checked row by row** — 1,059 equipment items, 1,372 cables, 131 tails, 29 boxes, 2,594 library entries, 30 categories, every count matched against the v1 sheet it came from. It took several smaller imports because one big one exceeds a database time limit — that limit is written down and **waits until the Mexico City work is finished.**
-- **The "75%" is measured, and you were exactly right.** Every piece of type on the equipment list sits at precisely three-quarters of v1 — items, notes, headings, titles, footer. One element differs, and it is the one you asked to keep.
-- **Category notes are already in v2** — the field, and all six of your notes, imported with the show. What is missing is only somewhere to see them and somewhere to edit them, which makes that job smaller than it was written.
-- **Then, in order:** category notes on screen and in print · a simple page for managing categories · the equipment list and its cover letter rescaled to v1.
-- **Still owed by you:** hold a printed 5167 label sheet against a real Avery blank. It is still the only unrun check on something already shipped.
+**The order below is Daniel's ruling of 2026-09-05 and nothing overtakes it:** *"category note management, category note printing, and print parity. nothing else before those are finished."*
+
+1. **Category notes — being able to see and type one.** A note attached to a category, printed under its heading. **The database field, the v1 import and the export already exist and all six of your Buena Vista notes are already in v2** — so this is a screen job, not a data job. No database change.
+2. **A simple page for managing categories.** There is no category page in v2 at all today. It copies the existing Methods page rather than inventing one, and it is where a category's note gets typed.
+3. **Category notes in print.** The size and position are already measured off your v1 print — note in italic at the item size, under the heading, above the first item, and it does not repeat when a category runs onto the next page.
+4. **The equipment list and cover letter rescaled.** Your "75%" is measured and exact on every piece of type. What is still unknown is the line spacing, which was scaled by a different amount at some point, and that gets measured before anything is changed.
+5. **Nothing else until those four are finished** — not the import time limit, not the cable field sweep, not housekeeping. Everything else on this Roadmap is a pin.
+6. **Owed by you, and it blocks nothing above:** hold a printed 5167 label sheet against a real Avery blank. It is still the only unrun check on something already shipped.
 
 ## Lineage (full change-log lives in the Ledger)
 
@@ -60,12 +62,51 @@ Live at `https://minotaur.app` at **`6deb411`**, pushed — HEAD and origin read
 
 **Next on the main line — Daniel's ruling of 2026-09-05, not a preference:** **CAT-NOTE, the data and editing half** → **CAT-ADMIN** (category-note management) → **CAT-NOTE's PRINT half** → **EQUIP-LIST-PARITY**. **⚠ NOTHING ELSE UNTIL THOSE ARE FINISHED** — not APPLY-TIMEOUT, not FIELD-CONTRACT, not a housekeeping batch. Everything else on this Roadmap is a pin.
 
-## 🏗 Sprint Plan (RM-7)
+## 🏗 Sprint Plan (RM-7) — **IN ORDER**
+
+**⚠ THIS SECTION IS ORDERED, AND THE ORDER IS THE POINT.** The first table is what gets built and in what sequence; the second is everything held behind it; the third is history. **A unit does not move up from PINNED without a ruling.**
+
+### ▶ NEXT — the CDMX run, in this order (Daniel, 2026-09-05)
+
+| # | Unit | What it is | State |
+|---|---|---|---|
+| **1** | **CAT-NOTE — data and editing half** | Read and write `categories.notes` on a surface. **No migration, no new table** — the column, the v1 import arm and the export all exist, and six live notes are already in `Buena Vista Social Club`. Needs `normalizeLineBreaks` at display time (IMPORT-LINEBREAK-CR) | **NEXT. Ready to design — nothing owed by Daniel** |
+| **2** | **CAT-ADMIN — category management** | The surface a note is edited on. **Copy `MethodsAdminClient.tsx` (634 lines, route `/equipment/methods`); do not invent.** Merge · duplicate-guard · system-row protection. "Rudimentary" is Daniel's word and bounds it. **There is no category admin surface in v2 at all today** | Ready; rides CAT-NOTE |
+| **3** | **CAT-NOTE — PRINT half** | Note between the category heading and its first item. **Type spec MEASURED (CATNOTE-TYPE): 12.00 pt italic, the body size; item sub-notes 10.00 pt italic — two levels, two sizes. Flush with the heading's left edge; three indent levels. Does NOT repeat on a continued category; DOES repeat when the category appears in another LIST.** `PrintEquipmentListClient.tsx` already sections by category | Ready — **no longer blocked**, the v1 artifact landed 2026-09-05 |
+| **4** | **EQUIP-LIST-PARITY — the list AND the cover letter** | **Type ratio MEASURED at exactly 0.750 on every element class — do not re-derive.** Page die already correct. **The open work is the LEADING** (≈0.86, PROVISIONAL at four samples, re-measured first). **CONTCAT-DIVERGE is a ruled exception and stays.** ⚠ The cover letter is a **Word** document in v1 and may want its own scale — the `.docx` is the arbiter. ⚠ EQUIPVIEW-UNSAFE | Ready; matched pair landed |
+
+**After those four, and not before: FIELD-CONTRACT** (all five list surfaces, Change All **and** Find, plus the four CDMX-DEFERRED cable findings).
+
+### ⏸ PINNED — held behind the four above
+
+| Unit | Status | Ref |
+|---|---|---|
+| MMM-CAT (category sub-band editable) | NEVER-RAN | re-issue fresh on scheduling |
+| **2-MIG-c — the second gap migration** | QUEUED | **MIGRATION.** SPLITOF-NO-ARM **+ APPLY-TIMEOUT**. Trigger B; rehearsal-first; Daniel confirms before the apply |
+| **EXPORT-HISTID-DROP — the cable export's identity projection** | QUEUED, and it blocks round-trip acceptance | 852 of 1,119 `HistoryID`s emitted against 1,119 identity rows live · 2-EXP / 2-IMP-b's, not 2-IMP-c's |
+| **PRINT-PARITY unit 2 — the box residuals** | **STAGED, UNISSUED** | `handoffs/_staging/260826-1845_print-parity-box-ADDENDUM-1_DRAFT.md` · Stack underline · dashed grey cut rules (OQ-4) · Box-in-Box suppresses the Stack · revert `MC.BUNDLE_FLAG` |
+| **GATE-THEMEGLYPH — the diagnosis** | QUEUED | its own unit; **never register it** |
+| **FENCE-PUSH — lift the two push layers** | QUEUED | Strat-tier ruling; + `chmod +x`, + a battery proving bulk staging STILL blocked |
+| **PRINT-PARITY — the CABLE family** | **UNBLOCKED and SCOPED** | **no fresh v1 print owed** · selectors → orientation → geometry · 4 content defects, ORIENT-FIXFAILED, 11 measured grids |
+| S4-mid: D-2b + BASE-EVT (FOCUS-MP in headroom) | QUEUED | |
+| **GATE-METHODRACE — the intermittent visual harness** | QUEUED, small, **no longer blocking** | **DID NOT REPRODUCE on 2026-08-28** — frame 03 captured cleanly on all three runs. Fired 4× on Aug-27 at loads 3.70–4.27 and NOT at 4.91 today, so **load is not the variable**. `visual-capture.mjs:425` queries with no settle wait. Rides the small clearing unit with **PRINT-HINT-EQUIP** and the stale run fence |
+| **BOX-DOC-PARITY — the two box DOCUMENTS** | QUEUED | **NEW.** Print Box List and Print Contents Lists have NEVER had a parity round — unit 1 was the box LABEL family and the staged addendum is labels too. **Cannot run against BVSC NY** (BVSCNY-SEED-JUNK) |
+| **THE EIGHT QUEUED LAYOUTS** — Group Parts · Device Patch · Equipment Labels · Bundle Summary · Line List · Steck Labels · Tail Folder Labels · **Bundle Labels** | QUEUED, **Q-4 RULED: all built, each with a v1 parity round** | **DESIGNED — the parallel is CLOSED and folded in.** Seven became eight (**Q-2: Bundle Labels ruled IN at v1 geometry**, the strictest bar of the eight) · **all three equipment-side v1 prints have LANDED** at `~/Minotaur_v1_exports/equipment/` · **Equipment Labels is BLOCKED behind EQUIP-LABELS-2**, a Trigger B unit · Steck Labels is 5167 and gets built on the die from the start |
+| **CABLE-SPLIT — the split feature** | **BLOCKED on evidence. TRIGGER A.** | v2 has two columns and **no feature**; the only Split UI is the equipment quantity split. **Needs a v1 export from a show that uses splits** — the corpus has 3 rows in one show |
+| **The four MEASURED-but-UNBUILT cable outputs** | QUEUED | Cable Checklist (**bottom margin 15.80 vs v1's 45.52 — 29.72 pt per page, which is why 54 v1 pages become 38**) · Bundle Sheets (right margin 27.00 vs 61.04) · Small Cable Labels (die 144.43 vs v2's 141.25) · Tail Checklist (row pitch 24.75 vs 26.00). Numbers banked in `cableGeometry.ts` |
+| S4-late: GS-C → LINE-STECK (+STECK-COLOR) → S3-G-2 (+UNFLAG-WARN) → ALLOC | QUEUED | deferred by the Aug-21 sequencing ruling |
+| S4-close: GBD | QUEUED | |
+| Sprint-4 close reviews: WF1A-SUNSET · auto-mode rider EXPIRES · COWORK-PORT · PRINT-REDO if opened | QUEUED | |
+| KKK-PASS (narrow-window responsive) | after Sprint 4 | |
+| **Pre-beta: SHARE build → ADM-1 · AUTH-DOMAIN · 3TL · DEPS · CL-HILITE · GCM (R-AH)** | QUEUED | BATCH-PREBETA |
+| **AC pass (BATCH-AC)** | after private beta STARTS (R-AG) | own trigger |
+| Post-beta: BATCH-BOX · Maintenance · Spreadsheet Export · **RF/Walkies/Circuits (BVSC-RF)** · IAS Import · real-time collab · licensing ~Nov · PWA | QUEUED | |
+
+### ✅ SHIPPED — history, retained for citation
 
 | Unit | Status | Ref |
 |---|---|---|
 | S4-1 decks-clear · S4-2 S4-AUTO | ✅ | Aug 10–11 · `1f06092` |
-| MMM-CAT (category sub-band editable) | NEVER-RAN | re-issue fresh on scheduling |
 | S4-3 legs 0–6 (box family) | ✅ | `8b078b2` |
 | PORT-COV leg 1 — box EXPORT half | ✅ | `a243867` |
 | ARCH-MIG-BOX — the migration | ✅ | ledger 52, rehearsal-first |
@@ -81,18 +122,10 @@ Live at `https://minotaur.app` at **`6deb411`**, pushed — HEAD and origin read
 | **PRINT-PARITY unit 1 — the box label family** | ✅ **CLOSED** | `8c6b2e0` · worst element 51.35 pt → **0.63 pt** · geometry measured off the v1 PDFs, not derived from page ÷ grid |
 | **CABLE-PARITY EVIDENCE — the parallel** | ✅ **CLOSED** | three returns · all 17 outputs data-derived · 11 grids measured in points · 3 sorts recovered · 8 v2 pairs measured · no repo writes, no CC handoff |
 | **PORT-COV leg 2 — 2-IMP-c (clone links, by recompute)** | ✅ **CLOSED** | `0468a5d` · 31 files · 913 groups / 2036 members on BVSC NY · mult-line and bundle vocabularies ship COMPLETE and GATED · CLONE-TOKEN's export half landed · **leg 2 closed entire** |
-| **2-MIG-c — the second gap migration** | QUEUED | **MIGRATION.** SPLITOF-NO-ARM **+ APPLY-TIMEOUT**. Trigger B; rehearsal-first; Daniel confirms before the apply |
-| **EXPORT-HISTID-DROP — the cable export's identity projection** | QUEUED, and it blocks round-trip acceptance | 852 of 1,119 `HistoryID`s emitted against 1,119 identity rows live · 2-EXP / 2-IMP-b's, not 2-IMP-c's |
-| **PRINT-PARITY unit 2 — the box residuals** | **STAGED, UNISSUED** | `handoffs/_staging/260826-1845_print-parity-box-ADDENDUM-1_DRAFT.md` · Stack underline · dashed grey cut rules (OQ-4) · Box-in-Box suppresses the Stack · revert `MC.BUNDLE_FLAG` |
-| **GATE-THEMEGLYPH — the diagnosis** | QUEUED | its own unit; **never register it** |
-| **FENCE-PUSH — lift the two push layers** | QUEUED | Strat-tier ruling; + `chmod +x`, + a battery proving bulk staging STILL blocked |
-| **PRINT-PARITY — the CABLE family** | **UNBLOCKED and SCOPED** | **no fresh v1 print owed** · selectors → orientation → geometry · 4 content defects, ORIENT-FIXFAILED, 11 measured grids |
 | HARNESS H1 · H2 · H4 | ✅ | `e55269c` · `ddcf929` · `13a8233` |
 | DOOR + LANDING | ✅ | `e92f2c9` |
-| S4-mid: D-2b + BASE-EVT (FOCUS-MP in headroom) | QUEUED | |
 | **PRINT-PARITY cable pass 1 — M0-WIRE (records)** | ✅ | `df42fb0` · 28 files · suite 2374/132 → 2398/133 |
 | **PRINT-PARITY cable pass 2 — the PAGE CONTAINER** (ORIENT-FIXFAILED → PRINT-CLIP) | ✅ **CLOSED** | `eaabd03` · 8 files · checkpoint 1 closed with **no code change** (PDF-CHROME-PATH); checkpoint 2 shipped DOM-measured pagination, five constants deleted, **190/190 on paper** · **visual gate owed** |
-| **GATE-METHODRACE — the intermittent visual harness** | QUEUED, small, **no longer blocking** | **DID NOT REPRODUCE on 2026-08-28** — frame 03 captured cleanly on all three runs. Fired 4× on Aug-27 at loads 3.70–4.27 and NOT at 4.91 today, so **load is not the variable**. `visual-capture.mjs:425` queries with no settle wait. Rides the small clearing unit with **PRINT-HINT-EQUIP** and the stale run fence |
 | **BOX-PRINT-CLIP — the box family's own clipping** | ✅ **CLOSED** | `ff82281` · 7 files · **15 of 395 Contents blocks and 2 of 60 Box List rows** were being lost; zero after · sectioned measured pagination, the truck break now STRUCTURAL · `paginateByHeight` **deleted** · **136/136 on paper** |
 | **PRINT-PARITY cable pass 3 — the COLUMN DIE** | ✅ **CLOSED** | `c6bacf7` · 5 files · four outputs rebuilt on v1's measured die, worst element **48.15 → 0.37 pt** · **AMENDMENT 1** applied the folder cell-order ruling · **checkpoint 1 CHECKLIST-GROUPCOUNT closed by measurement with no code change** · **it set COLUMN x only — row y was never touched** |
 | **PANEL-CLIP — pass 3's own regression** | ✅ **CLOSED** | `702048b` · 3 files · **63 of 137 tail panel labels wrong** (56 off the sheet, 7 cut mid-token) from a dropped `flexWrap`; found by Daniel's printed proof, not by four green gate runs · **36 Tail Line and 18 Small Tail Block cells found silently lost** in the same sweep · all three now paginate by measured height · **PROVEN ON PAPER at 137** |
@@ -102,17 +135,6 @@ Live at `https://minotaur.app` at **`6deb411`**, pushed — HEAD and origin read
 | **CHANGEALL-METHODNEW — the Method create-missing fix** | ✅ **CLOSED** | `e3a336a` · 4 files, +284/−29 · the doctrine and the one `createMethod` copied from the band editor's bulk arm · a new pure `planMethodChangeAll` making `method_id: null` **unrepresentable** from a non-empty draft, 32 tests · **negative control reproduced the defect at 400 blanked rows** · a stale-closure 409 found in the fix itself and closed at source · gate **28/28, all byte-clean, no baseline event** |
 | **CHANGEALL-FOUNDSET — the batched-write ceiling** | ✅ **CLOSED** | `ba0058f` · 14 files, +1160/−137 · **36 call sites onto four SECURITY INVOKER RPCs through ONE helper** — 19 updates · 9 deletes · 7 reads chunked with errors that THROW · 2 doubled raw filters at half chunk with de-dupe · the two select-then-delete pairs collapsed to single statements · guard test proven against the baseline tree at **32 hits** · GREP-NULBYTE fixed · migration ledger **57**, Arch-applied |
 | **CHANGEALL-BOXNULL — the Box arm's PAYLOAD defect** | ✅ **CLOSED** | `6deb411` · 8 files, +640/−34 · a pure `planBoxChangeAll` making the stored id **unrepresentable**, 33 tests · the New Box dialog suspend/resume, nothing written until OK, Cancel writes nothing at all · **BOXNULL-TOOLBAR** on Daniel's option (a), equipment surface only, **enforced by `changeAllInvokeScope.test.ts` rather than by a comment** · negative control reproduced **SIX** pre-fix cases including one nobody predicted · gate 28/28 TWICE |
-| **BOX-DOC-PARITY — the two box DOCUMENTS** | QUEUED | **NEW.** Print Box List and Print Contents Lists have NEVER had a parity round — unit 1 was the box LABEL family and the staged addendum is labels too. **Cannot run against BVSC NY** (BVSCNY-SEED-JUNK) |
-| **THE EIGHT QUEUED LAYOUTS** — Group Parts · Device Patch · Equipment Labels · Bundle Summary · Line List · Steck Labels · Tail Folder Labels · **Bundle Labels** | QUEUED, **Q-4 RULED: all built, each with a v1 parity round** | **DESIGNED — the parallel is CLOSED and folded in.** Seven became eight (**Q-2: Bundle Labels ruled IN at v1 geometry**, the strictest bar of the eight) · **all three equipment-side v1 prints have LANDED** at `~/Minotaur_v1_exports/equipment/` · **Equipment Labels is BLOCKED behind EQUIP-LABELS-2**, a Trigger B unit · Steck Labels is 5167 and gets built on the die from the start |
-| **CABLE-SPLIT — the split feature** | **BLOCKED on evidence. TRIGGER A.** | v2 has two columns and **no feature**; the only Split UI is the equipment quantity split. **Needs a v1 export from a show that uses splits** — the corpus has 3 rows in one show |
-| **The four MEASURED-but-UNBUILT cable outputs** | QUEUED | Cable Checklist (**bottom margin 15.80 vs v1's 45.52 — 29.72 pt per page, which is why 54 v1 pages become 38**) · Bundle Sheets (right margin 27.00 vs 61.04) · Small Cable Labels (die 144.43 vs v2's 141.25) · Tail Checklist (row pitch 24.75 vs 26.00). Numbers banked in `cableGeometry.ts` |
-| S4-late: GS-C → LINE-STECK (+STECK-COLOR) → S3-G-2 (+UNFLAG-WARN) → ALLOC | QUEUED | deferred by the Aug-21 sequencing ruling |
-| S4-close: GBD | QUEUED | |
-| Sprint-4 close reviews: WF1A-SUNSET · auto-mode rider EXPIRES · COWORK-PORT · PRINT-REDO if opened | QUEUED | |
-| KKK-PASS (narrow-window responsive) | after Sprint 4 | |
-| **Pre-beta: SHARE build → ADM-1 · AUTH-DOMAIN · 3TL · DEPS · CL-HILITE · GCM (R-AH)** | QUEUED | BATCH-PREBETA |
-| **AC pass (BATCH-AC)** | after private beta STARTS (R-AG) | own trigger |
-| Post-beta: BATCH-BOX · Maintenance · Spreadsheet Export · **RF/Walkies/Circuits (BVSC-RF)** · IAS Import · real-time collab · licensing ~Nov · PWA | QUEUED | |
 
 ## 📌 Docket
 
