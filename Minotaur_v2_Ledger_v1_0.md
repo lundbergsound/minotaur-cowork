@@ -3023,3 +3023,184 @@ latched**, because `handledRef` latches for the life of the mount (AC-HANDLED,
 still open, still untouched). Item 16 was an audit, delivered report-only in the
 AMEND-1 return.
 ```
+
+---
+
+## SEPTEMBER 6, 2026 — sixth append — CAT-NOTE'S PRINT HALF SHIPPED AT `267d477` AND CAT-NOTE-RULE AT `f4192cd` · THE ESTIMATE PAGINATOR FOUND STILL LIVE ON THE EQUIPMENT LIST, AND A NEGATIVE CONTROL LOST SIX ROWS OFF A PAGE · CATNOTE-RULE REFUTED, SHIPPED AS REFUTED, AND THEN REINSTATED WHEN DANIEL FOUND IT ON THE PRINTED PAGE · TWO PRODUCTIONS SHARING ONE SHOW NAME RULED A MUST-HAVE FEATURE · BVSC-8POWER-DRIFT RE-POINTED AT THE WRONG SHOW IN THREE DOCUMENTS · FOUR ARCH ERRORS, TWO OF WHICH REACHED DANIEL (append block)
+
+**Session:** Cowork-Arch, the MAIN LINE. Opened off `drafts/260906_next_session_opener.md` at `1a54c3b`. Model `claude-opus-5`. Two units shipped, both production deploys. **Migration ledger 57 — UNCHANGED, fourth consecutive unit.**
+
+---
+
+### 1 · WHAT SHIPPED
+
+**CAT-NOTE, the print half — `1a54c3b..267d477`**, 5 files, +736/−205. The category note prints under its category heading at the body item line's size in italic, and the estimate paginator budgets its height. Suite 2743/146 → **2764/147**; the new file is `src/lib/print/printEngine.test.ts`, **the first test file `printEngine.ts` has ever had**. `CLAUDE.md` 134,764 → 133,424 characters.
+
+**CAT-NOTE-RULE — `267d477..f4192cd`**, 4 files, +307/−201. v1's 1.00 pt note-conditional rule now prints under the note. Suite → **2768/147**. `CLAUDE.md` → **132,053 characters, 17,947 under its limit** — down 2,711 across the two units, the fence body replaced not appended in both.
+
+Visual gate **28/28 at 0.0000%** on both units, **no baseline event on either** — the gate fixture carries no category note (2 categories, both `notes IS NULL`, read as the test user), so the print frame cannot move. Answered by SELECT before each gate ran, not predicted.
+
+---
+
+### 2 · ⚠ CATNOTE-RULE — REFUTED, SHIPPED AS REFUTED, THEN REINSTATED. THE INSTRUCTIVE FAILURE OF THE SESSION.
+
+The Docket carried CATNOTE-RULE as a **lead**: v1's layouts hold fourteen colour-keyed **2 pt** rules, each hidden unless the paperwork colour matches **AND** `Categories::Notes ≠ ""`, so v1 appears to draw a rule only where a category carries a note. The Docket row said in terms: *check it against the artifact before building it.*
+
+**Arch checked it and got the wrong answer.** The probe filtered `linewidth >= 2.0` — **because the lead said 2 pt.** The note-conditional rule renders at **1.00 pt**. The instrument could not see the object it was built to test for, returned absence, and absence was written down as refutation.
+
+**What made the wrong answer look corroborated:** the probe *did* find a 2 pt paperwork-colour rule under every category heading, 47 of 47. That is a **different object** — the heading underline — sitting in the same neighbourhood. Finding a real rule where a rule was expected read as confirmation of the negative.
+
+The conclusion reached `to-cc/260906-1054_cat-note-print.md` §2.1 as **"CATNOTE-RULE is refuted — do not build it,"** reached the drafts measurement of record as a section heading, and reached `267d477`'s commit message. **It shipped to production as a missing rule.** Daniel found it on the printed page and said so in one line.
+
+**Re-measured, no width filter — the line-class census:**
+
+| linewidth | colour | x0 → x1 | count | object |
+|---|---|---|---|---|
+| 2.00 | paperwork | 24.00 → 585.00 | 31 | page header rule, 1/page |
+| 2.00 | paperwork | 24.99 → 585.99 | 31 | page footer rule, 1/page |
+| 2.00 | paperwork | 26.98 → 585.98 | 48 | category heading underline |
+| **1.00** | **paperwork** | **26.27 → 584.27** | **14** | **the note rule** |
+| 1.00 | grey `#DEDEDE` | 25.27 → 586.27 | 535 | body row separators |
+| 1.00 | black | 239.11 → 369.86 | 31 | page header, 1/page |
+
+**Note-conditional, measured both ways: 14 of 14 noted headings carry it; 0 of 33 note-free headings do.** The document contains exactly fourteen lines of that class.
+
+⚠ **THE STANDING RULE THIS EARNS — A TEST'S INSTRUMENT MUST NOT INHERIT THE CLAIM'S PARAMETERS.** The lead said 2 pt, so the probe looked for 2 pt, so the 1 pt object the probe existed to find could not appear in its output. *A search run with the wrong instrument returns absence* — fifth occurrence on this project, **and the first written into a handoff as a finding and shipped to production.** The previous four were caught before they left the seat or before they reached code. **Widen first, filter second: census the whole class, then narrow.**
+
+⚠ **AND DDR-IS-THE-SOURCE WAS RIGHT ALL ALONG.** The refutation was published as *"the source stated intent, the artifact states behaviour, the artifact wins."* The artifact agreed with the source on everything that mattered — colour-keyed, note-conditional, fourteen of them. **Only the weight differed, and the weight was what the probe keyed on.** A correct standing rule was invoked to license a wrong conclusion.
+
+---
+
+### 3 · ⚠ THE ESTIMATE PAGINATOR IS STILL LIVE ON THE EQUIPMENT LIST, AND A NEGATIVE CONTROL PROVED IT LOSES ROWS
+
+**PRINT-CLIP and BOX-PRINT-CLIP retired the estimate paginator from the four cable and box documents and deleted `paginateByHeight`. The equipment list was never converted.** `paginateBlocks` accumulates `usedH` from constants — `SECTION_HDR_H = 34`, `METHOD_HDR_H = 26`, `DETAIL_ROW_H = 16` — against `CONTENT_H`, and the page is a fixed `height: PAGE_H` container whose body is `flex: 1, overflow: hidden`, with `overflow: hidden !important` in the print CSS.
+
+A category note is the **first variable-height element to enter this flow at section level**. Found by Arch at source before the handoff was written; it is what made `categoryNoteHeight` a pure, separately-tested function rather than an inline expression.
+
+**Proven by negative control:** the one-line mutation `usedH += SECTION_HDR_H + noteH` → `usedH += SECTION_HDR_H` lost **six of 120 rows** off the bottom of page 2 — no error, no warning, no gap in the numbering. `rendered-and-visible` 114 of 120 against the fixed tree's 120 of 120.
+
+⚠ **AND THE PROBE THAT WORKED FOR THE CABLE AND BOX DOCUMENTS IS BLIND HERE.** On screen, `.print-page` carries an inline `height: 1056` and a flex column's items refuse to shrink below their content, so an over-budget page **grows** rather than clipping — the screen probe reported zero blocks lost on every page. The `overflow: hidden` that scissors the surplus lives in the `@media print` block. **Every clip probe on this document must run under `emulateMedia({media:'print'})` at a true 816×1056 viewport.**
+
+⚠ **A SECOND PROBE HAZARD, FOUND BY CC IN CAT-NOTE-RULE — RECT-VS-FLOW.** `getBoundingClientRect().height` on a `PageBlockItem` **excludes the last child's bottom margin**, which collapses out of the parent but is still spent in the flow. CAT-NOTE-RULE's growth measures **+3.25 by rect and +3.99 by flow**. Both of this session's probes happened to compare like-for-like so neither was wrong, but **a future clip probe comparing block rects to `CONTENT_H` will silently under-count every block on this document.**
+
+⚠ **AND THE ESTIMATE UNDER-BUDGETS THE REAL CONTAINER BY ~30 px, AND ALWAYS HAS.** `CONTENT_H` is 880; `.print-page-content` measures **910** by-category and **890** with a method band. It errs conservative, so it is slack rather than defect — but the estimate and the box disagree and anyone tuning these constants must know it.
+
+---
+
+### 4 · WHAT THE v1 ARTIFACT SETTLED, AND WHAT IT CORRECTED
+
+Arbiter: `~/Minotaur_v1_exports/equipment/260905-1159_v1_equipment-list_BVSC-Tour_FILEMAKER.pdf`, 31 pp, 612×792 letter portrait, FileMaker Pro Advanced 17.0.1. **14 note instances across 6 stored notes.** Pedigree **(b)**, cited by file, page and coordinate.
+
+**THE FULL BLOCK ORDER: heading → 2 pt rule → note → 1 pt rule → first item.** Worked example, p7 `4.1 Microphone Hardware`: heading top 637.00 / bottom 649.04 · 2 pt rule y 653.50 · note top 658.00 / bottom 670.00 · 1 pt rule y 672.26 · first item top 676.90.
+
+| From → to | Measured (pt) | spread | n |
+|---|---|---|---|
+| heading top → 2 pt rule | 16.46 | 16.42–16.50 | 47 |
+| 2 pt rule → first line of block | 4.48 | 4.43–4.54 | 47 |
+| note line → note line (**soft wrap**) | **15.00** | exact | 4 |
+| paragraph → paragraph (**hard break**) | **30.00** | exact | 5 |
+| last note line bottom → 1 pt rule | **2.26** | identical on all 14 | 14 |
+| 1 pt rule → first item top | **4.63** | 4.58–4.68 | 14 |
+
+⚠ **TWO LEADING NUMBERS, NOT ONE.** A soft wrap advances **15.00**; a hard line break advances **30.00** — a paragraph break carrying 15.00 pt of space. Proven on `9.0 Hardware and Rigging`, whose stored note holds exactly one CR, no blank line, and whose first paragraph does not wrap: the gap is 30.00 with no wrap involved. **`white-space: pre-line` gives 15.00 for both and is wrong on every multi-paragraph note.**
+
+⚠ **THE NOTE OCCUPIES THE FIRST ITEM'S SLOT.** `heading top → first line of block` is **20.95 whether that line is a note or an item**, across all 47 headings. v1 reserves no space for the note; its only cost is its own height.
+
+⚠ **CORRECTION TO CATNOTE-TYPE — the left edge is a 2.00 pt INDENT, not flush.** Heading `x0 = 25.98` on all 47; note `x0 = 27.98` on all 14. The six notes open with **A · P · M · C · 9 · A** and the headings with **1 · 2 · 3 · 4 · 5 · 8 · 9 · 11 · 13** — different glyph sets, identical x0 within each class, so it is a frame offset and not italic side bearing, which would scatter.
+
+⚠ **CORRECTION TO CATNOTE-TYPE — the rule sits between the heading and the note.** *"Between the category heading and the first item"* is true but incomplete, and a note rendered above the heading rule is wrong.
+
+**AN OPEN QUESTION CLOSED BY MEASUREMENT RATHER THAN SENT TO DANIEL'S DESK.** Six stored notes produce **fourteen printed notes** — `4.1 Microphone Hardware` ×5, `8.0 Power` ×4, `13.0 Cable` ×2, `9.0 Hardware and Rigging` ×2, `11.0 Racks and Boxes` ×2, `13.1 Tails` ×1. The document runs several **LISTS**, each with its own full set of category sections. **The rule is: emit at every non-continued section header whose category carries a note** — one rule, no sort branch, and it settles `by-method-category` too, since `buildSections` emits one section per (method group × category) with `header: catName`.
+
+**NEVER ON A CONTINUED HEADER, MADE UNREPRESENTABLE.** `paginateBlocks` pushes `section-hdr` in exactly four places; the note rides the one non-continued push and the three continuation re-emissions carry no `note` field at all. A test fails if a block carries both.
+
+---
+
+### 5 · ⚠ TWO PRODUCTIONS OF ONE MUSICAL SHARE A SHOW NAME, AND THAT IS A MUST-HAVE FEATURE
+
+**STATED (Daniel, 2026-09-06):** two productions of the same musical carry the same show name, and supporting that is a **must-have feature**. Duplicate `projects.name` is not drift, not junk, and not a cleanup item.
+
+| project id | name | spine rows | `8.0 Power` |
+|---|---|---|---|
+| `57874c69-06b6-41b1-91d8-6a00e5255110` | **`Buena Vista Social Club US Tour`** (renamed by Daniel 2026-09-06) | 2,591 | **154 / 0 CR / 2 LF — DRIFTED** |
+| `cf780353-448d-4b15-a054-973f577b215c` | **`Buena Vista Social Club`** — **MEXICO CITY, THE LIVE SHOW** | 1,024 | 153 / 1 CR / 0 LF — v1-clean |
+
+**`cf780353` is BVSC-MX, the driver this whole Roadmap is sequenced by.** Its lower row count is deliberate — Daniel started it with **cable and boxes blank**.
+
+⚠ **AN ARCH ERROR THAT REACHED DANIEL AS A FINDING.** Arch called `cf780353` *"an incomplete earlier attempt — the evening APPLY-TIMEOUT stopped the first import"* and recommended renaming it as stale. **Inferred from a row count and a timestamp, written in the tense of a measurement.** He corrected it in one line. *TENSE-IS-A-CLAIM, third occurrence in six days, and the same shape as the six-minute Change All and the category-notes-are-dropped claim: inferring a mechanism instead of measuring one.*
+
+⚠ **AND THE READING THAT PRECEDED IT WAS BLIND.** The first live read of the category notes filtered on `p.name` with no project id — a name that is not unique — and returned **six rows where twelve exist**, without the seat noticing. Why that call returned six is **unexplained**; the per-project read supersedes it. **A second instrument failure in the same session, of the same family as §2.**
+
+⚠ **BVSC-8POWER-DRIFT IS MISATTRIBUTED IN THREE GOVERNING DOCUMENTS.** Daniel's 2026-09-06 gate edited `8.0 Power` on the **US Tour** (`updated_at` 13:04:58 UTC; the other five carry the 01:58 import stamp). **Mexico City's copy is byte-identical to its v1 source**, and all six of its notes share one import timestamp to the microsecond. The Roadmap, Session Log and Ledger all record the drift against "Buena Vista Social Club" unqualified, which now reads as the driver show. **Corrected in this append and propagated.**
+
+⚠ **PROJECT-NAME-NOT-UNIQUE — swept, and the app is clean.** Every `projects` access in `src/` is keyed on `id`; there is no uniqueness constraint on `projects.name`, which is why the feature already works. **One exposure: `scripts/visual-capture.mjs:122` finds its fixture project BY NAME**, takes `.first()`, and matches on Playwright's `hasText`, which is a **substring** match — so a second project whose name contains `Visual Gate Fixture` would silently hijack the gate. Unreachable today; the comment directly above it records the team fixing this same class of bug once already. **Not to be "fixed" by making the name unique — the duplicate is the feature.**
+
+---
+
+### 6 · QTY-ITALIC — MECHANISM FOUND, AND IT WAS DANIEL'S OBSERVATION
+
+The Docket carried QTY-ITALIC as *"some quantities print at 12.00 pt italic… Mechanism unknown."* Daniel, from the printed page: quantities appear italicised on a list without revisions.
+
+**Measured: v1 sets the QUANTITY italic and the DESCRIPTION roman on the same line** — `[CenturyGothic-Italic] '2' || [CenturyGothic] 'Earthworks M23 Measurement Microphone'`, on every sampled item. **Two fields, two styles.** v2 sets both roman. The "some" was a sampling artifact of reading the line's first character. **Mechanism is no longer unknown. EQUIP-LIST-PARITY's, registered, not built.**
+
+---
+
+### 7 · ⚠ GATE-REPORTING — THE GUARD IS UNOBSERVABLE FROM THE SEAT THAT ENFORCES IT
+
+Daniel's browser gate on `267d477` **ran and passed**. He reported it to Arch, in Cowork. The confirm phrase is typed at CC. **CC therefore recorded the gate as never run**, and its `_CLOSE.txt` says the commit went in without it.
+
+CAT-NOTE-RULE's handoff asked for the gate result in the terminal; the reply was the phrase alone, and CC again recorded it as unstated — correctly refusing to infer a gate from silence, having just been wrong in the other direction. **Daniel confirmed after the fact that it passed in the browser, for both units.**
+
+**GATE-BEFORE-COMMIT names an ordering CC cannot observe.** A gate reported where CC cannot see it is, to CC, indistinguishable from a gate that did not happen. **The rule needs a reporting channel, not more emphasis** — the same shape as O-12's *a rule checked at an event holds; a rule checked against a duration does not.*
+
+---
+
+### 8 · ⚠ FENCE-HEREDOC — THREE SIGHTINGS IN FOUR DAYS, TWO BINARIES, AND THE FENCE CAUGHT NEITHER
+
+**CAT-NOTE self-reported `perl -0pi` on a single file.** The matcher was tightened for `perl -pi` on 2026-07-31; `perl -0pi` walked straight through.
+**CAT-NOTE-RULE self-reported a `python3` heredoc rewriting a single file** — a mechanical 7-occurrence rename in one file, which is exactly the case the Sed Disclosure Rule sends through the Edit tool.
+
+Both were disclosed in full with the verbatim command, both files reverted and proven byte-identical by `diff`, the frozen gate run **immediately** rather than deferred, and the change redone through the Edit tool. **The disclosure discipline is working; the guard is not.**
+
+⚠ **THE RULED LIST OF FORMS TO BLOCK IS A DESCRIPTION, NOT A SPECIFICATION.** It is being patched one spelling at a time, and each patch is proved by reading rather than by testing. **This wants a BATTERY, the way FENCE-PUSH was proved with 34 cases — TEST THE GUARD, DO NOT READ IT.** Arch's to scope.
+
+---
+
+### 9 · ARCH ERRORS THIS SESSION — FOUR, AND TWO REACHED DANIEL
+
+1. ⚠ **CATNOTE-RULE refuted with an instrument that inherited the claim's own parameter** (§2). **Reached a handoff, a governing draft, a commit message and production.** Found by Daniel on paper.
+2. ⚠ **Mexico City called a failed import** from a row count and a timestamp, written as a finding (§5). **Reached Daniel.** Corrected by him in one line.
+3. **A live read filtered on a non-unique project name**, returning six rows where twelve exist, unnoticed (§5). Caught by a later count that did not reconcile.
+4. **Stray files written into the CODE REPO while a CC session was live**, breaching the one-writer backstop. `/mnt/user-data/outputs/` mirrors into the first connected folder, which is `~/Developer/Minotaur`. Files moved out; **the mechanism is a standing hazard for this seat** — ARCH-OUTPUTS-MIRROR.
+
+**The shape of 1, 2 and 3 is one shape and it is the session's lesson: the seat measured, and each time the measurement's SCOPE was set by an assumption that was never itself measured** — the rule's weight, the project's identity, the name's uniqueness. *A measurement is only as good as the boundary drawn around it, and the boundary is a claim too.*
+
+**Against that:** the pagination hazard (§3), the two-leading-numbers finding, the repeat-per-occurrence rule and the CATNOTE-TYPE corrections were all found by measurement before anything was built, and none reached Daniel as a question.
+
+---
+
+### 10 · PROPAGATION LIST
+
+| claim | where the old text lives | disposition |
+|---|---|---|
+| **CATNOTE-RULE is refuted** | `to-cc/260906-1054_cat-note-print.md` §2.1 · `drafts/260906_catnote-print_v1_measurement.md` §2 · `267d477` commit message · Roadmap v4.20 Docket row | Handoff and commit message are **immutable history, exempt and marked**. Drafts §2 **rewritten in place** to REINSTATED. Roadmap row **closed as built** in v4.21. |
+| **BVSC-8POWER-DRIFT is on "Buena Vista Social Club"** | Roadmap v4.20 · Session Log header · Ledger fifth append | Re-pointed to **`57874c69` / US Tour** in v4.21 and in this append. The fifth append is **history and stays**; this append carries the correction. |
+| **"the BVSC Tour imported and verified" = the driver show** | Session Log header · Ledger Sep-5 fourth append | The 2,591-row import is the **US Tour**. Corrected in v4.21 and here; prior appends stand as history. |
+| **"Buena Vista Social Club" as an unqualified project reference** | every document | **Every future citation names a project id.** PROJECT-NAME-NOT-UNIQUE. |
+| **CATNOTE-TYPE: note flush with the heading's left edge** | Roadmap v4.20 Docket · Session Log header · the spent opener | Corrected to a **2.00 pt indent** in v4.21 and here. The opener is spent and exempt. |
+| **CATNOTE-TYPE: note sits between heading and first item** | same | Corrected: **the 2 pt rule sits between the heading and the note.** |
+| **QTY-ITALIC mechanism unknown** | Roadmap v4.20 Docket | Mechanism **found** (§6); row updated in v4.21. |
+
+---
+
+### 11 · REGISTERED THIS SESSION
+
+**PROJECT-NAME-NOT-UNIQUE** · **GATE-REPORTING** · **RECT-VS-FLOW** · **PAGINATE-SLACK** (`CONTENT_H` 880 vs 910 measured) · **EQUIPLIST-ESTIMATE-PAGINATOR** (never converted; PRINT-CLIP's mechanism still live) · **PRINTPROBE-MEDIA** (the screen probe is blind on this document) · **FENCE-FORMS** (the battery) · **ARCH-OUTPUTS-MIRROR** · **CATNOTE-FONT-DUP** (a second copy of the body item's size) · plus **CATNOTE-RULE reinstated and closed**, and **QTY-ITALIC** sharpened.
+
+**⚠ NEW STANDING RULE — AN INSTRUMENT MUST NOT INHERIT THE CLAIM'S PARAMETERS.** Census the class, then narrow. §2 is its origin of record.
+
+**⚠ NEW STANDING RULE — A MEASUREMENT'S BOUNDARY IS A CLAIM TOO.** Three of this session's four Arch errors were correct measurements inside an unmeasured boundary. §9 is its origin of record.
+
+---
+
+*End of the September 6, 2026 sixth append. HEAD `f4192cd`, pushed, production deploy. Migration ledger **57 — unchanged, fourth consecutive unit**. Suite **2768 / 147**, zero skipped. Visual gate **28/28 at 0.0000%**, no baseline event. `CLAUDE.md` **132,053 characters, 17,947 under its limit**. Daniel's browser gate ran and passed on both units. Governing set at this close: Arch Prompt v34 + `Architecture_Provenance.md` · Strategy v14 · **Roadmap v4.21 (retires v4.20)** · Ledger v1.0, this sixth append · Session Log at 6, rollover clear. **Next: EQUIP-LIST-PARITY, the last item in CDMX-SEQUENCE, then ROADMAP-REFACTOR.***
