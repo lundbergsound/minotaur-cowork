@@ -1,0 +1,41 @@
+# EQUIP-LIST-PARITY — items registered across the five rounds, for the close
+
+*Written 2026-09-07 by the Cowork-Arch main line while the unit is still open and uncommitted at HEAD `f4192cd`. This is a holding note so nothing here reaches the close by memory. Every item below wants a Docket row; the rulings want their propagation lists.*
+
+## Rulings taken during the unit
+
+- **EQUIP-LIST-FULLSIZE (Daniel, 2026-09-06)** — the equipment list and cover letter print at v1's size; a v1 point becomes a v2 pixel at 4/3. **The 0.750 is a units defect, not a die**, so EQUIP-LIST-SCALE's "measured at exactly 0.750 on every element class" is a measurement of the defect. **Propagation:** Roadmap v4.21 (Next Sessions ¶1, the Sprint Plan row, EQUIP-LIST-SCALE, EQUIP-LIST-PARITY, CONTCAT-DIVERGE), the Session Log's STATE OF PLAY, the Ledger's Sep-6 sixth append, `drafts/260906-1430_next_session_opener.md` §3.
+- **CONTCAT-SIZE (Daniel, 2026-09-07)** — the continued-category heading takes the FULL heading size, not v1's 10.00. **Extends CONTCAT-DIVERGE rather than reversing it:** v1 shrinks the name because it must fit beside the method chip, and v2 prints it on its own line. Both dates in the source.
+- **NOTE-GROUPING (Daniel, 2026-09-08)** — the print row is keyed on model AND note. Collapse half is pedigree (b) as well as (a) — **zero consecutive identical sub-note lines in the v1 arbiter's 312**, on rows aggregating to 13/165/42. Split half is pedigree (a) alone and the source says so.
+- **AMEND-DECLARES-PER-ROUND (Arch, 2026-09-06)** — a visual-gate declaration is per ROUND, not per unit; H2 computes against the baselines on disk and that is the honest comparison. Retires the AMEND-ROUND RE-DECLARATION PROCEDURE. **This discharges AMEND-ROUND-TENSION**, which the Docket said to rule before the next unit that took an amend round.
+- **EQUIPLIST-RULE-QUANTUM (Arch)** — rule weights take the NEAREST reachable 0.75 pt multiple. Pedigree: this project's own worst-element-in-points acceptance.
+- **EQUIPLIST-LEAD-QUANTUM (Arch)** — leading likewise, per transition rather than as one policy; v1's rhythm is exactly constant on 235 of 235 rows and that regularity is what reads down a page.
+- **REVGROUP-SPLIT (Arch, 2026-09-07)** — **revision-mode print keeps the model-only grouping and does NOT split.** See below.
+
+## New standing rules
+
+- **A GAP IS NOT A WRAP UNTIL THE LINE ABOVE IT IS MEASURED.** Sibling to AN INSTRUMENT MUST NOT INHERIT THE CLAIM'S PARAMETERS. Earned twice over: v1's 126 sub-note gaps at 12.00 were called soft wraps without measuring the lines above them, and **119 of 126 end more than 60 pt short of the wrap edge.** The wrong model reached the drafts measurement, AMENDMENT 2 and the build.
+- **THE ACCEPTANCE INSTRUMENT FOR TYPE AND LEADING IS THE EMITTED PDF, NOT THE DOM.** Baselines land on whole CSS pixels in the PDF; a fractional line-height cannot be painted and alternates instead. CC's DOM solve was correct as measured — weighted RMS 0.114 px — and still wrong about the page. *An instrument that cannot see the quantum reports a solved system.*
+- **A DISCLOSED DEVIATION IS NOT A HALT.** When a fence makes its own acceptance unreachable, the move is still to stop and say so — the seat that set the fence can widen it in one line. Earned on AMENDMENT 1's footer deviation, which was right on the merits and taken without the halt.
+
+## New Docket items
+
+| ID | One line | Owner |
+|---|---|---|
+| **REVGROUP-SPLIT** | ⚠ **NEW, and it is a KNOWN divergence on one surface rather than an oversight.** NOTE-GROUPING splits the plain-list print by `(model, note)`; **revision-mode print still groups by model alone and stacks a model's differing notes under one row.** `groupByModel` was left byte-identical because two of its five callers are not the print render: `pairRevision` matches old rows by `row.model` ALONE, so two current rows sharing a model would each claim the same old quantity and double-count silently; and `buildRevisionSnapshot` **writes `equipment_list_revisions` JSON**, whose recovery rules (`hydrateItemNotes`, `recomputeRowNotes`) are documented against that grouping. Bringing revision mode onto the same key means deciding **what a new (model, note) row pairs against in an OLD snapshot written model-only** — a question about historical data, not an implementation detail. **No regression: revision mode keeps today's behaviour.** | **Arch's, its own unit. Changing the shape of a persisted artifact is not a print round's.** |
+| **EQUIPLIST-CLMARGIN** | v1's cover-letter body starts at `x0` 37.91 against v2's 27.00, because v1's letter is a standalone Word document with its own 36.00 pt margins while v2's shares the list's page chrome. Matching it would diverge the two halves of one printed document. Measured, not built | Daniel's desk |
+| **EQUIPLIST-QTYCOL** | v1 has **no fixed quantity column at all** — it right-aligns the number hard against the description, `x0` 30.52 / 37.18 / 43.83 pt for three / two / one digits. v2 has a fixed cell, widened this unit to stop a measured clip (`"888"` = 26.60 px in a 19 px box). The parity answer whenever the cell is rebuilt | With a later print unit |
+| **EQUIPLIST-DOTRULE** | v1 draws ONE solid 1.00 pt grey rule per row at `x 25.27 → 586.27`; v2 draws a dotted line of **372 filled rects per row — 176,527 objects in a 24-page PDF against v1's 690.** Style, weight and span all differ. Dotted-vs-solid is UX-affecting with no pedigree either way, so it is unruled. Plausible cause of slow print preview | Daniel's ruling; pairs with PREVIEW-CLIP |
+| **EQUIPLIST-ROWH-BIMODAL** | v1's body row takes **two heights, 19.97 and 20.97, exactly 1.00 pt apart**, confirmed on the printed separator rules. 19.97 is the only value on pages 1–22 and 30–31 and composes as `19.97 + 12.00 × n`; 20.97 appears only on pages 23–29, mixed within single pages. Indent, quantity digit count, description length, right-edge extent, descenders and punctuation were all tested and none separates them. **19.97 is taken; the discriminator is unexplained** | Standing; does not block |
+| **CLAUDEMD-ATLIMIT** | ⚠ `CLAUDE.md` closed this unit at **149,964 characters — 36 of headroom**, from 17,947 under two closes ago. The fence is REPLACED not appended and still grows per unit. **The next unit cannot write its first finding without removing something.** Arch's recommendation: fold it into ROADMAP-REFACTOR as its first item rather than scheduling a separate unit — same family, already queued next, no re-ordering of Daniel's sequence — **and no build unit runs before it** | **Daniel's ruling on the sequencing** |
+| **EQUIPLIST-BLANKNOTE** | ✅ **DISCHARGED.** Its "v1 36.00 against v2 24.00, n=2, too thin for a rule" was thin only because the rule was mis-stated. Under the flat 12.00 model there is nothing special about it: two blank lines cost two lines | closed |
+
+## Arch's errors in this unit — five, and Daniel found three of them on paper
+
+1. **The sub-note leading model** (§ above) — classified without measuring the lines above the gaps; reached the drafts measurement, a governing amendment and the build.
+2. **The `.docx` taken as the cover letter's arbiter** where the printed artifact disagreed — section headings at 12.00 against v1's 10.08, and a `w:line 259` multiplier against a flat 12.24. **§10.3 of the measurement of record flagged this exact boundary in advance and it was still walked into.**
+3. **QTY-ITALIC left off the first handoff's scope list** while the Roadmap and the fence both had it riding this unit — two halves of one instruction disagreeing, caught by CC's hard-stop.
+4. **The indents were never in scope** and are the largest thing Daniel saw on the first gate print — sub-notes 17.25 pt shallower than v1's.
+5. **Two claims in AMENDMENT 4 §1 that did not survive CC's check at source** — that `groupByModel` was print-only (it has two revision callers, one writing persisted JSON), and that `itemNoteParagraphs`/`itemNoteHeight` could be simplified (they are shared with the revision path).
+
+**The shape of 1, 2 and 4 is one shape and it is the same one the last session recorded: a correct measurement inside a boundary that was never itself measured.** Against that, 3 and 5 were caught by the guards working exactly as designed.
