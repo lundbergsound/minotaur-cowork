@@ -3987,3 +3987,77 @@ Every governing-file edit was a read-modify-write by script with an assertion pe
 ### Rules earned, and one that was not
 
 **SCAN-NONZERO** and **A SELECTOR IS NOT AN EMISSION**, both from leg 1, both lifted into `Standing rules` at that unit's close. **Leg 2 earned none, and CC said so rather than inventing one** — GRAPH-BEATS-RERUN and GATE-LOAD-AUDIO already existed and both did their job.
+
+---
+
+## SEPTEMBER 8–10, 2026 — TENTH APPEND — FOUR UNITS SHIPPED IN ONE ARC (`0f6f2e7` LEG 3a · `39b16d5` BATCH-HARNESS · `7c1d4c5` HARNESS-SETTLE · `dce1b72` DARKMODE-PASS) · ⚠ THE VISUAL GATE CLOSES RELIABLY FOR THE FIRST TIME — FIVE CONSECUTIVE 28/28 · FINDPARITY-UNTYPED DISCHARGED AT 25 OF 25 WITH EXACT COUNTS, RUN FROM THE ARCH SEAT · ⚠ THE DARK-MODE CLUSTER WAS NEVER IN THE PALETTE ARCH MEASURED, AND ITS ROOT CAUSE WAS WRITTEN IN THIS REPO TWO UNITS AGO · ⚠ A CREDENTIAL PRINTED TO DISK BY CC, DISCLOSED IN FULL AND REMEDIATED BEFORE ANYTHING ELSE · THREE ARCH ERRORS SHARING ONE SHAPE (append block)
+
+### The arc, and why it is recorded as a defect
+
+Four units under one session across three days. ⚠ **By the close, three shipped commits and a fourth built unit existed in NO governing document** — everything lived in `drafts/` and in gitignored `handoffs/`. **That is the largest instance of the stale-document exposure this project has recorded**, and it is why the close was called rather than a fifth unit started. ONE-SESSION-ONE-ARC exists for this; it was broken knowingly and is logged as broken.
+
+### FIELD-CONTRACT leg 3a — `0f6f2e7`, 13 files, +872/−128
+
+**THE MODEL GAP closed with an ORIGIN, not a key** — the fix Arch specified was one branch reading `data-find-field`, and CC found it insufficient in two directions: **`model` has no row cell anywhere**, so the bare branch would have landed a focus request on a field the row does not render and Daniel's symptom would have survived the fix; and **a band key can BE a row key** (`method_name`, `box_name`, `group_label`), so it would have silently changed where ⌥⇧E and the toolbar Delete land from inside a band. **The capture now carries its origin and one pure function drops a band origin to null.** *No key test could have expressed this.*
+
+**AUTOCOMPLETE-NOPORTAL: the census found NINE unportalled sites, not the six Arch named** — three on surfaces the triage never looked at. ⚠ **All three were MEASURED rather than swept in: none has a clipping ancestor, so the reported defect cannot occur there.** **CABLE-FINDDEFAULT needed a second half the handoff did not name** — the listener's gate did not admit the inspector keys, so widening the read alone would have shipped a fix that did nothing and looked right in review.
+
+⚠ **THE PREDICTED CONTRACT MOVEMENT DID NOT HAPPEN, AND CC REFUSED TO WRITE AN EXCEPTION TO SATISFY THE PREDICTION.** `group` is still a rendered editable cell on every unbundled cable; declaring otherwise would have put a wrong fact in the census. **No assertion was deleted, none loosened, none added to paper over a gap.**
+
+### BATCH-HARNESS — `39b16d5`, 6 files, +947/−48
+
+**GATE-DEVCHECK measured rather than reasoned:** both servers stood up at once, dev `:3000` → 200 + JSON, production `next start` `:3100` → 404, and the manifest carries the repo's identity for free because its `originalSource` entries are `config.matcher` from `src/middleware.ts`. **The refusal spawns nothing** — spawning behind an occupied port would let `next dev` take the next one while the browser kept talking to the wrong server.
+
+⚠ **COMMITTED ON THE IMPORT GRAPH, NOT ON A GREEN RUN.** Two runs on a quiet machine (loads 2.50, 3.56) failed on **two DIFFERENT registered flakes**, neither reproducing. Zero app modules changed, verified independently at source, so no frame could have moved for a code reason. **Direct precedent: FIND-PARITY shipped on the same reasoning with four changed modules to reason about, against zero here.**
+
+### HARNESS-SETTLE — `7c1d4c5`, 3 files, +255/−9
+
+⚠ **THE ROOT CAUSE WAS THE READ, NOT THE WRITE, AND THAT CORRECTED THE PRIOR UNIT'S OWN DIAGNOSIS.** `setTheme` waited a fixed 600 ms for TopBar's fire-and-forget stored-preference fetch and then read the class it was about to change. **It now waits on the localStorage write TopBar performs one line after the class toggle — the last statement of the application, so observing it proves the class before it is already correct.** ⚠ **The alternatives were CHECKED and rejected on measurement:** the button title and the `<html>` class derive from the same value and agree both before and after the re-sync, so neither can witness it.
+
+**FIVE CONSECUTIVE 28/28. No frame moved. `--update-baselines` never run.** Two more bounded waits and a matcher repair were **measured into existence by the unit's own runs** — including a hole in the previous unit's sort fix, where a URL-only response match resolved on the *method* write still in flight and let the navigation abort the *category* one.
+
+⚠ **A SIXTH ATTEMPT REFUSED AT LOAD 6.20, RAISED BY THE FOUR RUNS BEFORE IT.** Reported separately rather than folded into the count. **A reliability measurement must let the machine settle between runs, or it measures its own wake.**
+
+### DARKMODE-PASS — `dce1b72`, 14 files, +354/−53
+
+⚠ **THE HANDOFF'S PREMISE WAS ARCH'S AND IT WAS WRONG.** §0 computed WCAG contrast for six `buildHCEquipPalette` pairs, found 7.45 worst case, and sent CC off with a size hypothesis. **Not one of those six pairs renders on any element Daniel's eight notes name** — the equipment list does not publish those variables, the project menu publishes none of the palette, the find panel imports nothing from the theme module. **The elements are on Tailwind `surface-*`/`brand-*`.**
+
+**Measured on the running app: worst pair WCAG 1.26, eleven elements failing AA in dark.** ⚠ **Two measure APCA Lc 0.0 EXACTLY** — not a rounding but APCA's low clip, the value returned when contrast is below the level at which it will report a number at all.
+
+⚠ **THE ROOT CAUSE WAS WRITTEN IN THIS REPO TWO UNITS AGO.** `globals.css:41-47`, added for P12/M0-WIN: *"`--surface-300` … is a light-mode tint and its `.dark` counterpart is a background tone — neither reads as text in the other mode."* **Written for the N/A method row and never generalised.** Three of the eight notes and five more elements nobody raised are that exact mistake. *A finding recorded beside the one place it was noticed will be re-derived.*
+
+⚠ **NEW STANDING RULE — FOR DARK-MODE TEXT, THE WCAG RATIO IS NOT THE INSTRUMENT; IT CANNOT SEE POLARITY.** The identical elements measure **light 1.45–1.67 against dark 1.55–1.84** — light very slightly worse — yet only dark was ever raised. APCA separates them: filter labels **Lc 25.2 light against −8.1 dark**, column header **19.9 against 0.0**. **Daniel's eye agreed with APCA against WCAG and was right.**
+
+**Four tokens gained a dark half; every light half is byte-identical to what shipped, and every value was ADOPTED rather than invented.** ⚠ **They were deliberately NOT added to `tailwind.config.js`** — a `surface.400` step would have silently activated ~110 dead classes app-wide in one edit.
+
+⚠ **105 DEAD UTILITY CLASSES, AND REPAIRING THEM WOULD LOWER CONTRAST.** `text-surface-400/500/600/700` emit no CSS, so 105 sites inherit the parent's colour — **full body colour, 12.81 in dark.** Restoring the author's intended muted tone would take them to ~4.85. **All 105 left untouched.** The instrument that found them **was wrong first and its own positive control caught it**, reporting "0 rules" for a class the census had just measured working.
+
+⚠ **THE SIZE PREDICTION WAS ALSO WRONG, AND THE MEASUREMENT IS THE USEFUL PART.** Applied to the real sub-12px chrome elements on the running page: **taking every chrome label to 12px costs THREE PIXELS and ZERO ROWS.** The filter bar is line-height-bound and grows into slack it already has. **The density objection does not survive measurement.** ⚠ **The boundary of that measurement is itself a claim and was stated: chrome bands only.**
+
+### The find sweep — FINDPARITY-UNTYPED discharged, and the bar was an expected count
+
+25 of 25 fields typed against production from the Cowork browser pane, on `Cable Parity Fixture`. **Every needle priced at the database first**, so a pass is an exact match rather than a non-empty result. Fields with no positive value tested by ABSENCE, since `labelCountText(0)` and `flagFace(false)` both render blank. **Read-only, verified after: 0 items written, 0 methods created.**
+
+⚠ **THE ONE ANOMALY WAS ARCH'S INSTRUMENT.** Cable `group` returned 0 where Arch expected 1; the expectation came from the STORED `group_label` while the accessor reads `v_cable_list.effective_group` — Daniel's own ruling. Read from the view the app loads: `Turkey` 0, `Loose-Ampland` 69, blank 2. **The app matched all three.**
+
+⚠ **AND A NEAR MISS WORTH KEEPING.** Before the guard existed, an automated keystroke went into a **live cable's Method field** on the parity corpus, because the app correctly hides the criterion box when the operator is `is blank` and the automation grabbed the next input. **Escape reverted it and the database confirmed nothing was written.** The helper now refuses any input inside a record marker, and **fired correctly on the very next attempt.**
+
+### The credential incident — CC's, disclosed unprompted at the top of its return
+
+The test user's password reached stdout and one gitignored report file while the census logger was being built. **Six files removed, absence verified by grep, and a tested redactor built before anything else** — two independent rules, 13 tests. ⚠ **One deletion control PASSED first time and proved nothing:** it put the secret past a truncation limit, which truncate-first also satisfies; the corrected test straddles the cut, where truncate-first leaves `{"password":"hunter` readable. **Rotation is Daniel's — credentials are a hard stop for both agent tiers.**
+
+### Rulings
+
+**Daniel:** `box_number` (delegated to Arch) · **boxes and bundles held to the field contract** · **APPLY-TIMEOUT unparked** · leg 3a's gate **postponed, not waived** · BATCH-HARNESS **committed on the graph** · DARKMODE-PASS's gate **postponed, not waived**.
+
+**Arch:** ⚠ **FLAKE (2) SPLITS.** Its invariant `1451200 px at bbox 0,93–1599,999` is **1600 × 907 — the settings BODY REGION** — and a region-sized diff is equally true of blank content and mistinted content. **It identifies WHERE, not WHY, and every prior sighting was attributed by that number.** Two entries: **(2a) unpainted content in the correct theme**, **(2b) content painted in the wrong theme**; **prior sightings marked UNATTRIBUTED rather than retro-assigned.** · **The load ceiling protects a VERDICT** — a run that cannot produce one may raise it, loudly and disclosed, never on a run that captures. · **A reliability measurement lets the machine settle between runs.** · CC's bash-mediated deletion of the credential files **ratified**; its refusal to install its own permission file **upheld**.
+
+### ⚠ Three Arch errors, one shape
+
+(1) the cable-group needle priced against the wrong table · (2) BATCH-HARNESS's second failure called flake (2) "to the digit" when the number matched and the mechanism never did · (3) DARKMODE-PASS's entire premise. **The shape: an instrument that inherited a prior claim's parameters instead of measuring which surface actually renders the thing.** *Fifth, sixth and seventh occurrences.*
+
+⚠ **WHAT SAVED (3) WAS THE INSTRUCTION, NOT THE REASONING.** The handoff ordered a census of what actually renders each note BEFORE touching the palette, and forbade concluding the colours were fine. **CC ran the census, refuted §0 on its own instrument, and said so first.** *An instruction can outlive the reasoning that produced it — which is the argument for writing the census requirement into every scoping handoff rather than trusting the scoping.*
+
+### A corpus fact that went stale with nothing to notice
+
+⚠ **`num_labels` reads ZERO on every row of the parity fixture**, where three governing documents record **150 twos / 57 ones / 357 stickers**. `labels_done` still reads exactly **57** — the frozen flag survived and the integer did not, which is what confirms the project and the population. **A single bulk write on 2026-09-01 at 13:03 UTC touched 1,329 of 1,335 generic rows; the cause is NOT measured and is not asserted.** ⚠ **The live shows are unaffected, checked: US Tour 113 non-zero, Mexico City 20.** **Do not re-import before someone looks at what ran at 13:03 — the re-import overwrites the only evidence.** *A corpus measurement is true at a timestamp, and these documents record neither the timestamp nor a way to re-check.*
