@@ -4345,3 +4345,75 @@ The import-apply sites · the fifteen unwired commit points · the Save Version 
 ---
 
 *End of the September 11, 2026 thirteenth append. HEAD **`951557c`**, pushed, origin identical — ONE production deploy. `Minotaur-Cowork` carries this close. **Migration ledger 58.** Suite **3088 / 160**, zero skipped. Frozen **3/3 vs `be0769de`**. Visual **28/28**, no baseline event. `CLAUDE.md` **115,579 of 150,000**, untouched. **Roadmap v4.28 retires v4.27; Architecture Prompt v35 retires v34.** In flight: **nothing.***
+
+---
+
+## SEPTEMBER 11, 2026 — second append (Cowork-Arch main line) — VERHIST-TIMER APPLIED, MIGRATION LEDGER 58 → 59 · THE HOURLY BACKUP FIRED ON ITS OWN AND IS PROVEN IN BOTH DIRECTIONS · RETENTION'S TWO INVARIANTS ARE ASSERTED IN CODE RATHER THAN DOCUMENTED · A FULL-CORPUS SWEEP COSTS 2.8 SECONDS, WHICH DELETED A DESIGN QUESTION BEFORE IT WAS ASKED · A REBUILD EXPOSURE FOUND BY ACCIDENT (append block)
+
+### 1 · The ruling that gated the unit
+
+**Daniel, 2026-09-11: "manual backups don't auto clean."** A version the operator names and saves deliberately is **exempt from the retention cleanup at every age**, which is the position Arch had stated. ⚠ **The schema already carried the means:** `project_snapshots.reason` has admitted `'manual'` since migration 58, so the exemption needed no schema change — only a `where reason <> 'manual'` in the delete and a guard proving it holds.
+
+### 2 · What was applied
+
+**Migration `20260911165516_verhist_timer_schedule_and_retention`, ledger 58 → 59, to `main` on Daniel's call.** It installs `pg_cron`, creates `public.verhist_sweep_log`, creates three functions, revokes-then-grants on all four objects, and registers two scheduled jobs: **`verhist-hourly-snapshot` at `0 * * * *`** and **`verhist-daily-prune` at `0 9 * * *`** (09:00 UTC, 05:00 New York — the one hour a theatrical production is reliably not in a tech).
+
+### 3 · The rehearsal, and the design question it deleted
+
+**Rehearsed in a transaction against live production data and rolled back, with a residue check proving the rollback clean** — every object gone, no fixture rows, ledger still 58.
+
+⚠ **A FULL SWEEP OF ALL 26 PRODUCTIONS COSTS 2,813 ms; the worst single production 698 ms.** Arch had been carrying an unasked design question — whether the timer needed a cheap pre-filter to skip quiet productions, which would have required a change-signal the schema does not have. **Three seconds an hour deleted the question.** *A measurement taken before the design is written is worth more than the machinery it makes unnecessary.*
+
+**Two facts about `pg_cron` established by installing it and throwing it away, not by reading documentation:** it is already in `shared_preload_libraries`; and **the extension registers in `pg_catalog` while its install script creates schema `cron`** carrying `cron.schedule(job_name, schedule, command)`, `cron.job` and `cron.job_run_details`.
+
+### 4 · Retention proved against a planted fixture before it was trusted
+
+**A twelve-row, two-month history was planted across two scratch productions and the survivors PREDICTED BEFORE THE RUN. Five rows deleted; the prediction matched to the row.** Specifically proved, each of which is a way the rule could have been wrong:
+
+- three snapshots on one calendar day, three days back → **the newest survived, two died**
+- three snapshots in one calendar week, forty days back → **the newest survived, two died**
+- **a `'manual'` save five days back — deep inside the thinning window — SURVIVED**
+- a production whose only two snapshots were sixty days old → **its newest survived**, which is the case that would otherwise erase a show's history entirely
+- **`project_blobs` untouched; the live production's three real snapshots untouched**
+
+⚠ **THE TWO INVARIANTS ARE ASSERTED IN THE FUNCTION, NOT DOCUMENTED IN A COMMENT.** `prune_project_snapshots_v1` counts blobs and manual rows on both sides of its own delete and **raises — rolling the delete back — if either number moved**, naming the ruling in the error text. A future edit that starts eating named versions or shared attachments refuses and says why, rather than succeeding quietly. *TEST THE GUARD, DO NOT READ IT, applied to the guard's own future.*
+
+### 5 · Post-apply verification, including privilege level
+
+**Eight privilege attacks — three functions and the run log, each as `authenticated` and as `anon` — ALL DENIED `42501`, by RUNNING the call and catching the denial.** `snapshot_project_v1` keeps its `authenticated` grant, correctly: the app calls it. The three new functions and the log table are **postgres-only**, and the log additionally has RLS on with **no policy**. Both jobs are registered `active=true`, owned by `postgres`.
+
+### 6 · The timer proven in BOTH directions
+
+⚠ **THE HOURLY JOB FIRED ON ITS OWN AT `17:00:00.184975+00`, UNATTENDED, AND FINISHED AT `17:00:02.723619+00`** — **26 productions written, 0 failed, 2,523 ms by the function's own clock.** Not a function called by hand: the scheduler doing its job.
+
+⚠ **AND THE OTHER DIRECTION, WHICH IS THE ONE THAT BOUNDS THE COST: a second sweep with nothing changed wrote NOTHING — 0 written, 26 SKIPPED, 1,329 ms.** Skip-if-unchanged was shipped in migration 58 and the timer did not re-implement it. **A quiet hour costs 1.3 seconds and zero bytes.**
+
+**26 of the 29 snapshots now carry a NULL `created_by`**, exactly as designed — `pg_cron` runs as a superuser, so RLS does not apply and `auth.uid()` is NULL. ⚠ **This is a REQUIREMENT ON VERHIST-UI, not a defect: the History screen renders those as "Automatic" and never as a blank operator.**
+
+### 7 · Numbers of record
+
+**Migration ledger 59.** Snapshots **3 → 29**; blobs **2 → 52**. **Version history's total stored size is 7,312 kB**; the database **43 → 49 MB of 8 GB**. ⚠ **Arch's pre-apply expectation was "roughly 12 MB" — HIGH BY A THIRD, and it was labelled an expectation rather than a measurement when it was given, which is the only reason it is recorded here and not in Corrections.**
+
+**No code commit and no production deploy this session.** Code HEAD stands at **`951557c`**. ⚠ **Suite, frozen, visual and typecheck counts were NOT re-measured and the thirteenth append's counts stand unchanged** — stated rather than restated as if fresh. ⚠ **Production READY is now TWO deploys stale and is still not seat-verifiable:** the Vercel token sits outside the three mounts, re-proved this session by running `scripts/vercel-preopen.mjs` and getting *"token file missing"*.
+
+### 8 · Arch errors
+
+1. ⚠ **A WRONG TIME WRITTEN INTO THE RECORD AND CAUGHT INSIDE THE MINUTE.** The `drafts/` header first read *"APPLIED 2026-09-11 17:55 UTC"* against a migration version of `20260911165516` — **16:55**. Self-caught by reading the version back against the claim. *The claim and its evidence were in the same line, which is the only reason it was caught; a time written where its evidence is not adjacent is not checkable.*
+2. **The ~12 MB storage expectation, high by a third** (§7). Correctly labelled as an expectation at the time.
+3. **`sed -i ''` — the BSD spelling — run against the device VM, which is Linux.** Harmless, self-corrected in one retry, and recorded because it is **DEVICE-VM-IS-NOT-CC's sibling: the device VM is not macOS either**, whatever the machine hosting it is.
+
+### 9 · A correction propagated, and a stale reference repaired
+
+⚠ **The Session Log's STATE OF PLAY header carried "Standing rules (Arch v34)" and "Install path (Arch v34)" after Architecture Prompt v35 was installed on 2026-09-11.** Found by search, not by memory, and **repaired in this close** — both now read v35. *The thirteenth append's propagation list did not include the Session Log header; a header is a document too.*
+
+### 10 · New rows
+
+**VERHIST-SWEEPWATCH** — `verhist_sweep_log` records every sweep's failures and **nothing reads it**; the per-production error isolation that makes the sweep robust is exactly what makes a silent failure possible. One query, `failed > 0` in the last 24 hours; where it lives is undecided. · **REPO-MIGRATIONS-ABSENT** — ⚠ **the code repo holds TWO migration files against FIFTY-NINE applied**, so the database cannot be rebuilt from the code repo and a fresh Supabase project cannot be stood up from it at all. Harmless with one database; blocking at the first staging environment or restore drill.
+
+### 11 · What this session did not touch
+
+The fifteen unwired commit points · the Save Version button · the History screen · the import-apply sites · FIELD-CONTRACT leg 3b · MMM-CAT · 2-MIG-c · AUTH-RESETPAGE · DOCKET-STALEACTIVE's six closed-but-live rows · `CLAUDE.md`, unchanged and untouched · the Product Brief, unchanged: migration 58 already carries VERHIST's schema decisions and this unit added no new ones.
+
+---
+
+*End of the September 11, 2026 fourteenth append. HEAD **`951557c`**, unchanged — **NO code commit, NO production deploy.** **Migration ledger 58 → 59.** Suite, frozen, visual and typecheck **NOT re-measured; the thirteenth append's counts stand.** `CLAUDE.md` **115,579 of 150,000**, untouched. **Roadmap v4.29 retires v4.28; Architecture Prompt v35 stands, unchanged.** In flight: **nothing.***
