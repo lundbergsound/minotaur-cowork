@@ -1,6 +1,6 @@
 # Next session opener — Cowork-Arch, written 2026-09-12 (00:30, session close)
 
-*⚠ **Measured, not asserted, and counted after the sentence was written: the paste block is 1,113 characters and the whole file 3,588** — against the previous opener's 1,020 and 2,992. The Roadmap's **▶ NOW** and **⏭ NEXT** carry what an opener used to repeat. **If a future opener grows past two screens, the Roadmap has re-bloated — fix the Roadmap, not the opener.***
+*⚠ **Measured, not asserted: the paste block is 1,046 characters and the whole file 2,614** — against the previous opener's 1,020 and 2,992. The Roadmap's **▶ NOW** and **⏭ NEXT** carry what an opener used to repeat. **If a future opener grows past two screens, the Roadmap has re-bloated — fix the Roadmap, not the opener.***
 
 ---
 

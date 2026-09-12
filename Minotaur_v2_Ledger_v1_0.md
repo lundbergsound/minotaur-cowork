@@ -4510,3 +4510,15 @@ The fork's rehearsal · the sharing surface beyond naming it · AUTH-RESETPAGE �
 ---
 
 *End of the September 11–12, 2026 fifteenth append. HEAD **`96efd11`**, pushed, origin identical — **TWO production deploys** (`c446326`, `96efd11`). **Migration ledger 59, unchanged.** Suite **3165 / 162**, zero skipped. Frozen **3/3 vs `be0769de`**. Visual **28/28**, no baseline event. Census **20 of 20 wired**. `CLAUDE.md` **115,579 of 150,000**, untouched. **Roadmap v4.30 retires v4.29 — 118,490 characters, DOWN 1,121, with DOCKET-STALEACTIVE's pass finally run: nine rows retired, counted rather than claimed. Architecture Prompt v35 stands. Read order now points at Product Brief v1.2 and Strategy Prompt v15.** In flight: **nothing.***
+
+---
+
+## SEPTEMBER 12, 2026 — addendum to the fifteenth append — ROADMAP v4.30 WAS SUPERSEDED INSIDE ITS OWN CLOSE (append block)
+
+⚠ **v4.30 was built, committed at `4aa215c` and rejected on sight: 457 words above ▶ NOW, none of them facts about the project.** Traced with Daniel rather than asserted — the Architecture Prompt already holds this file's rules, this Ledger already holds what each version retired, and the Docket already holds the standing facts, so **the preamble duplicated all three into the one document he reads.** ⚠ **v4.31 retires it: 33 words above ▶ NOW, no ⚠ icons in the part he reads, 116,471 characters.**
+
+⚠ **The cause was named and it explains three failures in one close** — a SEQUENCE that came out as a second Docket, two paragraphs returned as unreadable, and the preamble. **Arch reads a ~95-bullet Session Log header and a dense Roadmap at every open and then writes in that register**, which is correct for another Arch session and wrong in a message to Daniel. ⚠ **Three structural gaps registered with it: the Session Log header has NO BOUND and is now the system's real memory; rollover archives entries, so a finding written into an entry dies unless it is lifted to the header first; and the register problem itself.**
+
+⚠ **RULED (Daniel, 2026-09-12): every process, workflow and document-hygiene row runs in ONE parallel session — registered as the META batch — and never on the main line. The stated priority is Minotaur v2, features and integrity, and momentum.** **The next session opens by WRITING A HANDOFF, not by asking a question:** one bundled pre-beta unit of an hour or more — CABLEDEL-LATENCY, AUTH-REFRESH-HANG, BATCH-PREBETA — then the LICDB and META parallel openers while CC runs, then SHARING.
+
+*End of the September 12, 2026 addendum. HEAD `96efd11`, unchanged — no code commit. **Roadmap v4.31 retires v4.30.** Architecture Prompt v35 stands, unchanged. In flight: nothing.*
