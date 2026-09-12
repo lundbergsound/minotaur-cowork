@@ -4522,3 +4522,77 @@ The fork's rehearsal · the sharing surface beyond naming it · AUTH-RESETPAGE �
 ⚠ **RULED (Daniel, 2026-09-12): every process, workflow and document-hygiene row runs in ONE parallel session — registered as the META batch — and never on the main line. The stated priority is Minotaur v2, features and integrity, and momentum.** **The next session opens by WRITING A HANDOFF, not by asking a question:** one bundled pre-beta unit of an hour or more — CABLEDEL-LATENCY, AUTH-REFRESH-HANG, BATCH-PREBETA — then the LICDB and META parallel openers while CC runs, then SHARING.
 
 *End of the September 12, 2026 addendum. HEAD `96efd11`, unchanged — no code commit. **Roadmap v4.31 retires v4.30.** Architecture Prompt v35 stands, unchanged. In flight: nothing.*
+
+---
+
+## SEPTEMBER 12, 2026 — SIXTEENTH APPEND — PREBETA-FRICTION SHIPPED AND COMMITTED, NOT PUSHED; SHARING SCOPED; BOTH PARALLELS RETURNED
+
+*Cowork-Arch, the MAIN LINE. Model `claude-opus-5`. Code repo `96efd11` → **`bf0d7ed`**, one commit, eight files, +416/−31, **`origin/main` unchanged at `96efd11` — nothing deployed.** Migration ledger **59**, no migration in this session.*
+
+### 1 · PREBETA-FRICTION — three defects closed, and a latency whose cause was neither candidate
+
+**Bundled on Daniel's standing instruction, from items already planned and already ruled.** ⚠ **`BATCH-PREBETA`'s member list turned out to be older than its members' status** — four of the eleven ride SHARING, one is a CC hard-stop class (DEPS), one is post-beta, one has no measured surface. **Three were buildable and those three were the unit.**
+
+**CP1 AUTH-REFRESH-HANG.** `src/lib/supabase/middleware.ts:24` was an unbounded `getUser()` before any route decision, on a matcher excluding only static assets. Bounded at a stated **3,000 ms**, a timeout resolving as NO USER. **Protection is not reduced anywhere** — a timed-out request is treated as signed OUT, so the change can only ever protect more. Twelve new tests.
+
+**CP2 CABLEDEL-LATENCY — ⚠ BOTH OF ARCH'S CANDIDATE CAUSES WERE REFUTED BY MEASUREMENT, AND THE REAL ONE WAS NAMED BY NEITHER.** Arch pointed at the per-row patch-sweep writers and at the cache invalidations. Measured on the production Daniel's gate found it on: **zero mult lines and zero cables carry a patch end**, so the sweep writers write nothing there; and the invalidations are **never awaited**. ⚠ **The cause is groups-per-cable — a MEDIAN OF SIXTEEN link groups per linked cable (574 groups, 1,278 memberships, 80 of 459 cables linked) — each broken as its own sequential round trip in `executeBreak`.** Now two round trips: dissolves as one `bulk_delete_v1` over the identical id set, unlinks concurrent — sound because `planDeletePurge` keys targets on `groupId`, so every action names a distinct group, **an invariant now pinned by a test rather than left in a comment.** **`breakGroups` 1,961–2,332 ms → 177–205 ms; cascade total 2,212–2,645 ms → 434–549 ms.** ⚠ **Timings are a REPRODUCTION on a seeded throwaway carrying the production's measured topology — the production is RLS-invisible to the test user and deleting one of its cables would be destructive, so it was never touched. Daniel's gate is where this becomes real, and it is deferred.**
+
+*The lesson, and it is the reusable one: **the handoff pointed at the wrong two things and said to measure first, and measuring first is what made that survivable.** A topology figure no cable count would ever have revealed.*
+
+**CP3 EXPRPT-STALE.** The export report rendered four filenames of fourteen because the UI re-typed them beside a derivation built so that could not happen. Now derived from `EXPORT_FILENAMES`, **pinned against `ALL_EXPORT_FILENAMES` and never against a count** — *a test asserting "fourteen" is the defect written down with a bigger number in it* — plus two guards reading the settings page itself, with comments stripped before both scans (SCAN-COMMENTS). **Frame 06 did NOT move, measured: the report renders only after an export runs, so the at-rest frame never contained it.**
+
+**Counts at close, measured on the committed tree:** suite **3,185 across 163 files, zero skipped** (from 3,165/162) · frozen **3/3 vs `be0769de`** · typecheck, build, dependency all clean · visual **28/28 at 0.0000%**, no baseline event · browser smoke 22/22 on a throwaway.
+
+### 2 · ⚠ THE ARCHITECTURE PROMPT WAS TWELVE DAYS WRONG ABOUT THE PUSH, AND CC CAUGHT IT
+
+**Arch's handoff §5 restated v35's claim that *"the push half is INERT until FENCE-PUSH lands"* and that *"`git push` is denied in TWO places."* CC bounced it under the Surface Rule. CC was right.**
+
+**Re-measured at source by Arch, independently of the return:** `.claude/settings.json:6` carries `"Bash(git push)"` in **allow**; deny holds only the destructive family; `bash-fence.sh:47-51` carries an explicit **FENCE-PUSH (2026-08-30, Daniel's ruling)** block whose own refusal string says a bare push is permitted. **`CLAUDE.md` had it right in six places, the Roadmap's RETIRED index listed FENCE-PUSH closed at `9a333cc`/`0bf6df3`, and the Session Log header already read "FENCE-PUSH IS LIVE."** ⚠ **`Architecture_Prompt_v35.md:198` was the ONLY live document still carrying the stale claim — installed 2026-09-11, twelve days after the ruling and one day after its own rewrite.**
+
+⚠ **Independently corroborated the same day by the META parallel, which reached it by RUNNING both forms through the fence rather than reading it.** Two routes, one answer. ⚠ **The cost, stated plainly: a seat believing the push is inert will approve a commit believing it is not a release. It is a release.**
+
+*And the shape beneath it: **Arch carried the rule WITH its reason, exactly as the prompt instructs, and the reason was obsolete.** A stale rule carried with its reason gets propagated rather than rationalised past. **Corrected in Architecture Prompt v36 · the correction is a STRAT-TIER fact and is OWED in the Strat record, where it has not yet landed.***
+
+### 3 · SHARING — scoped, and it was never as undefined as its row said
+
+**Roadmap v4.31 called it *"a gate item with no scope — the least-defined thing on the list."* ⚠ SHARE-R1..R7 were RULED on 2026-08-12** — four roles, invites owner+admin, settings owner+admin, transfer deferred, phase-1 auto-accept, default role editor, phase 2 after AUTH-DOMAIN — **and Daniel re-confirmed all seven unchanged.** *A row asserting a state of ignorance the record had already resolved.*
+
+⚠ **SHARE-R8 (Daniel, 2026-09-12) supplies the mechanism reserved to Arch at build-prep on 2026-08-15:** Daniel supplies the cohort's email addresses, the account is provisioned, and the operator sets their own password from the sign-in page. **No public form, no password mailed, no shared credential.**
+
+⚠ **AUTH-RESETPAGE THEREFORE STOPS BEING A RECOVERY PATH AND BECOMES THE ONLY DOOR IN — Daniel moved it AHEAD of the invite**, superseding the 2026-09-11 Strat sequencing on that one point.
+
+**Measured at source:** `src/app/auth/` holds four files; the callback is fourteen lines that **discard the exchange error** and redirect unconditionally; the login page has no reset link; and `src/` contains **zero** occurrences of `resetPasswordForEmail`, `updateUser`, `signInWithOtp` or `verifyOtp`.
+
+⚠ **MECHANISM RULED BY ARCH, AND IT REVERSES ARCH'S OWN EARLIER ADVICE TO DANIEL.** Arch first said only a user-initiated link could work, because PKCE ties an emailed code to the browser holding the verifier. **The `token_hash` + `verifyOtp` pattern needs no verifier**, so the link works from any browser **and from an admin-initiated invite**. Build a new `/auth/confirm`; **do not extend the callback — extending it rebuilds the defect.** ⚠ **Plus a typed six-digit fallback, because corporate mail scanners prefetch links and burn single-use tokens before the human clicks** — a cohort of thirty to forty will contain Office 365 accounts.
+
+### 4 · MAILGATE — ruled, and measured to be starting from zero
+
+⚠ **RULED (Daniel, 2026-09-12): nothing sends email to any address that is not his own until he has approved that send in a message whose ONLY content is that approval. An approval buried among other asks is not consent.** Prompted by Arch doing exactly that. **No standing approval; approval covers one send.**
+
+**Measured:** 12 users, **0 ever invited, 0 recovery mails ever sent**, last mail event of any kind **2026-08-14**. ⚠ **`resetPasswordForEmail` is self-service by construction — no list, no loop, no recipient Arch or CC chooses. The entire broadcast risk is the provisioning script**, which is dry-run by default, carries an allowlist of Daniel's addresses only, needs a typed phrase for a live run, and whose first live send goes to him alone.
+
+### 5 · Both parallels returned, and META found the push staleness on its own
+
+**LICDB** — 747 people have held a v1 serial, **181 live today**, derived independently by decoding every serial and landing exactly on the export's own count. **$96,503.42 across 477 paid invoices.** The price ladder came out **on evidence** — the sales emails quote $44/$99/$299/$499 verbatim and every Square total is a base price or that price × 1.08875 — with **$79/$199/$349/$399 still inferred and flagged**. ⚠ **107 machines hold serials never recorded in the User Database at all, so the v1 roster is NOT a complete entitlement list** and an October announcement built only from it misses those people (ENTITLE-V1). ⚠ **The ledger and Square record the same transactions in the 2019-09→2022-06 overlap and must be DEDUPLICATED, not summed** — no revenue figure until Daniel rules.
+
+**META** — fifteen members measured in one pass, **three judged not worth doing**. Besides the push finding: **the fence blocks not one interpreter** (`python3 -c`, `node -e` and the heredoc forms all pass — *the hole is the interpreter, not the heredoc*), and **`COMMIT APPROVED` appears four times in `CLAUDE.md` and zero times in any matcher** — *the phrase is a discipline, not a mechanism, and both prompts should stop calling it one.*
+
+### 6 · Measurements taken from this seat that CC could not take
+
+⚠ **`20260707152921_equipment_library_model_unique.sql` is a THIRD case, not either one the install sheet predicted.** It matches **no** applied version among the fifty-nine, and is **not** a renamed copy of `20260707132157` — **but its effect is LIVE**: `equipment_library_items_project_model_ci_uniq` on `(project_id, lower(model))`. **Applied, never recorded. Do not re-apply, do not delete, do not fix the filename — it is a reconciliation row for the backfill.** REPO-MIGRATIONS-ABSENT one file early.
+
+⚠ **THE DEAD-CLASS PROBLEM IS WIDER THAN ITS ROW SAYS.** The `surface` scale defines 0/50/100/200/300/800/900/950, so **400–700 emit no CSS for ANY utility prefix**, not only `text-`. Census: `text-` **109**, `border-` **2**, `placeholder-` **2**, across 41 files. ⚠ **All four non-text sites are on the SIGN-IN PAGE** — both input borders and both placeholders — **plus two `text-` ones: six dead classes on the first screen every beta user will ever see.** Not repaired, and deliberately: repairing one to its author's intended tone LOWERS contrast 12.81 → ~4.85, and no sweep runs before Daniel's ruling.
+
+### 7 · Arch errors this session
+
+1. **The stale push claim carried from v35 into a handoff** — §2. Caught by CC.
+2. ⚠ **A net character figure written into Architecture Prompt v36's own version line that was WRONG BY SIGN AND MAGNITUDE** — stated −569 where the true delta was +571. **Caught by counting rather than by reading**, in the one document being corrected for carrying a false claim. The figure now agrees with itself, measured.
+3. **"The amendment never ran"** — inferred from HEAD alone when commit-and-stop looks exactly like that until Daniel types the phrase. *Absence of a commit is not absence of a run.*
+4. ⚠ **Three CC handoffs issued as one-line pointers buried at the ends of long multi-topic messages**, not as the prompt's [CRITIQUE]/[BLAST RADIUS]/[THE HANDOFF] sequence. **Daniel could not find them.** The same burying failure MAILGATE was ruled against, in a second place.
+5. **The advice that only a user-initiated reset link could work** — true of the code exchange, not of `token_hash`. Reversed in §3.
+
+### 8 · New rows
+
+**CABLEDEL-FAILMSG · EXPRPT-HINT · AUTH-MAILVOLUME · HARNESS-WAIT · PROCESS-REFACTOR · MAILGATE.** **Retired:** AUTH-REFRESH-HANG · CABLEDEL-LATENCY · EXPRPT-STALE (all `bf0d7ed`) · LICDB · CLAUDE-HARNESS-STALE.
+
+*End of the sixteenth append. Code repo **`bf0d7ed`**, `origin/main` **`96efd11`** — **committed, not pushed, nothing deployed; the push is OWED on Daniel's browser gate, not blocked.** **Roadmap v4.32 retires v4.31. Architecture Prompt v36 retires v35.** `CLAUDE.md` 115,579 → 117,288 characters. In flight: AUTH-RESETPAGE, handoff written and waiting on Daniel's pointer.*
