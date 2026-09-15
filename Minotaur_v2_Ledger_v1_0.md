@@ -4999,3 +4999,358 @@ pressed, then lands on the failed-link notice · (2) "Sign in to your account" a
 ```
 
 *End of the eighteenth append. Code `3416650` = `origin/main`, live; CHANGEALL-MODEL-SERIAL built and uncommitted on Daniel's gate; migration ledger 60; suite 3,278 / 168; frozen 3/3; visual 28/28. Roadmap v4.34 retires v4.33.*
+
+
+---
+
+## SEPTEMBER 13, 2026 — REGISTRY-1 FOLDED IN · MIGRATIONS 61–64 APPLIED (nineteenth append)
+
+*Written in the main line, evening of 2026-09-13 Eastern, while the seat waited on the CHANGEALL browser gate. Follows the eighteenth append. Nothing in the code repo was touched; no CC handoff; no commit.*
+
+### 1 · The REGISTRY-1 record, from the parallel's TO-MAINLINE §4 — verbatim
+
+- **REGISTRY-1 designed (2026-09-13, Arch parallel, Cowork) — nothing applied.** 17 tables
+  in a `registry` schema deliberately absent from Supabase's exposed schemas, so no browser
+  request can read a registry table at any URL with or without a token; RLS enabled AND
+  forced on every table with no policies and no grants to anon/authenticated; the doors are
+  SECURITY DEFINER functions owned by a role with BYPASSRLS (`postgres`, verified). Design
+  decisions of record: a person is not an account and the account link is `auth.users.id`,
+  never an email, so an address change adds a `person_emails` row and breaks nothing; a
+  licence is the grant and a serial is evidence, so 157 superseded renewals import as extra
+  serial rows under one licence with a trigger holding the licence's end date at the newest;
+  `admin_state` stores only what the operator did (active/disabled/transferred/void) while
+  live/expiring/expired is computed from dates and never stored, so no scheduled job can
+  leave rows silently wrong; the Square/FileMaker-ledger overlap is resolved by a
+  `duplicate_of` column, making revenue `sum where duplicate_of is null` rather than a thing
+  to remember; money is integer cents. **Cipher facts of record:** a Postgres port of
+  `CipherEncrypt` reproduces real FileMaker serials byte for byte (two verified) and
+  round-trips through the decoder on all 16 shift pairs, so the registry can mint v1 serials
+  FileMaker would recognise (V1-ISSUE) — and a serial minted there cannot leave no row,
+  closing the caveat in `Minotaur_v1_Serial_Cipher.md` that produced the 107 off-book
+  machines. **Two rehearsals, both inside transactions terminated by a forced exception;
+  residue checked clean both times** (`registry` and `rehearse_tmp` absent, no new public
+  functions, `terms_acceptances` 0 rows, `auth.users` 12, migration ledger 60 unchanged).
+  **Arch error caught by Daniel's question and owned:** `entitlement_for()` returned one
+  `may_edit` field that was false for a Production-only collaborator while simultaneously
+  listing their entitled projects — a paying crew member refused at sign-in; split into
+  `may_open_own_projects` / `production_project_ids` / `has_any_access`. **Arch claim
+  corrected by its own measurement:** the design's first draft argued a public
+  paste-your-serial path closed the off-book gap; the gap is 5 live machines of 107, 4 of
+  them reachable, and the feature was withdrawn with the argument. **LICDB figure of record
+  revised:** 68 live holders with no address → 8 (3 paid), the remainder being duplicate
+  rows, addresses filed under another machine, and 21 institutional lab seats; the cause was
+  keying the join on computer ID, and the mechanism is that serials delivered by text or in
+  person leave no mail to find (Daniel, 2026-09-13). Not rehearsed: migration 63's staging
+  tables and reconcile/apply, `issue_v1_serial`, `v1_beta_eligible`, and the corrected
+  entitlement field names.
+
+### 2 · The AMENDMENT's sequencing record — verbatim
+
+  **Sequencing of record (Daniel, 2026-09-13 evening):** the morning's
+  nothing-applied-before-the-invite ruling lifted for 61-64 on the ground that the set is
+  wholly additive and unreachable by the running app. **Second Arch error of the session,
+  caught in confirming the sequence:** the migration order shipped with a forward
+  dependency — `entitlement_for()` reads `registry.cohort_members`, filed in 65 behind the
+  64 that needs it; migration 64 would have failed on apply. A rehearsal that creates every
+  object in one block proves the objects and not the order — the lesson of record for any
+  multi-migration unit is that the proof-run must execute the migrations *separately, in
+  sequence*, not the union of their DDL.
+
+### 3 · ⚠ CORRECTION OF RECORD — the ordering error was worse than §2 states, and this is the durable finding
+
+§2's claim that **"migration 64 would have failed on apply" is wrong in mechanism**, measured in the main line before it was written into this Ledger. `registry.entitlement_for()` is **PL/pgSQL**, and PostgreSQL does not resolve table references in a PL/pgSQL body at CREATE time even with `check_function_bodies = on`. Probed directly on this database inside a rolled-back transaction:
+
+```
+plpgsql CREATE with missing table: SUCCEEDED | CALL failed: relation "ordprobe.not_yet" does not exist
+| sql CREATE failed: relation "ordprobe.not_yet" does not exist | check_function_bodies=on
+```
+
+So in the original order migration 64 would have **applied cleanly and silently**, and the failure would have surfaced later at the first real call — from `public.my_entitlement()`, the one function the app calls, for every signed-in user. A `language sql` function *would* have failed at CREATE; `entitlement_for` is not one.
+
+**The durable rule, corrected:** a rehearsal that builds every object in one block cannot catch an ordering bug — and for PL/pgSQL bodies, **neither can the apply**. Ordering is proved only by executing the migrations separately, in sequence, and then *calling* what they create. Both halves belong in `CLAUDE.md` beside the registry rider.
+
+### 4 · Migrations 61–64 — APPLIED 2026-09-13 evening (2026-09-14 00:14–00:15 UTC)
+
+Applied in the corrected order, each as its own migration, from the Arch seat via the Supabase MCP as `postgres`. Trigger B satisfied: live introspection → proof-run with forced rollback → residue check → Daniel's confirm (*"apply 61-64"*) → apply → verify with grants.
+
+| # | Version | Name | Contents |
+|---|---|---|---|
+| 61 | `20260914001332` | `registry_identity` | schema, `people`, `person_emails`, `accounts`, `admins`, `public.is_admin()`, RLS + force + revokes + default privileges |
+| 62 | `20260914001354` | `registry_licenses` | `v1_machines`, `licenses`, `v1_serials`, `license_events`, `license_seats`, `edit_claims`, end-date trigger |
+| 63 | `20260914001406` | `registry_cohort` | `cohorts`, `cohort_members`, `v_waitlist`, `v_project_metadata` |
+| 64 | `20260914001446` | `registry_entitlement` | `encode_v1_serial()`, `decode_v1_serial()`, `issue_v1_serial()`, `entitlement_for()`, `public.my_entitlement()`, `public.v1_beta_eligible()` |
+
+**Introspection before (live):** `registry` and `rehearse_tmp` absent · zero name collisions on `is_admin` / `my_entitlement` / `v1_beta_eligible` · `public.set_updated_at()` present · `projects`, `equipment_items`, `waitlist_signups`, `terms_acceptances` present · `postgres` has BYPASSRLS · ledger 60 (`20260913182602`) · `auth.users` 12 · `projects` 13.
+
+**The rollback harness was itself proved first,** on a throwaway schema, before any registry DDL ran: a multi-statement query terminated by a forced exception left `rehearse_probe` absent. Recorded because the previous rehearsals' residue claims rested on the harness behaving this way and nothing had tested it.
+
+**Proof-run, all four in sequence in one aborted transaction — verbatim:**
+
+```
+objects: 12 tables, 2 views, 5 registry fns, 3 public fns | rls enabled+forced on all: true
+| cipher round-trip 16/16 shift pairs: true | sample length 54 | garbage-in rows: 0
+LINKED v1: {"beta": false, "as_of": "2026-09-14", "known": true, "reason": "live v1 licence", "student": false, "v1_live_until": "2026-10-14", "has_any_access": true, "v2_individual_until": null, "may_open_own_projects": true, "production_project_ids": []}
+UNKNOWN  : {"as_of": "2026-09-14", "known": false, "reason": "account not in registry", "has_any_access": false}
+PROD-ONLY: {"beta": false, "as_of": "2026-09-14", "known": true, "reason": "production project only", "student": false, "v1_live_until": null, "has_any_access": true, "v2_individual_until": null, "may_open_own_projects": false, "production_project_ids": ["0d308b93-fc26-4389-b00f-c35e2170c7ee"]}
+v1_beta_eligible  live-personal(mixed case+spaces): true | trial-only: false | lapsed-7mo: false | unknown: false
+ISSUE: round_trip=true serial_len=54 decodes_to=2027-06-30/694E8BAF... licence ends_on after trigger=2027-06-30 serial_rows=1 event_rows=1 machine_rows=1
+EMAIL DRAFT to=probe1@example.com subject=Your Minotaur v1 serial number
+BAD-CID refused: computer id must be 32 hexadecimal characters
+GRANTS anon->v1_beta_eligible: false | authenticated->v1_beta_eligible: true | anon->my_entitlement: false | authenticated->my_entitlement: true | anon USAGE on schema registry: false | authenticated USAGE on schema registry: false
+VIEWS v_waitlist rows=3 v_project_metadata rows=13
+```
+
+**Residue after the proof-run:** probe schemas 0 · new public functions 0 · `terms_acceptances` 0 · `auth.users` 12 · `projects` 13 · ledger 60 unchanged.
+
+**Verification after the apply, on live objects:** ledger **64**, latest `20260914001446` · `registry` holds **12 tables, 2 views, 5 functions** · RLS enabled **and** forced on all 12 · **0 policies** · **0 table grants** to anon / authenticated / service_role / PUBLIC · `anon`, `authenticated` and `service_role` all have **no USAGE on the schema** · `anon` has **no execute** on `my_entitlement`, `v1_beta_eligible` or `is_admin`; `authenticated` has all three.
+
+**Behaviour verified on the applied objects** (probe rows written inside a transaction forced to roll back; all registry tables measured 0 rows afterwards): the three entitlement cases answer as they did in rehearsal; `issue_v1_serial` minted, round-tripped, wrote machine + licence + serial + event, the trigger moved the licence to 2027-06-30, and the drafted email addressed the primary address; `v1_beta_eligible` true for a live Personal holder with mixed case and stray spaces, false for a trial and a stranger; a cohort member with no live licence reads `beta` — the entry-test-only ruling working; `is_admin()` false with `registry.admins` empty; both views read.
+
+**Not built and not applied tonight:** 65 `registry_import` (staging, `import_reconcile`, `import_apply`), 66 `registry_payments`, 67 `registry_subscriptions`. `issue_v1_serial` and `v1_beta_eligible` now exist but have **no admin surface and no route** — REGISTRY-2 and BETA-SIGNUP-GATE. The **anon grant on `v1_beta_eligible` is deliberately withheld** until BETA-SIGNUP-GATE builds the rate-limited route in front of it; that is the single externally reachable thing in the set and there is no reason for it to be reachable a month early.
+
+### 5 · Security advisor run after the apply — two PRE-EXISTING findings, neither introduced tonight
+
+The post-apply Supabase security advisor reports the twelve registry tables under `rls_enabled_no_policy` at **INFO**. That is the design, not a defect: no policies and no grants is what makes the schema function-doored.
+
+Two findings that are **not** the registry's and are older than this session, registered because the run surfaced them:
+
+1. The advisor reports **`public.handle_new_user()` and `public.rls_auto_enable()` as SECURITY DEFINER and executable by `anon` over the REST API** (`/rest/v1/rpc/…`). Neither was touched tonight. **New row: DEFINER-ANONEXEC.**
+2. `public.set_updated_at()` has a mutable `search_path`. It is not SECURITY DEFINER, so the exposure is small, but migrations 61 and 62 now attach it as a trigger on `registry.people` and `registry.licenses`. **Folded into DEFINER-ANONEXEC.**
+
+### 5a · ⚠ ARCH ERROR, SAME EVENING — DEFINER-ANONEXEC WAS REGISTERED FROM A LINT REPORT WITHOUT MEASURING REACHABILITY, AND THE MEASUREMENT DOWNGRADES IT
+
+**The first draft of §5 above, and the Roadmap row and Session Log paragraph written with it, said the two functions "are executable by `anon` over the REST API — a trigger function no caller should be able to invoke, and what reads as an administrative utility."** That is the advisor's wording accepted as a finding. The Surface Rule says only a measurement describes what moved, and no measurement had been taken. Probed live, inside a rolled-back transaction, **verbatim:**
+
+```
+REACHABILITY PROBE >>> handle_new_user direct call: REFUSED (0A000) trigger functions can only be
+called as triggers | rls_auto_enable direct call: REFUSED (0A000) trigger functions can only be
+called as triggers | handle_new_user rettype=trigger | rls_auto_enable rettype=event_trigger
+```
+
+**Both refuse direct invocation, and PostgreSQL refuses them for a structural reason: a function returning `trigger` or `event_trigger` cannot be called as an ordinary function by anybody, PostgREST included.** The GRANT is real and the lint line is correct about the GRANT; the reachability it implies does not exist.
+
+**What survives, measured:** `handle_new_user` is SECURITY DEFINER with **no `search_path` set** and fires on every `auth.users` insert — a genuine hardening item, and `set search_path = ''` is safe because its body qualifies `public.profiles` and otherwise touches only `pg_catalog`. `rls_auto_enable` already sets `search_path=pg_catalog`, and is the event trigger that auto-enables RLS on new tables **in `public` only** — which is why the registry's twelve tables needed their own explicit `enable`/`force` statements. `set_updated_at` is not SECURITY DEFINER and its body touches only `now()`. Revoking PUBLIC EXECUTE on the two trigger functions is safe: execute permission on a trigger function is checked at CREATE TRIGGER time, not at fire time.
+
+**The lesson of record, and it is the same one as §3:** a lint finding is a pointer, not a measurement. Registering an advisor's severity as this Ledger's severity is the Surface Rule violation this project keeps recording — this time caught inside the hour, before anything was built on it, and propagated to all three documents in the same pass.
+
+### 6 · Rulings of record — Daniel, 2026-09-13 evening
+
+| | |
+|---|---|
+| Sequencing hold | LIFTED for migrations 61–64; applied in the main line while it waited on the browser gate. 65, 66 and 67 keep their dates |
+| Migration order | 61 identity · 62 licences · 63 cohort · 64 entitlement · 65 import · 66 payments · 67 subscriptions |
+| `v1_beta_eligible` grant | `authenticated` only; the `anon` grant waits for BETA-SIGNUP-GATE |
+| Access model | A Production licence is that project forever, for everyone on it, and nothing else. A Production-only holder cannot create a project. No free viewing |
+| Door test | Any v1 tier except trial, expiring on or after 2026-04-15 — a six-month lookback. Comped and educational in, demos out. 241 rows / 214 people / ~185 humans. **Supersedes ENTITLE-V1's wording in v4.34** |
+| Beta expiry | Cohort membership carries beta access; the v1 expiry is the entry test only |
+| Post-licensing window | **60 days**, reversing Question 2 of the beta-terms parallel the same day |
+| v1 bought during the beta | Gets the transition — a deliberate $99 discount |
+| Serial paste (D2) | WITHDRAWN |
+| V1-ISSUE | New: the registry mints v1 serials and drafts the email. MAILGATE stands |
+| Cohort | Joseph Haggerty joins. His account already exists (CAND-4), so **AUTH-PROVISION creates SIXTEEN accounts, not seventeen**. He sends from `jhaggerty97@icloud.com`; his account is under `jhaggerty97@me.com` |
+| D5, D9 | To the pre-public-beta terms and the attorney packet, not Arch's judgment |
+
+### 7 · New rows at v4.35
+
+**V1-ISSUE** · **BETA-SIGNUP-GATE** · **REGISTRY-IMPORT** · **DEFINER-ANONEXEC** (downgraded to low the same evening, §5a). **ENTITLE-V1** answered and its row text replaced. **REGISTRY** gains REGISTRY-1 delivered and applied.
+
+*End of the nineteenth append. Code `3416650` = `origin/main`, live; CHANGEALL-MODEL-SERIAL built and uncommitted on Daniel's gate; **migration ledger 64**; suite 3,278 / 168; frozen 3/3; visual 28/28; no baseline event. Roadmap v4.35 retires v4.34.*
+
+
+---
+
+## SEPTEMBER 14, 2026 — TWO UNITS SHIPPED · THE BETA TERMS ARE IN FORCE · A DOCKET AUDIT (twentieth append)
+
+### 1 · Shipped
+
+**CHANGEALL-MODEL-SERIAL — `7993221`, production deploy.** Browser gate passed on Buena Vista Social Club US Tour (`57874c69`): a model Change All over a 48-row found set on `Motorola CP200` finished in **about half a second** where the old path would have taken ~20 s; all 48 took the new model, all 48 kept their category, verified from the database after, no stray rows. **Snapshots went 1 → 3** — both runs took their backup before writing, so the VERHIST guard is confirmed live on that path and not only in tests. Save Version writes and names correctly; the export hint is byte-identical to the ruling. ⚠ **The commit was EIGHT files, not seven** — `docs/reference/verhist-guard-census.md` was the eighth; CC reported the difference rather than absorbing it and Daniel's phrase approved the eight-file block.
+
+**TERMS-ACCEPT — `1f82072`, production deploy. THE BETA TERMS ARE IN FORCE.** `/beta-terms` serves `docs/legal/BETA_TERMS_v1_0.md` as *Version 1.0 · published September 14, 2026*, readable signed out or in behind one middleware carve-out; the set-password page carries Daniel's ruled sentence under the button and writes a `terms_acceptances` row **before** `updateUser`. Proven, not asserted: a forced insert failure showed `saveFailed`, made no `PUT /auth/v1/user`, and added no row. Gates: suite **3310 / 170**, typecheck, build, frozen 3/3, dependency gate, guarded grep, **visual 28/28 no baseline event** at load 4.65, smoke 38/38. 15 files; two more than expected (both the handoff asked to be named), one fewer (the held regen), all reported.
+
+⚠ **The visual gate could not run on the first attempt** — the machine measured a 1-minute load of 12 to 66. CC refused `--force-load` (GATE-LOAD-AUDIO) rather than produce unreliable pixels. Daniel found Logic open, closed it, and the gate ran clean at 4.65. **Recorded because the refusal is the control working**, and because "wait for the machine" is now a known step before a visual run.
+
+### 2 · ⚠ OTPLEN-MISMATCH — a live defect found by a browser gate, in code that shipped the day before
+
+The emailed recovery code is **eight digits** (`47579352`, read off the message). `src/lib/auth/resetFlow.ts:80` sets `OTP_LENGTH = 6` and `normalizeCode` returns null for anything else, refusing the code **client-side, before it reaches the auth host**. So the typed-code path has never worked on this project since AUTH-RESETPAGE shipped at `57e0eec`.
+
+**Why it is not cosmetic:** that code is the fallback for a link a corporate mail scanner burned — the exact failure AUTH-LINKCLICK was built to prevent. Today a burned link leaves the operator with no way in at all.
+
+⚠ **Possible re-reading of an earlier finding.** The `codeExpired` wording was ruled 2026-09-13 on the basis that *"the live host answers a MISTYPED code with `otp_expired`."* For the host to answer, six digits must have been sent — so that finding stands on its own, but it may have masked this one. **The lesson: a client-side validator that hardcodes a server-side configuration value fails silently and invisibly, and no test in the suite could see it.**
+
+### 3 · Docket audit, 2026-09-14 — method and result
+
+Method, recorded so the result can be trusted at the right level: every ID-shaped token was extracted from every design, return and proposal document in `handoffs/` and `drafts/` and from the code repo's `docs/reference/` — **619 tokens absent from the Roadmap** — then narrowed to those absent from the Ledger and Session Log as well, and separately each design document was checked for a matching row. **This is thorough for work that has a name and blind to work that does not** — which is exactly how the eight layouts went missing.
+
+**Found: the eight queued layouts**, designed 2026-08-28/29 against real v1 prints with every found set reconciled to a printed page, **none built, all eight still greyed out in the menu**, and five of them with zero mentions in any governing document. Registered as `LAYOUT-*`, with LAYOUT-FINDSCREEN for the find/options screen six of them need and the `Add Blank Records` offset four of them want. ⚠ **A correction in Daniel's favour:** LAYOUT-EQUIPLABELS' Trigger B prerequisite — the integer label count — **shipped 2026-08-31 as migration 57**, so the August estimate overstates it.
+
+**Also found with no row anywhere:** **BOX-REPRINT** (v2's five box outputs confirmed by construction and against the v1 side only — never against a v2 render), **DEEP-ARCHIVE** (scoped after the R8 drill closed at F9 "no coverage today", carrying the attorney's 7-day window as a legal parameter), **COMMITMSG-PATTERN**. **And BOX-DOC-PARITY's release trigger fired on 2026-08-30 when cable parity closed; the row sat in HELD for two weeks.** HELD-IS-NOT-FORGOTTEN says every close checks for this, and it did not.
+
+### 4 · Rulings of record — Daniel, 2026-09-14
+
+| | |
+|---|---|
+| Types regen | HELD out of the TERMS-ACCEPT commit; its own unit (TYPES-REGEN). That deploy publishes the terms and should carry the terms, not six unrelated migrations |
+| BATCH-HOUSEKEEPING vs PRINT-RULES | **Not bundled.** Housekeeping repairs the fence and the frozen-check hook; PRINT-RULES is measured by them. Moving the instrument and the measurement in one commit forfeits the gate's independence. Housekeeping runs first |
+| SHARING REV-B | Designed as a **parallel** on the REGISTRY-1 pattern — design, rehearse under forced rollback, apply nothing; the main line applies |
+| The terms page `<title>` | Left as it is |
+| The smoke acceptance row | Removed |
+
+### 5 · Data actions by the seat, 2026-09-14
+
+**Deleted `terms_acceptances` row `ff465822-84f1-48f4-9138-c93d80e8c3b4`** — CC's smoke acceptance on `daniel+pt@`, a permanent test account, so it would not have cascaded away. That table is the record of who accepted the beta terms and its only row was a HeadlessChrome robot. **Two genuine rows remain, both Daniel's own, 21:08:04 and 21:09:26 UTC, from his browser gate.**
+
+### 6 · ⚠ THE ROADMAP IS AT ITS CAP
+
+v4.37 measures **59,988 characters against a 60,000 cap that only ratchets down — twelve characters of headroom.** The retired index was compressed at this version to fit (no row dropped, only prose). **The next close cannot add a row without a structural decision:** compress further, or fold the eight `LAYOUT-*` rows into one `BATCH-LAYOUTS`. Daniel's call, and it is owed before the next append.
+
+*End of the twentieth append. Code `1f82072` live; the beta terms are in force; migration ledger 64; suite 3,310 / 170; frozen 3/3; visual 28/28; no baseline event. Roadmap v4.37 retires v4.36.*
+
+
+---
+
+## TWENTY-FIRST APPEND — 2026-09-14/15
+
+**Session:** Cowork-Arch main line, model `claude-opus-5`, with the SHARING REV-B parallel folded in. Code `1f82072` → **`3b98ce9`**, one production deploy. Migration ledger unchanged at 64.
+
+### 1 · AUTH-FRONTDOOR — shipped `3b98ce9`
+
+CP1 (OTPLEN-MISMATCH, code half) and CP2 (the five ruled auth sentences made pedigree (a)) built; CP3 bounced on measurement; CP4 not run. 4 files, +65/−30, suite 3,310 → 3,312, all five gates green, visual 28/28 at 22:19:17Z load 4.54, no baseline event.
+
+- **`normalizeCode` now accepts `^\d{6,10}$` and leaves the length to the host.** `OTP_LENGTH` deleted; nothing read it. The only call site is `ForgotPasswordForm.tsx:80`. Browser smoke: `1234 5678` reached `verifyOtp` as `"token":"12345678"`; `12345` sent no request at all.
+- **One rejection case could not stay one:** `'1234567'` is seven digits and inside the range; `'12345678901'` and `'1234567a'` were added in its place. Recorded because a test's rejection list is evidence and a silent edit to it is not.
+- **The five sentences were verified, not assumed.** `git log -S` places their introduction at `3416650`; each compares byte-identical between that commit and the working file. The Ledger's eighteenth append §2 approves them verbatim but does not quote them, so the comparison is against the text as proposed, and each now carries `(a) — Daniel, 2026-09-13 (Ledger, eighteenth append §2)`. **No ruling ID exists for these five**; they are cited by date and locator.
+- ⚠ **CP3 bounced under the Surface Rule, and the handoff was wrong, not CC.** `--brand-link` (`globals.css:98` / `:138`) is tuned for `bg-surface-0`; all six link sites and every existing `AUTH_LINK` consumer sit on `bg-surface-950`, whose polarity is inverted (`#141210` in `:root`, `#f0efed` under `.dark`). Measured twice — WCAG arithmetic and computed styles on the live page: today `brand-400` gives **6.73:1 / 2.42:1**; the proposed swap gives **3.29:1 / 1.64:1**. The 2.42 figure in the handoff was right; its remedy was the inverse of one. **Arch measured the links and never measured the ground behind them.**
+- ⚠ **CP4 stopped because the pointer carried `<YES or KEEP>` unfilled.** The handoff's own rule fired correctly. An instruction defect at the seat, not a user error.
+- ⚠ **A test that must move before CP4 ever runs:** `resetSurface.test.ts:68-70` asserts the login page's four dead steps, and that assertion is the positive control for the whole dead-step scanner (SCAN-NONZERO). Repairing the page empties it; the control must relocate to one of DEADCLASS-SURFACE's other 101 sites **first**, or every absence check in that file starts passing for the wrong reason.
+
+### 2 · The mail sender, configured and proven
+
+Porkbun `smtp.porkbun.com` port 587 STARTTLS, username and sender `info@minotaur.app`, sender name **Minotaur**. Rate limit 30 → **100/hour**. Email OTP length → **6**, which makes `resetCopy`'s four "six-digit" strings true and closes OTPLEN-MISMATCH (a). Recovery template rebuilt on `{{ .RedirectTo }}?token_hash={{ .TokenHash }}&type=recovery` with `{{ .Token }}` beside it; the invite template matched so a stray dashboard send cannot rebuild the scanner defect. Redirect allow-list verified sufficient — `https://minotaur.app/**` and `http://localhost:3000/**` both match `/auth/confirm` under the documented `**` semantics.
+
+- ⚠ **Verified before the work, and it reframes the blocker:** Supabase's built-in sender delivers only to project team members **and is capped at two messages per hour**. Custom SMTP was never optional for a 30–40 person cohort.
+- ⚠ **No published Porkbun sending limit exists** — two KB articles and the product page state none. Absence of a figure, not absence of a throttle; invite day goes out in batches.
+- **Minimum interval per user kept at 60s.** `ForgotPasswordForm` has **no cooldown** on "Send another email", and `requestOutcome` collapses every host answer including a rate-limit refusal into the one neutral message. Lowering the interval would trade a silent no-op for a second email that likely kills the first one's link — worse, because the operator holds a real email that then dead-ends. One clause is owed to the `sent` copy: that another can be requested in a minute. True in both cases, so the enumeration property survives.
+- **RULED: the sender name stays `Minotaur`.** A From line is for recognition at a glance; "Minotaur Sound System Database" truncates on a phone, reads as a newsletter, and diverges from the app's own heading at exactly the moment a recipient checks whether an unexpected password email is legitimate. Context goes in the subject.
+- **Daniel's browser gate passed** ~9:40 p.m. ET, his words recorded verbatim in the Session Log. The typed-code path worked for the first time on this project.
+
+### 3 · The first two real users
+
+Jamie Tippett (`jtippettsound@gmail.com`) and Mike Tracey (`mike@mtsounddesign.com`). ⚠ **Tracey's account is at his sending address, not the `mtracey@me.com` COHORT-EMAILS ruled on 2026-09-13** — the Docket row is corrected rather than the account. Ruled ahead of the production dress rehearsal because their relationship to Daniel, and therefore to the product, differs from the rest of the cohort; they became the rehearsal. `profiles.display_name` defaults to the address local part, so Jamie's reads `jtippettsound` — PROFILE-REALNAMES, now load-bearing for History's Who column and not only the greeting. `registry.people` carries **`display_name` only**; no first/last columns exist anywhere.
+
+### 4 · FONT-FALLBACK — the app ships no font file
+
+⚠ **Every print-parity measurement on record assumed a typeface the application does not ship.** The stack is a pure local-font chain — `'Century Gothic', 'CenturyGothic', 'AppleGothic', Futura, 'Trebuchet MS', ui-sans-serif, sans-serif` — with no `@font-face` anywhere, so a machine without Century Gothic renders something else and its prints do not match v1. **`AppleGothic`, a Korean typeface, sits ahead of `Futura`** and takes first refusal on the entire interface. No licence is owed, because naming a font in CSS is not distributing it; a licence becomes necessary only to make everyone see it. Monotype prices webfonts annually against monthly pageview tiers (desktop base $40.99/style, $122.99 family; ×1 at 10k pageviews, ×5 at 100k, ×10 at 250k) — declined, because the cost grows with the product's success and the licence is not perpetual. **RULED: Jost, self-hosted at build, behind Century Gothic, for people who lack it only.** The stack collapses to two entries and the Korean face falls out as a consequence rather than as a separate fix. Questrial rates closest on similarity and is unusable — one weight, so bold would be synthesized. **FONT-IS-NOT-SHIPPED enters STANDING.**
+
+### 5 · METHODS-PALETTE — two palettes, same names
+
+⚠ Measured 2026-09-15 after Jamie reported new projects showing wrong method colours that fix themselves when reassigned by hand. `global_default_methods` holds **saturated** — Chartreuse `#80FF00`, Pink `#FF69B4`, Aqua `#00FFFF`. New projects are seeded **pale** — `#B8D586`, `#F6C6D8`, `#94E3FE` — from a second source that is not that table. `Foo` (2026-09-15) is pale; `Memoirs` (same day) is saturated; `Liberation` (same day) is **mixed**, pale Chartreuse with correct Pink and Aqua, which is the fingerprint of hand-fixing one at a time. Buena Vista Social Club, the US Tour, the Cable Parity Fixture and Vape! are all pale. Also standing: `Rent-Main` and `Rent-Hardware` share both `sort_order 1` and the same colour. **This is neither a rendering bug nor a wrong defaults table.** The v1 source is read before anything is written — pale may be the original and saturated the drift. Two halves: correct the seed, then rule what happens to projects already seeded (a data migration, Trigger B).
+
+### 6 · The Roadmap rewritten — v4.38
+
+**59,988 → 32,355 characters; cap ratcheted 60,000 → 40,000; seventy-one rows into twenty-eight.** Bundles formed: BATCH-LAYOUTS (nine) · BATCH-BOX · EXPORT-INTEGRITY · FIELD-CONTRACT-3 · BATCH-HARNESS · SECURITY-PREPUBLIC · REGISTRY-REST · LEGAL · STRAT-OWED · PROCESS · VERHIST-REST · CONTRAST-PASS (which absorbs DEADCLASS-SURFACE, the bounced link colour, CONFIRMBTN-FLIP and CONTRAST-PAIR, and whose acceptance is Daniel picking one of five renderings). **AUTH-POLISH split along its real seam** — half of it was equipment-list work with nothing to do with auth, now BATCH-COHORT-1, pulled forward on Daniel's word. No row dropped, only merged.
+
+⚠ **Daniel's ruling on how the Roadmap is treated at an open, 2026-09-14:** *"the last arch chat wrote the roadmap, we should follow it, and update it at session close."* A session that opens by raising the Roadmap's structure or its cap has gone wrong.
+
+**The nine LAYOUT row bodies, retired into BATCH-LAYOUTS, verbatim from v4.37:**
+
+| **LAYOUT-FINDSCREEN** | Six of the eight queued layouts land on a find-or-options screen in v1 before they print and **v2 has built none of them**. Four want the same control — `Add Blank Records`, the skip-N offset for a part-used sticker sheet (Tail Folder Labels, Equipment Labels by Description, Steck Labels by Cable, Bundle Labels by name). `SkipLabelsDialog` exists on four surfaces already (SKIP-LABELS). Design the screen and the offset ONCE, not six times. | Arch, before the first of the eight is built |
+| **LAYOUT-GROUPPARTS** | v1 menu 167. Designed 2026-08-28; arbiter two v1 prints 2026-08-29 — the whole equipment spine minus method-0, summarised by model within category within group, **974 predicted / 976 printed**. Prints cables, tails and boxes too (Q-11). Trigger A: EQUIPVIEW-UNSAFE, and cable/box row keys are not `model`; CATSORT-NATURAL unverified. ~1.5 units. | After the invite |
+| **LAYOUT-DEVICEPATCH** | v1 menu 168, **the largest of the eight**. Arbiter `Device Patch.pdf` — 4-way explode, blank purge, adjacent dedupe, **1,919 rows / 384 devices**. RULED: v1's own device-name text join, FKs deferred past public beta (DEVICE-FK-LINK); print confirms 37.8% grouped vs 38.2% predicted. Trigger A. ~2 units. | After the invite |
+| **LAYOUT-EQUIPLABELS** | v1 menu 172. Arbiter two v1 prints — **356 measured / 357 predicted**; the `Labels = 2` duplication is visible on paper and the two sorts are two different labels, not one sorted twice. ⚠ **Its Trigger B prerequisite is DONE** — the integer count shipped 2026-08-31 as migration 57 (EQUIP-LABELS-2), so the Aug estimate overstates this. Only the print surface remains. Wants `Add Blank Records`. ~1 unit. | After the invite; blocked on MARKER-OVERHANG for real stock |
+| **LAYOUT-BUNDLESUMMARY** | v1 menu 193 — **distinct from Bundle Sheets, which v2 has built**. Arbiter `bundle summary.pdf` — all bundles, **71 = 71**, 7 groups. v2 data complete, no Trigger, no find screen in v1 at all. ~1 unit; the cheapest full document on the board. Pairs with BUNDLESUM-MARKS, which is owed at Daniel's desk. | After the invite |
+| **LAYOUT-LINELIST** | v1 menu 198. Arbiter `Mult Detail.pdf`, CONFIRMED — all mult lines, **96 pp = 96 mults**. v2 data complete, no Trigger. ~1 unit. | After the invite |
+| **LAYOUT-BUNDLELABELS** | v1 menu 208. RULED IN 2026-08-28; not in the original seven. Arbiter `Bundle Labels.pdf` — **71 bundles → 142 labels**, one per bundle end, the discrepancy resolved in v1's favour on both counts. Data complete. Wants `Add Blank Records` and three sorts. **~0.5 units — the cheapest here.** | After the invite |
+| **LAYOUT-STECKLABELS** | v1 menu 211. Arbiter `Steck Labels.pdf` — 4 panel counts, **342 = 342**. Mapper complete but exercised on the fixture only. Wants three sorts, Model-before-Name, and `Add Blank Records`. STECK-ZERO is already closed and is smaller than it looked. ~1 unit. | After the invite |
+| **LAYOUT-TAILFOLDER** | v1 menu 216 — **distinct from Cable Folder Labels, which v2 has built**. Arbiter `Tail Folder Labels.pdf` — distinct parent model, **8 = 8**. Data complete. Wants `Add Blank Records`. ~0.5 units. | After the invite |
+
+### 7 · SHARING REV-B — the parallel, folded in
+
+
+- **SHARING REV-B designed (2026-09-14, Arch parallel, Cowork) — nothing applied.** The
+  permissions delta measured live against migration ledger 64: 34 policied tables and 63
+  policies in four groups — 18 already correct for three roles, 2 membership-aware on read
+  and owner-only on write (`projects`, `project_features`), 8 with no membership clause at
+  all (the seven cable-family tables plus `project_members`), 6 not project-scoped. All four
+  `project-images` storage policies owner-only, so a collaborator's every print loses its
+  letterhead. Design decisions of record: forty hand-written subqueries collapse into three
+  SECURITY DEFINER helpers (`can_read_project` / `can_write_project` / `can_admin_project`,
+  `search_path=''`, EXECUTE to `authenticated` only) **which name `admin` from the day they
+  are created even though the CHECK forbids the value — so no policy is ever touched twice
+  and the fourth role becomes one ALTER TABLE**; `projects.owner_id` is guarded by a BEFORE
+  UPDATE trigger that raises for everyone including the owner, so SHARE-R4's deferral is
+  enforced at the data layer rather than by a policy that was quietly permissive; the
+  `project_members` policies enforce three rules the UI is the wrong place for — an admin may
+  not create an admin, nobody may remove or demote the owner, and no second owner row can be
+  inserted at all; `profiles` gains NO policy and stays self-only, WHOCOL-RLS being answered
+  by `project_member_names(p_project)` returning `(user_id, display_name)` for that project's
+  members **and its past snapshot authors** — the second arm added because a departed member's
+  id survives on every snapshot they caused, and without it Who re-opens as a raw uuid exactly
+  when the history is being read. **⚠ VERHIST-TRUNCATE, the finding of record:
+  `snapshot_project_v1` is SECURITY INVOKER (`prosecdef=false`) and reads twenty tables under
+  the caller's RLS, seven of them the owner-only cable family, with every array wrapped in
+  `coalesce(…,'[]')` — so for a member who is not the owner the cable reads return nothing,
+  nothing becomes `[]`, the function's one existence check passes because `projects` is
+  membership-aware, the payload hash differs so skip-if-unchanged does not catch it, the row
+  is written and a uuid returned, and `guard.ts` — which names "RLS refusal" among the failure
+  modes it catches — cannot tell, because this is not a refusal. Measured on a throwaway
+  fixture inside a rolled-back transaction: an editor firing `change_all` produced
+  equipment 10 / cables 0 / types 0 / bundles 0 / tails 0 / link groups 0 / link members 0 /
+  mult lines 0 against a truth of 10/7/1/1/1/1/1/1, and after the cable conversion the same
+  editor and gesture produced 10/7/1/1/1/1/1/1.** The same shape, quieter, in six invoker RPCs
+  (`bulk_delete_v1`, `bulk_update_v1`, `delete_tails_of_cables_v1`, `unlink_group_members_v1`,
+  `merge_methods`, `import_apply_v1`) which return a row count rather than an error when RLS
+  blocks them. **Five migrations rehearsed separately and in sequence inside transactions
+  forced to roll back, then called at privilege level as `authenticated`; 21 probes across
+  editor, viewer, admin, owner and non-member, all matching expectation** — including
+  `projects` UPDATE returning 0 rows for an editor (SHARE-R3), `42501` on an admin inserting
+  an admin, `42501` from the owner-column guard, 0 rows on deleting the owner's roster row,
+  and 0 rows and 0 names for a non-member. **Residue clean both times** (ledger 64, 63 public
+  policies, 4 storage policies, none of the five new objects present, role CHECK unchanged,
+  `project_members` 12 rows, `project_snapshots` 26, no temp objects). **Arch rejected its own
+  predecessor's design and said why:** the 2026-08-12 delta's `profiles_read_co_members` policy
+  would have exposed every co-member's email, avatar_url, theme_preference and
+  share_library_across_projects to fix a name column, its own author having flagged the
+  exposure and proposed a view as the eventual fix — the eventual fix is no harder and was
+  built instead. **⚠ The opener contradicted itself and the record and was flagged before any
+  work:** its body invited Arch to argue the fourth role away while its own Settled list
+  re-ruled SHARE-R1's four roles, which the Ledger confirms at 2026-08-12 and Daniel
+  re-confirmed 2026-09-12; the Settled list won. **Figure corrected:** the Roadmap's SHARING
+  row says 25 membership rows; live is 12 (PROJ-CLEAN-2), across 13 projects, one of which has
+  no owner membership row. **Ruled (Daniel, 2026-09-14), all eight as proposed:** four roles;
+  the beta ships editor-only with viewer and its whole-app control inventory deferred together
+  to week one; the eighteen-table sweep rides the gate; every accepted member sees the roster;
+  an editor may fire Delete Unused on the Categories and Methods admin; `private_notes`
+  unchanged; the snapshot completeness guard lands week one; no `teammate_requests` table
+  before the invite. Not rehearsed: the four `project-images` storage policies, as DDL only —
+  exercising them needs a real object in the bucket and a probe is owed at apply time.
+
+
+### 8 · Retired run fence — TERMS-ACCEPT, verbatim
+
+```
+**Unit: TERMS-ACCEPT — three checkpoints, one commit.** CP1: the set-password
+page carries Daniel's ruled terms sentence (2026-09-13) under its button, which
+writes a `terms_acceptances` row BEFORE setting the password. CP2: `/beta-terms`
+serves `docs/legal/BETA_TERMS_v1_0.md`, signed out or in (one middleware
+carve-out). CP3: migration 60's file of record. No mail; nothing applied.
+
+**Follows CHANGEALL-MODEL-SERIAL, `7993221`** (refs read at the open, 2026-09-14).
+
+**Counts MEASURED, 2026-09-14:** migrations **64**, none added · suite **3310
+tests across 170 test files** · frozen **3/3 vs `be0769de`** · build, typecheck,
+dependency gate vs `7993221`, guarded grep clean · visual **28/28 PASSED, no
+baseline event**, 17:12:39Z, load 4.65 · smoke 38/38. Types regen HELD — Arch's.
+
+**Browser gate: owed by Daniel**, four checks on localhost: `/beta-terms` signed
+out reads `Version 1.0 · published September 14, 2026` · the sentence under Save
+password, link underlined, new tab, form survives · phone width · sign-in works.
+**This push is the publication.**
+```
+
+### 9 · Arch errors, this session
+
+1. **CP3's remedy was chosen without measuring the ground the links sit on** — a Surface Rule failure by the seat that wrote the rule into the handoff. Caught by CC before anything was built.
+2. **A pointer was written with a fill-in-the-blank** (`<YES or KEEP>`), pasted literally, and cost CP4 a full cycle.
+3. **⏭ NEXT item 1 was written as "Land sharing"**, which Daniel read as a compound noun and asked what it was. The third readability failure of this class on record; the two before it are in the 2026-09-11/12 entries.
+4. **TERMS-60DAY changed character unnoticed** until this close: it was clean only while `terms_acceptances` held zero rows, and it now holds two of Daniel's own.
+
