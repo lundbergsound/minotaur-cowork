@@ -5354,3 +5354,182 @@ password, link underlined, new tab, form survives · phone width · sign-in work
 3. **⏭ NEXT item 1 was written as "Land sharing"**, which Daniel read as a compound noun and asked what it was. The third readability failure of this class on record; the two before it are in the 2026-09-11/12 entries.
 4. **TERMS-60DAY changed character unnoticed** until this close: it was clean only while `terms_acceptances` held zero rows, and it now holds two of Daniel's own.
 
+
+---
+
+# TWENTY-SECOND APPEND — 2026-09-15, Cowork-Arch main line
+
+*Code `3b98ce9` → **`9e581be`**, one production deploy. Migration ledger **64 → 69**.
+Suite 3,312/170 → **3,355/175**. Frozen 3/3, visual 28/28, no baseline event.
+`CLAUDE.md` 109,892 → **110,968**. Session Log rolled over 10 → 2. Model `claude-opus-5`.*
+
+## 1 · What shipped and what was applied
+
+- **BATCH-COHORT-1 — `9e581be`**, 16 files, +741/−69, browser gate passed, pushed and
+  READY at 13:04 ET. Four checkpoints built, one stopped at its measurement by design.
+  Four deletion rounds, six mutations, thirteen red tests, each restored byte-identical.
+  - **GROUPCELL-BLANK** (Jamie, urgent). Root cause: `EquipmentItemRow.tsx:497`, the
+    non-wrap branch of `InlineText`'s display span carried `h-full` but not the
+    `min-h-[1.125rem]` floor its wrap branch and two siblings carry; in the row's
+    `items-start` flex layout (`:1044`) an empty span collapses to **0 px**. Fixed in the
+    primitive, not the call sites. ⚠ **It was never only Group — `circuit` (`:874`) and
+    `ip_address` (`:879`) had the identical defect and nobody had reported them.**
+    Measured 0 px before / 18 px after on all three. **Third patch for one defect class
+    in one component** (DescriptionField D1 FIX #4, the `(hh)` wrap fix, now this);
+    Trigger C was noted and the class fix chosen over a third patch rather than halting.
+  - **EQUIPSORT-NODESC**, screen only. `compareDescriptions` sorts a blank FIRST and
+    delegates every other pair to `compareLabels`, which is **byte-unchanged** — it is the
+    single app-wide comparator imported by ~20 modules and its empty-LAST contract is
+    relied on by all of them. `printEngine.ts` untouched; screen and paper now disagree
+    deliberately, registered to PRINT-RULES as EQUIPSORT-NODESC-PRINT.
+  - **BOXBAND-DUPKEY** at **five** sites, not the three Arch named. `bandIdentity.ts`
+    makes a band its sort term's equality class, labelled with the first row's spelling,
+    never editing the data. The trap held: `outerBandLabelFor` was renamed
+    `outerBandSpellingFor` and every nav key now reads one `outerBandIndex.labelOf`, so
+    the band editor still opens from a row spelled differently from its band — proven by
+    a deletion control that **closed** the editor when reverted. Two consequences of the
+    ruling, accepted: `''` and null group are now one `No Group` band (previously `''`
+    opened its own blank-headed band), and a merged model band hands its full membership
+    to the model cascade (the pristine check reads the target's own model, so the display
+    spelling cannot fool it).
+  - **CHANGEALL-NAALIAS**, method half, in `planMethodChangeAll` so both bulk arms
+    inherit it. ⚠ **Census first: `isNaAlias` had exactly two production consumers**
+    (`EquipmentListClient.tsx:898`, `naAlias.ts:32,45`) and **the band bulk arm did not
+    call the planner at all** — it resolved inline and called `createMethod`, so a typed
+    `0` there minted a method named `0`. Negative control reproduced exactly that.
+    A `naUnavailable` plan writes nothing when a project has no N/A row.
+  - Blank-and-change-all and the linked-cable blank Box were **verified, not rebuilt**.
+- **SHARE-MIGRATIONS 65–69**, all applied 2026-09-15, each its own migration, each a
+  Trigger B with Daniel's confirm, each rehearsed under forced rollback with a residue
+  check. Ledger 69, newest `20260915175954 share_revb_roster`. Policies in `public`
+  63 → 70. **Hard rule discharged: non-owner `project_members` rows are legal;** table
+  still 15 rows, all `owner`.
+
+## 2 · Corrections of record
+
+1. ⚠ **66 and 67 are not both "opening up sharing," and Arch said so before measuring.**
+   The 18 tables in 67 **already** read `project_members` — **40 policies** hand-rolled the
+   same membership subquery, which IS the Roadmap's "forty subqueries" figure, confirmed
+   exactly. 67 is a refactor. **The cable family was the only owner-only set**, which is
+   why the cable-less backup defect lived there and nowhere else.
+2. 67 does carry one behaviour change: read widens from (owner, editor) to **any accepted
+   member**, which is what makes a viewer a viewer.
+3. **`is_project_owner(uuid)` already existed** (SECDEF, owner-only, no admin path) and 69
+   depends on it; no migration in the set creates it. Verified from its live body.
+4. **RLS on UPDATE is silent** — editor and viewer each affect **0 rows** on a settings
+   update while the owner affects 1, with no exception raised. Reinforces VIEWER-ROLE's
+   D-1: a control that would be refused must not be rendered, because it fails invisibly.
+5. `projects` INSERT and DELETE were **not** touched by 68; both stay owner-only.
+6. **AUTOCOMPLETE-NOPORTAL's stated cause was FALSE.** The equipment list's six sites
+   portal (leg 3a, 2026-09-08) and `autocompletePortalScope.test.ts` pins 33/30/3. The
+   real candidate, measured: the menu is `absolute` (`AutocompleteInput.tsx:666`) so it
+   does not extend scroll height, and the flip-up geometry is gated on `portalDropdown`
+   (`:328`) — so the three registered sites were denied the very thing that would save
+   them, and "no clipping ancestor" was the wrong exclusion test.
+7. ⚠ **METHODS-PALETTE inverted.** `src/theme/minotaurColors.ts` is the shared palette —
+   project, cable and box colour, the swatch picker, tail-label geometry and the import's
+   colour domain all read it — and **Pink `#F6C6D8`, Aqua `#94E3FE`, Chartreuse `#B8D586`
+   are ITS OWN entries.** The pale seed was always correct; the saturated values are
+   off-palette. **`global_default_methods` holds 8 off-palette rows of 9** across seven
+   distinct hexes, and **54 of 162 coloured methods are off-palette** in live data (Test
+   16, Comet Fall '26 8, Matched Pair Fixture 8, Memoirs 8, tesr 8, Liberation 6 — only
+   22 on real shows). BVSC, US Tour, Cable Parity Fixture and Vape! are clean.
+8. **`import_runs` cannot record a failure and has never recorded a duration** — it logs
+   inside the transaction it loses, and its start/finish stamps are the transaction
+   timestamp. **Any measured import duration cited in any document did not come from that
+   table.** Propagated at this close.
+9. **Q-1 CLOSED OFF THE LIST, Daniel 2026-09-15: "I don't remember this v1 label thing.
+   I say take it off the list."** The question was what zeroed three of v1's seven
+   label-count fields between the 11 July and 20 August exports; v2's booleans match v1's
+   counts on all seven, so its empty Big Label and Balun Label outputs were always
+   faithful. HIST-BLIND means intent can never be recovered from data. **Recorded here as
+   the consequence and nowhere else: a v1 file of that vintage may carry lost label
+   counts, and a v2 show imported from one inherits the hole.** No live row.
+
+## 3 · RLS-HELPER-COST — the measurement, and the instrument failure that preceded it
+
+**Settled, warm, three runs, <2% spread, no DDL in the transaction:**
+
+| read, one show (`57874c69…`) | before 67 | after 67 |
+|---|---|---|
+| `equipment_items` (2,591 rows) | 1.8–2.1 ms | **43.0–43.6 ms** |
+| `equipment_library_items` (2,595) | 6.1–6.6 ms | **47.8–48.3 ms** |
+| `box_details` via join (29 rows) | 15.4–18.2 ms | **453–458 ms** |
+
+Cause: the three helpers are `SECURITY DEFINER`, which **blocks inlining**, so each row
+pays a function invocation rather than one flattened join. Both branches are index-served
+(`project_members(project_id,user_id)` unique; `projects` pkey) — indexes are not the fix.
+⚠ **Dropping SECURITY DEFINER is ruled out by 69**, which puts policies on
+`project_members`; an invoker-rights helper reading it would recurse. A set-returning
+`my_readable_projects()` candidate measured no better, **but was measured inside a DDL
+transaction and proves nothing.**
+
+⚠ **TWO ARCH INSTRUMENT FAILURES, both mine, the second a repeat of the first.**
+Single-shot timings taken inside a transaction that was also rewriting 38 policies
+reported a **phantom 28× regression on the box list**, and Arch was one step from
+amending a rehearsed migration on it; a settled instrument showed the as-designed and
+rewritten policies indistinguishable (133.8 vs 130.4 ms). **GATE-SETTLE-BETWEEN gains a
+second citation, against the seat that cites it.** Separately, **67 was applied without
+first capturing the 38 original policy definitions**, so a rollback would have been
+reconstruction rather than record — recoverable only because
+`supabase_migrations.schema_migrations` carries a `statements` array. **POLICY-CAPTURE-FIRST
+enters STANDING.**
+
+## 4 · Probes of record — every one green
+
+- **66:** non-member 0 · accepted editor sees 2/1/1 and writes · viewer reads, write
+  DENIED · invited-but-unaccepted 0. Owner path on real data unchanged: **1,372**
+  `cable_details` as owner = truth.
+- **68:** storage probed against the **real** bucket object
+  `d031bbe3-ea17-47ac-8139-2f5486f2adb6/top_right` — non-member 0, member sees it, editor
+  INSERT allowed, viewer INSERT DENIED. Owner-column guard proven **two-sided**: BLOCKED
+  with the trigger, ALLOWED without it. ⚠ **The first update probe measured the absence of
+  an exception rather than the effect** — corrected with `ROW_COUNT`: editor 0, viewer 0,
+  owner 1.
+- **69:** owner seats admin/editor/viewer · **a second owner is refused outright** · the
+  owner cannot demote (0 rows) or delete (0 rows) their own row · an admin cannot promote
+  themselves or touch another admin (0 rows) · non-owner self-leave 1 row ·
+  `project_member_names` returns the roster to a member and **0 to a non-member** ·
+  `profiles` gained no policy and holds at 2, self-only (WHOCOL-RLS intact).
+- Residue after every rehearsal: 0 throwaway projects, 0 non-owner member rows, 0 probe
+  objects, constraint and policy sets restored, ledger unmoved.
+
+## 5 · Rulings of record (Daniel, 2026-09-15)
+
+- **CATCOUNT-COLUMN: "every record in a category, regardless of list."** Supersedes the
+  2026-09-13 "filtered by `type`" wording, which named no type and could not be built.
+  Decided by measurement: the **Methods tab's Items column has always counted every
+  type** — `fetchItemMethodIds` has no type filter and 4 of 10 methods on the US Tour are
+  mixed (Rent-Cable **1,508** total, 158 on the equipment list). The delete guard stays
+  unfiltered. Known and intended cost: `13.0 Cable` will read 1,480 where the list shows
+  108. **CATCOUNT-BREAKDOWN held until after public beta.**
+- **AUTH-POLISH: cut the ghost text.**
+- **CABLE-CHANGEALL-METHODNULL: pulled forward into BATCH-PREBETA.**
+- **METHODS-PALETTE: the shared palette**, with the seven-hex mapping approved as proposed.
+- **SORTBAND-DARKGROUND → CONTRAST-PASS.** Measured: the band ground is built per theme in
+  `hcTheme.ts` — dark **4.5%** lightness (`:90`) against light **14%** (`:144`) — and
+  `.sort-band` was specified to stay dark in both themes (Zite's header verbatim), which
+  works on a light page and vanishes on a dark one. Band-versus-ground separation, not text
+  on a ground. Declared baseline event.
+- **SESSION-SHAPE:** a session opens with a CC handoff, bundled as wide as the ruled
+  material allows; parallels spin off only once Daniel confirms the handoff is in CC's hands.
+- **QUESTIONS-IN-ROWS: the ❓ Open Questions section is abolished.** A question lives in the
+  row of the unit that will answer it, or as its own row with an owner and a trigger.
+  Daniel's reasoning: the Roadmap has four sections and no others, and a fifth list
+  inherits none of the Docket's discipline.
+- **DOC-RETIRE:** an install retires its predecessor in the same step; project knowledge was
+  carrying Roadmap v4.38 and v4.37 together.
+
+## 6 · Arch errors this session — five
+
+1. Told CC there were **three** band sites; there were **five**.
+2. Told CC the band bulk arm would **inherit** the method planner; at source it did not
+   call it at all.
+3. The handoff's `Tier:` line named no model (WF-2), flagged by CC.
+4. Passed "filtered by `type`" into the handoff without measuring the sibling column,
+   which is itself unfiltered — CP5's question was sharper than the handoff made it.
+5. **The two measurement failures in §3**, which are the serious pair: the phantom
+   regression, and applying a policy migration without capturing what it replaced.
+
+Errors 1, 2 and 4 are one shape — a set asserted from a narrow search — the same shape as
+the four wrong claims of 2026-09-08.
