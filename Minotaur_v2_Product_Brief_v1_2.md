@@ -190,13 +190,15 @@ Minotaur v1 (FileMaker, single-user desktop) has been the industry-standard tool
 |---|---|---|---|---|
 | Red | #D80B00 | | Brown | #975400 |
 | Orange | #EEA036 | | Pink | #F6C6D8 |
-| Yellow | #FFF002 | | Aqua | #94E3FE |
+| Yellow | #FFEF35 | | Aqua | #94E3FE |
 | Green | #70AF46 | | Chartreuse | #B8D586 |
-| Blue | #0070A3 | | Sand | #E4BF8F |
-| Purple | #AF1F7B | | Grey | #C2C3C3 |
+| Blue | #184F9B | | Sand | #E4BF8F |
+| Purple | #7A3F8E | | Grey | #C2C3C3 |
 | Black | #000000 | | White | #FFFFFF |
 
 White excluded from project color picker (illegible). All 14 available for method badge colors.
+
+**Purple, Blue and Yellow revised 2026-09-20** (Daniel: *"color change approved, one palette everywhere"*) to sit closer to v1's own hues **and inside CMYK gamut** — Purple C65 M90 Y0 K0, Blue C100 M75 Y0 K0, Yellow C0 M0 Y85 K0, measured through FOGRA39 coated. The same Blue is Minotaur's default project colour (`DEFAULT_PROJECT_COLOR`), so the app's own trim and the palette are one set. Hex values live in exactly one place in the code, `src/theme/minotaurColors.ts`; `methods.color_hex`, `global_default_methods.color_hex` and `projects.paperwork_color` were rewritten by migration 83. Full sheet with RGB and CMYK: `drafts/Minotaur v2 Colors.rtf`.
 
 **UI conventions:**
 - **Topbar:** Dark navy (#0f1826), 48px, fixed. Left: "MINOTAUR SOUND SYSTEM DATABASE v2". Right: theme toggle, user email, sign out.
