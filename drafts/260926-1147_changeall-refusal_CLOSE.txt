@@ -1,0 +1,93 @@
+CHANGEALL-REFUSAL -- CLOSE
+Written 2026-09-26 11:47 ET.
+
+UNIT
+  CHANGEALL-REFUSAL, one commit, three inbound handoffs:
+    - 260924-1805_changeall-refusal.md           (CP1-CP5)
+    - 260924-1846_changeall-refusal_ADDENDUM.md  (CP6, the equipment Category fallback)
+    - 260926-1146_changeall-refusal_COMMIT.md    (commit as built; no further changes)
+  Return file: handoffs/from-cc/260924-1831_changeall-refusal.md (two rounds).
+
+COMMIT
+  cef0949  "CHANGEALL-REFUSAL: a refused Change All says so in a dialog; Change All greys
+            with nothing found; a bad length refuses"
+  Range:   3809860..cef0949
+  Files:   13  (10 modified, 3 new)  -- 585 insertions, 111 deletions
+  Run on Daniel's phrase "COMMIT APPROVED: CHANGEALL-REFUSAL" (2026-09-26). No file was
+  changed after round 2, and the gates were not re-run: round 2's are the record.
+
+PUSHED STATE -- read from the ref files, not from git output
+  .git/refs/heads/main          cef09494436ac22bc6200d7f05eb2c1bf0394bbb
+  .git/refs/remotes/origin/main cef09494436ac22bc6200d7f05eb2c1bf0394bbb
+  Identical. The push is a PRODUCTION DEPLOY (Vercel builds every push to main).
+
+BROWSER GATE -- Daniel, VERBATIM as relayed by Arch in 260926-1146_changeall-refusal_COMMIT.md
+(not typed in this terminal; the server and time were not stated; the step list put
+steps 1-5 on the Cable Parity Fixture and 6-9 on JOY):
+  step 1  "this is accurate, but I have no idea why a dialog would appear that says " there's
+           no method called 'Nutes'" — this isn't v1 behavior and I didn't approve this.
+           Adding a method called Nutes should make that a method that appears in GCM."
+  step 2  "Fail — it's the same dialog about no method."
+  step 3  "That's true, but I have no idea where this dialog came from, and it's not useful.
+           Fifty is a length, it's just not a number string. If we want the user to do
+           something, the dialog should be understandable."
+  step 4  "pass"
+  step 5  "pass"
+  step 6  "pass"
+  step 7  "I'm not changing data on JOY"
+  step 8  "I'm not changing data on JOY"
+  step 9  "I'm not changing data on JOY"
+
+MEASURED COUNTS (round 2, final tree, all measurements)
+  suite        3888 tests across 211 test files
+  typecheck    clean
+  build        clean (only the registered MIDDLEWARE-PROXY deprecation warning)
+  lint         265 warnings, 0 errors  (= 3809860)
+  frozen       3/3 vs be0769de
+  visual       28/28, gate PASSED at zero, NO baseline event
+               (02/03-light: 16 px each excluded at ch0 by the registry's existing
+                subpixel-wander/topbar-theme-toggle-glyph site; judged 0 on every frame)
+  dependency   git diff HEAD -- package.json package-lock.json : 0 lines
+  deletion     16 controls, all RED, all restored byte-identical; 8 also driven in the
+  controls     browser
+  guarded grep 0 matches on added lines
+  throwaway    census 0 projects / 0 orphan items / 0 orphan methods (SELECT-only re-check)
+  migrations   none. Ledger stays at 83. No SQL writes.
+
+WHAT CLOSED
+  - Change All greys with no current cable on the cable list (CP3). Gate step 5: pass.
+  - A dialog never answers the keystroke that opened it (ConfirmDialog,
+    NewCableTypeDialog). Enter on an unknown Model opens New Cable Type and it stays
+    open; Escape creates nothing. Before this it silently created and assigned a type.
+    Gate step 4: pass. Registered as DIALOG-OPENING-KEY in CLAUDE.md.
+  - The category sub-band screenshot (CP2) and the category line's location. Gate step 6:
+    pass.
+  - The refusals themselves are built: no mass write of a stored value on either list
+    (cable method/category/colour/model/length; equipment category). Gate steps 1-3 say
+    what was built is accurate, and reject it as the product answer -- see below.
+
+WHAT STAYS OPEN, IN DANIEL'S WORDS
+  - A typed method that doesn't exist should be created, as v1 does ("Adding a method
+    called Nutes should make that a method that appears in GCM"). The cable list's
+    method refusal shipped in this commit is superseded by that and is the next unit's
+    to replace. The equipment list already creates (CHANGEALL-METHODNEW).
+  - The length refusal is not understandable ("Fifty is a length, it's just not a number
+    string. If we want the user to do something, the dialog should be understandable").
+  - Steps 7-9 were not run: Daniel does not change data on JOY. The equipment Category
+    refusal (CP6) and MMM-CAT remain ungated. Any gate step that writes data uses a
+    throwaway or the Cable Parity Fixture, never JOY.
+
+ALSO REGISTERED (in CLAUDE.md "Open, carried"; Arch owns the Docket rows)
+  - The equipment scope prompt drops focus to <body> after "Just This One"
+    (resolveConfirm); Tab lands in the filter bar.
+  - The equipment and library Change All buttons keep the arm-once latch.
+  - Equipment Quantity's NaN -> stored arm, and a BLANK category draft -> stored.
+  - Tab out of a refused cable inspector field leaves the caret in Group behind the
+    dialog until OK; a click-away refusal on the equipment band leaves focus on BODY
+    while the dialog is up.
+  - 28 more files carry an unguarded window keydown listener that names a dialog
+    (coarse grep); unmeasured.
+
+OWED BY DANIEL
+  Nothing to close this unit. The ungated equipment steps (7-9) need a throwaway or the
+  Cable Parity Fixture if they are to be run at all.

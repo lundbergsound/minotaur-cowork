@@ -1,0 +1,10 @@
+## STATE OF PLAY
+- **Shipped:** v2 is live at `https://minotaur.app` at **`cef0949`** — one deploy on 2026-09-26: CHANGEALL-REFUSAL (no mass write of a stored value on either list; a dialog never answers the key that opened it — which also stopped Enter silently creating a cable type; Change All greys with nothing found). ⚠ **Its cable-list method and length refusals were rejected by Daniel at the gate** and are the first unit next. **Ledger 83, unchanged.** `supabase/migrations/` **22 files, 72–83 with a file of record.** Suite 3,888 / 211, frozen 3/3, visual 28/28, lint exit 0 (265 warnings).
+- **In flight:** nothing. No CC session is live. **The licence-management parallel (Arch, opened 2026-09-20) still has not returned.**
+- **Next action:** one bundled CC handoff in the first turn — METHOD-CREATE-CABLE · TAB-AFTER-SCOPE · CABLETYPE-ADD · the MMM-CAT-GATE steps on a show Daniel will change (never JOY) · LIBRARY-DELETE if he rules it may ship before restore. Once Daniel confirms CC is running: parallels for STALE-WRITE, LIBRARY-PANEL and PRINT-REPARITY-BOX; the main line rehearses IP-ONE-FIELD. SHORTCUT-HELPER ships alone after.
+- **Open decisions:** the length message's words · library delete before restore · bundle R4–R8 and the v1 Add-Extension frames · STALE-WRITE, and warning Aaron Hanna · a second test account · offline's three · Terms v1.1 and the privacy policy's two facts · LANDSCAPE-CREDIT-LOGO · the 5167 check plus a 5160 sheet · a fresh v1 export of BVSC US Tour · a fresh LICDB export · the bug-report wording · a split's inherited end · whether the equipment list opens with a row selected.
+- **Current log:** 6 entries
+- **Rollover:** done 2026-09-19 — the oldest 8 entries archived to `session-log-archives/Session_Log_Archive_2026-09-19.md`.
+- **Governing set:** Architecture Prompt **v39** · Roadmap **v4.51** · Brief v1.2 · this log.
+- **JOY is `0d329963-dcd1-403d-a5ad-1f78f0b9a425`** — read-only for gates (JOY-READ-ONLY). The matched JOY box pair is in `~/Minotaur_v1_exports/parity-pairs/260922_box-family_JOY/`.
+

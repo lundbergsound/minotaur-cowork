@@ -3,14 +3,14 @@
 Append-only chronological record. Each entry: date, chat type, model, decisions, work, next action. Prior entries are immutable. Every delivery is the complete live file. The header is six fields, under 4,000 characters; anything that must outlive a session and is not one of those six goes to the Ledger or a Docket row, never here.
 
 ## STATE OF PLAY
-- **Shipped:** v2 is live at `https://minotaur.app` at **`d25d366`** — two deploys on 2026-09-22: `d12b80d` GROUP-DEVICE-PATCH (Group Parts and Device Patch, each with its v1 find screen, on the shared equipment find grid; the 5160 sheets' title underline) · `d25d366` DEVPATCH-JOIN-CASE (the device-to-equipment match ignores capitals, as v1's does). **Ledger 83, unchanged** — no migration this session. `supabase/migrations/` **22 files, 72–83 with a file of record.** Suite 3,848 / 208 at the last green run, frozen 3/3, visual 28/28 after one declared frame-01 event, lint exit 0 (263 warnings). Gates run on test shows only.
-- **In flight:** **CHANGEALL-MMMCAT is built and NOT committed** — twelve files, gated 6 of 7 by Daniel on 2026-09-24; the refusal of an unmatched name is silent. Its addendum is written at `handoffs/to-cc/260924-1140_changeall-newmethod_ADDENDUM.md`. **The licence-management parallel (Arch, opened 2026-09-20) still has not returned.** The library, defaults and bundle-clone parallels all have.
-- **Next action:** CC runs that addendum; Daniel re-gates the one step; the unit commits. Then **Will Pickens's eight**, moved ahead of the box family and cable splits — LIBRARY-DELETE, CABLETYPE-ADD and SHORTCUT-HELPER need nothing and go to CC first, while Arch takes Daniel through the defaults' seven rulings and rehearses the IP-address migration.
-- **Open decisions:** 21 one-word rulings in the three parallel returns (defaults 7, bundle clone/extension 8, the library panel's read path) · STALE-WRITE, and whether to warn Aaron Hanna now · a second test account · offline's three · adopt or edit Terms v1.1 · the privacy policy's two facts · LANDSCAPE-CREDIT-LOGO · the 5167 stock check plus a 5160 sheet · the v1 Add-Extension frames (and whether `Minotaur v1 DDR.xml` still exists) · a fresh v1 export of BVSC US Tour · a fresh LICDB export · the bug-report wording · whether a cable split's inherited end reads through or is copied · whether typing a new method should create it · whether the equipment list should open with a row selected, as the cable list now does.
-- **Current log:** 5 entries
+- **Shipped:** v2 is live at `https://minotaur.app` at **`cef0949`** — one deploy on 2026-09-26: CHANGEALL-REFUSAL (no mass write of a stored value on either list; a dialog never answers the key that opened it — which also stopped Enter silently creating a cable type; Change All greys with nothing found). ⚠ **Its cable-list method and length refusals were rejected by Daniel at the gate** and are the first unit next. **Ledger 83, unchanged.** `supabase/migrations/` **22 files, 72–83 with a file of record.** Suite 3,888 / 211, frozen 3/3, visual 28/28, lint exit 0 (265 warnings).
+- **In flight:** nothing. No CC session is live. **The licence-management parallel (Arch, opened 2026-09-20) still has not returned.**
+- **Next action:** one bundled CC handoff in the first turn — METHOD-CREATE-CABLE · TAB-AFTER-SCOPE · CABLETYPE-ADD · the MMM-CAT-GATE steps on a show Daniel will change (never JOY) · LIBRARY-DELETE if he rules it may ship before restore. Once Daniel confirms CC is running: parallels for STALE-WRITE, LIBRARY-PANEL and PRINT-REPARITY-BOX; the main line rehearses IP-ONE-FIELD. SHORTCUT-HELPER ships alone after.
+- **Open decisions:** the length message's words · library delete before restore · bundle R4–R8 and the v1 Add-Extension frames · STALE-WRITE, and warning Aaron Hanna · a second test account · offline's three · Terms v1.1 and the privacy policy's two facts · LANDSCAPE-CREDIT-LOGO · the 5167 check plus a 5160 sheet · a fresh v1 export of BVSC US Tour · a fresh LICDB export · the bug-report wording · a split's inherited end · whether the equipment list opens with a row selected.
+- **Current log:** 6 entries
 - **Rollover:** done 2026-09-19 — the oldest 8 entries archived to `session-log-archives/Session_Log_Archive_2026-09-19.md`.
-- **Governing set:** Architecture Prompt **v39** · Roadmap **v4.50** · Brief v1.2 · this log.
-- **JOY is `0d329963-dcd1-403d-a5ad-1f78f0b9a425`** (re-imported 2026-09-19; logos uploaded 2026-09-20). The matched JOY box pair is in `~/Minotaur_v1_exports/parity-pairs/260922_box-family_JOY/`.
+- **Governing set:** Architecture Prompt **v39** · Roadmap **v4.51** · Brief v1.2 · this log.
+- **JOY is `0d329963-dcd1-403d-a5ad-1f78f0b9a425`** — read-only for gates (JOY-READ-ONLY). The matched JOY box pair is in `~/Minotaur_v1_exports/parity-pairs/260922_box-family_JOY/`.
 
 ### September 18, 2026 — Cowork-Arch, the MAIN LINE (**FOUR PRODUCTION DEPLOYS** · **SET-FORM applied and measured: 65 → 2 ms for every non-owner** · **METHODS-PALETTE applied** · ⚠ **Next.js 16.3 would have written into `CLAUDE.md` behind every hook, and its dev server exposed a real theme-toggle race** · ⚠ **six v1 sections found silently dropped from the Roadmap** · **test and real shows separated** · model `claude-opus-5`)
 
@@ -60,7 +60,7 @@ Append-only chronological record. Each entry: date, chat type, model, decisions,
 
 **Next action.** Open on **Group Parts + Device Patch** (PAPERWORK's last two, equipment find grid) as the first CC handoff, carrying the 5160 title-underline fix and BUNDLE-SKIP-UNITS once Daniel rules. While CC runs: measure CHANGEALL-NOTE / INSPECTOR-ARM on the running app; draft the USER-DATA-RULE swap for the Architecture Prompt; install the licence-management return when it lands.
 
-### September 21–24, 2026 — Cowork-Arch, the MAIN LINE (**TWO PRODUCTION DEPLOYS: GROUP-DEVICE-PATCH `d12b80d` · DEVPATCH-JOIN-CASE `d25d366`** · **no migration** · **the equipment-side paperwork finished** · ⚠ **two people editing one show can lose a write in silence** · ⚠ **CHANGEALL-MMMCAT built, gated 6 of 7, NOT COMMITTED** · three parallel returns · model `claude-opus-5`)
+### September 21–24, 2026 — Cowork-Arch, the MAIN LINE (**TWO PRODUCTION DEPLOYS: GROUP-DEVICE-PATCH `d12b80d` · DEVPATCH-JOIN-CASE `d25d366`** · **no migration** · **the equipment-side paperwork finished** · ⚠ **two people editing one show can lose a write in silence** · ⚠ **CHANGEALL-NEWMETHOD `3809860` shipped with MMM-CAT UNGATED** · three parallel returns · model `claude-opus-5`)
 
 **Seat check passed.** Code `5ccd009` = origin at the open, ledger 83 live-read, log at 4 entries.
 
@@ -73,10 +73,11 @@ defaults are copied at creation and never linked, and **no pull-defaults feature
 
 **Work.** Two CC units handed, gated on JOY and shipped: Group Parts and Device Patch with their v1 find screens
 (plus the 5160 title underline), then the device-to-equipment join corrected to ignore capitals as v1 does. A third
-unit, CHANGEALL-MMMCAT, is built across three addendum rounds — the cable list's found-set behaviour, the four
+unit shipped late on 24 Sept as `3809860`, built across three addendum rounds — the cable list's found-set behaviour, the four
 inspector fields greying with the panel, the category sub-band editable in every sort (MMM-CAT, ruled 2026-08-11,
-never built), and an unmatched name no longer able to become a mass Change All — and is **uncommitted**: Daniel's
-gate passed six of seven steps, failing on a refusal that reverts without saying anything. Its addendum is written.
+never built), and an unmatched name no longer able to become a mass Change All — — and shipped: Daniel's
+gate passed six of seven, its step 3 failing on a refusal whose message renders too quietly to see, and steps 5 and 6
+(the category band) were never run, so MMM-CAT is live ungated.
 Three parallels returned (library, defaults, bundle clone/extension); two of them removed a database change each.
 The JOY box pair arrived, unblocking the box family. 21 one-word rulings now wait in the three returns.
 
@@ -95,3 +96,28 @@ for a measurement that is CC's to make.
 and the twelve-file unit commits. Then **Will Pickens's eight**: the three that need nothing (library delete,
 adding cable types, the shortcut helper) go to CC first, while Arch takes Daniel through the defaults' seven
 rulings and rehearses the IP-address migration.
+
+### September 24–26, 2026 — Cowork-Arch, the MAIN LINE (**ONE PRODUCTION DEPLOY: CHANGEALL-REFUSAL `cef0949`** · **no migration** · **defaults ruled; bundle clone/extend 3 of 8** · ⚠ **two refusals rejected by Daniel at the gate — an Arch proposal carried as a ruling** · model configured `claude-opus-5-5`)
+
+**Seat check** passed except the previous opener, which called CHANGEALL-NEWMETHOD uncommitted at `d25d366`; it
+had shipped as `3809860` six minutes before the opener was written. Flagged at the open.
+
+**Decisions (Daniel's).** Defaults: Path B, Publish replaces, Equipment Library ticked, and his own five switch
+descriptions with v1's italic lines · bundle Clone/Ext in the row strip with ⌥⇧G/⌥⇧X, cloned mults empty as v1 ·
+fold the equipment Category fix into the unit · at the gate, *"Adding a method called Nutes should make that a
+method that appears in GCM"* and the length message must be understandable · *"I'm not changing data on JOY"* ·
+*"no more amendments"* — commit as built · next session: the largest bundled handoff in the first turn, parallels
+once CC is running.
+
+**Work.** One CC unit across three handoffs, shipped as `cef0949`. CC found why Daniel saw "nothing happens" on the
+24th — the dialog closed itself on the Enter that opened it — and the same mechanism silently creating cable types
+in production; both fixed. The equipment list's Category had the same stored-value fallback as the cable list's
+method; fixed. Two v1 screenshots filed (the Welcome defaults dialog, the Bundle List strip).
+
+**Arch errors — five**, in the Ledger. The one that matters: the method refusal was Arch's own proposal from 23
+Sept, carried into two more handoffs without asking Daniel, who met it at the gate and rejected it. New standing
+rows: PROPOSAL-ASKS-FIRST and JOY-READ-ONLY.
+
+**Next action.** The first turn hands CC one bundle: METHOD-CREATE-CABLE, TAB-AFTER-SCOPE, CABLETYPE-ADD, the
+MMM-CAT-GATE steps, and LIBRARY-DELETE if Daniel rules it. Then parallels for STALE-WRITE, LIBRARY-PANEL and the
+box family; the main line rehearses IP-ONE-FIELD.
