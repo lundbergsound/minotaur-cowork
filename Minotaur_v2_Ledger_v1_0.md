@@ -7157,3 +7157,19 @@ opened it; Change All greys with nothing current on the cable list; the category
 that Daniel rejected:** the cable-list refusals for an unknown method and an unreadable length — the method one is
 replaced by METHOD-CREATE-CABLE, the length one by LENGTH-WORDS. CHANGEALL-EMPTYFIND (cable), LENGTH-FALLBACK,
 INSPECTOR-ARM and PARALLEL-CLOCK-STAMP close.
+
+### Re-close, 2026-09-26 12:10 ET — Daniel's priority
+
+- *"nothing about this unit is my priority — anything here can be a ride along or much later. my priority is
+  will's eight."* The first opener (`260926-1150`) led with CHANGEALL leftovers and a state report; it is retired
+  unused, with `260926-1201`. Roadmap v4.51 re-ordered: Will's eight head ACTIVE; METHOD-CREATE-CABLE,
+  LENGTH-WORDS, TAB-AFTER-SCOPE and MMM-CAT-GATE sit at the bottom as ride-alongs.
+- *"look for every place you've typed "⚠" and consider deleting all of the text after it — it's usually bloat, and
+  if it isn't, put it in the roadmap appropriately, not in the now section."* Every ⚠ removed from Roadmap v4.51:
+  NOW's three warnings deleted (STALE-WRITE already had its row); STALE-WRITE, VERHIST-RESTORE, VERHIST-REST,
+  REGISTRY-REST and STOCK-5167-CHECK rows restated plainly; BETA-BAR's 2026-09-21 import count dropped (its
+  measurement stands in the 2026-09-21 Ledger entry).
+- LAYOUTS-DOC-JOIN added: the remaining-layouts design §4.2 claim of an exact device join had lived only in
+  openers.
+- LIBRARY-DELETE: Arch's assumption, stated to Daniel with the handoff, is that it ships before any version restore
+  exists, like every other delete in the app.
